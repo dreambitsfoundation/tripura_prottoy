@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 
+from indianconsumersofficial.environment_test import getPlatform
+
+platform = getPlatform()
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -24,6 +27,8 @@ SECRET_KEY = '8lc+^vcchig*vmc*3x+g(v8cha7$ofwli(jo%urhw(kj+d9w=j'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+if platform == "Production":
+    DEBUG = False
 
 ALLOWED_HOSTS = ['192.168.43.43', 'localhost', 'indianconsumersofficial.herokuapp.com', 'indianconsumers.org']
 
@@ -78,16 +83,28 @@ WSGI_APPLICATION = 'indianconsumersofficial.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': "IC",
-        'USER': "postgres",
-        'PASSWORD': "pass1234",
-        'HOST': "localhost",
-        'PORT': "5432"
+if platform == "Production":
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': "dbgnjfs8k1f8i0",
+            'USER': "hqslrfjtcrutmg",
+            'PASSWORD': "f75ca89e3c887cc6688f3d9bb524a4e2798a123bae3c08ee91dac783980ab5f2",
+            'HOST': "ec2-107-22-160-102.compute-1.amazonaws.com",
+            'PORT': "5432"
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': "IC",
+            'USER': "postgres",
+            'PASSWORD': "pass1234",
+            'HOST': "localhost",
+            'PORT': "5432"
+        }
+    }
 
 
 # Password validation
