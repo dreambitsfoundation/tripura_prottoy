@@ -25,7 +25,7 @@ SECRET_KEY = '8lc+^vcchig*vmc*3x+g(v8cha7$ofwli(jo%urhw(kj+d9w=j'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.43.43', 'localhost']
+ALLOWED_HOSTS = ['192.168.43.43', 'localhost', 'indianconsumersofficial.herokuapp.com', 'indianconsumers.org']
 
 
 # Application definition
