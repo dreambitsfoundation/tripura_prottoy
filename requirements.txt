@@ -9,3 +9,4 @@ django-toolbelt==0.0.1
 pycryptodome
 num2words
 pyjwt
+cloudinary
