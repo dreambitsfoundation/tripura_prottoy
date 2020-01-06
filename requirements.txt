@@ -1,0 +1,10 @@
+Django
+gunicorn==19.6.0
+psycopg2
+requests==2.11.0
+whitenoise
+dj-database-url==0.3.0
+dj-static==0.0.5
+django-toolbelt==0.0.1
+pycryptodome
+num2words
