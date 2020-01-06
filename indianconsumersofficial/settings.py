@@ -86,11 +86,11 @@ WSGI_APPLICATION = 'indianconsumersofficial.wsgi.application'
 if platform == "Production":
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'ENGINE': 'django.db.backends.postgresql_psycopg2   ',
             'NAME': "dbgnjfs8k1f8i0",
             'USER': "hqslrfjtcrutmg",
             'PASSWORD': "f75ca89e3c887cc6688f3d9bb524a4e2798a123bae3c08ee91dac783980ab5f2",
-            'HOST': "ec2-107-22-160-102.compute-1.amazonaws.com",
+            'HOST': "ec2-107-20-251-130.compute-1.amazonaws.com",
             'PORT': "5432"
         }
     }
