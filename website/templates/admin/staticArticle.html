@@ -1,0 +1,66 @@
+{% extends 'base.html' %} {% block body %}
+<div class="ui tall stacked segment">
+  <h3 class="comfortaa">NEW STATIC ARTICLE</h3>
+  <br />
+  <form class="ui form" id="new_form" autocomplete="off">
+    <label>Select Article Category</label>
+    <select name="category_id">
+      {% for c in categories %}
+      <option value="{{c.id}}">{{c.name}}</option>
+      {% endfor %}
+    </select>
+    <br />
+    <input name="title" placeholder="Enter Article Title" />
+    <br /><br />
+    <textarea name="body" placeholder="Write article body"></textarea>
+    <br /><br />
+    <button class="ui small button green" type="submit">Submit</button>
+  </form>
+</div>
+{% endblock %} {% block scripts %}
+<script>
+  $("form").submit(function(event) {
+    event.preventDefault();
+    var inputs = $(this).find("input");
+    var title = inputs[0].value;
+    var selects = $(this).find("select");
+    var category_id = selects[0].value;
+    var textareas = $(this).find("textarea");
+    var body = textareas[0].value;
+    $.post(
+      "admin/staticArticle",
+      JSON.stringify({
+        title: title,
+        category_id: category_id,
+        body: body
+      })
+    )
+      .done(function(data) {
+        if (data.status) {
+          $("body").toast({
+            class: "success",
+            message: "Data updated successfully!",
+            title: "Success",
+            showProgress: "bottom"
+          });
+          document.location.reload();
+        } else {
+          $("body").toast({
+            class: "error",
+            message: data.message,
+            title: "Failed!",
+            showProgress: "bottom"
+          });
+        }
+      })
+      .fail(function(data) {
+        $("body").toast({
+          class: "error",
+          message: "Something went wrong. Try again.",
+          title: "Error!",
+          showProgress: "bottom"
+        });
+      });
+  });
+</script>
+{% endblock %}

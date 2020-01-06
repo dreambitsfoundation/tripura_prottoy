@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Indian Consumers</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Titillium+Web"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Satisfy"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Comfortaa"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Comfortaa", cursive;
+      }
+
+      body.pushable > .pusher {
+      }
+
+      .chevichef-logo-font {
+        font-family: "Satisfy", cursive;
+        color: red;
+      }
+
+      .comfortaa {
+        font-family: "Comfortaa", cursive;
+      }
+
+      .white-text {
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    {% load static %}
+    <div class="ui container">
+      <br /><br />
+      <div class="ui one column stackable grid">
+        <div class="ui column">
+          <a href="/">
+            <img
+              src="{% static 'images/logo_wide.png' %}"
+              height="130"
+              width="300"
+            />
+          </a>
+          {% if article == None %}
+          <div class="ui center aligned segment" id="noPotView">
+            <br /><br />
+            <img
+              src="https://img.icons8.com/cotton/64/000000/laptop-alert.png"
+            />
+            <br /><br />
+            <h2 class="comfortaa">Article Not Found!</h2>
+            <br />
+          </div>
+          {% else %}
+          <div class="ui segment" id="postView">
+            <br />
+            <b id="title" class="comfortaa" style="font-size: x-large">
+              {{ article.title }}
+            </b>
+            <br />
+            <small>{{ article.published_on }}</small>
+            <br /><br />
+            <p id="postContent">{{ article.body }}</p>
+            <br />
+            <b>Reference Posts</b> ({{ article.posts.all | length }} posts)
+            <!---->
+            {% if article.posts.all %}
+            <br /><br />
+            <div class="ui three equal width column stackable grid">
+              {%for post in article.posts.all %}
+              <div class="ui five wide column">
+                <div
+                  class="ui raised segment"
+                  style="border:1px solid lightgreen"
+                >
+                  <a
+                    href="/postView?id={{ post.id }}"
+                    target="_blank"
+                    style="color:black;"
+                  >
+                    <small><b>{{ post.title }}</b></small>
+                  </a>
+                  <br />
+                  <small style="font-size: x-small">{{ post.posted_on }}</small>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+            {% endif %}
+            <br />
+            <b>Reference Images</b> ({{ images | length }} images)
+            <!---->
+            {% if images %}
+            <br /><br />
+            {%for image in images %}
+            <a href="{{ image }}" target="_blank">
+              <img src="{{ image }}" width="80" height="80" />
+            </a>
+            {% endfor %} {% endif %}
+            <br /><br />
+            <b>{{ comments | length }} Comment(s)</b>
+            <br /><br />
+            {% if user.is_authenticated %}
+            <form class="ui form comment_form" method="post">
+              <input type="hidden" name="head_comment" value="True" />
+              <input type="hidden" name="article_id" value="{{ article.id }}" />
+              <input type="hidden" name="root_comment_id" value="0" />
+              <div class="ui field">
+                <textarea
+                  rows="3"
+                  name="text"
+                  placeholder="Type in your comment"
+                ></textarea>
+              </div>
+              <button class="ui button green tiny">Submit</button>
+            </form>
+            {% else %}
+            <small
+              ><i class="ui icon lock"></i> <a href="/joinus">Sign In</a> to
+              comment.</small
+            >
+            {% endif %} {% for comment in comments %}
+            <div class="ui message">
+              <img
+                class="ui avatar image"
+                src="https://img.icons8.com/ios/50/000000/user.png"
+              />
+              <b style="font-size: large" id="postcomment{{ comment.id }}">
+                {{ comment.user.get_full_name }}
+              </b>
+              {% if article.user.id == comment.user.id %}
+              <div class="ui label teal mini">Author</div>
+              {% endif %}
+              <br />
+              <small style="margin-left: 35px">
+                {{ comment.last_updated }}
+              </small>
+              <p>{{ comment.text }}</p>
+              <div style="margin-left: 20px">
+                <b>{{ comment.sub_comment.all | length }} Response(s)</b>
+                <br /><br />
+                {% for c in comment.sub_comment.all %}
+                <img
+                  class="ui avatar image"
+                  src="https://img.icons8.com/ios/50/000000/user.png"
+                />
+                <b id="postcomment{{ c.id }}">{{ c.user.get_full_name }}</b>
+                {% if article.user.id == c.user.id %}
+                <div class="ui label teal mini">Author</div>
+                {% endif %}
+                <br />
+                <small style="margin-left: 35px">{{ c.last_updated }}</small>
+                <p>{{ c.text }}</p>
+                <div class="ui divider"></div>
+                {% endfor %} {% if user.is_authenticated %}
+                <form class="ui form comment_form" method="post">
+                  <input type="hidden" name="head_comment" value="False" />
+                  <input
+                    type="hidden"
+                    name="article_id"
+                    value="{{ article.id }}"
+                  />
+                  <input
+                    type="hidden"
+                    name="root_comment_id"
+                    value="{{ comment.id }}"
+                  />
+                  <div class="ui field">
+                    <textarea
+                      rows="1"
+                      name="text"
+                      placeholder="Type in your comment"
+                    ></textarea>
+                  </div>
+                  <button class="ui button green tiny">Submit</button>
+                </form>
+                {% else %}
+                <small
+                  ><b
+                    ><i class="ui icon lock"></i>
+                    <a href="/joinus">Sign In</a> to Comment</b
+                  ></small
+                >
+                {% endif %}
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://code.jquery.com/jquery-3.1.1.min.js"
+      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.js"
+      type="text/javascript"
+    ></script>
+    {% load static %}
+    <script src="{% static 'comment.js' %}"></script>
+  </body>
+</html>

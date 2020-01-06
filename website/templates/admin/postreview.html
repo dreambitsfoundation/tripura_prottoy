@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block body %}
+   {% for post in posts %}
+        <div class="ui segment">
+            <b style="font-size: large">{{ post.title }}</b>
+            <br>
+            <b>{{ post.organisation }}</b>
+            <br><br>
+            <img class="ui avatar image" src="https://img.icons8.com/ios/50/000000/user.png">
+            <b>{{ post.user.get_full_name }}</b>
+            <br>
+            <small style="margin-left: 35px">{{ post.posted_on }}</small>
+            <br><br>
+            <p>
+                {{ post.body }}
+            </p>
+            <div class="ui buttons">
+              <button class="ui positive button" onclick="approvePost({{ post.id }})">Accept</button>
+              <div class="or"></div>
+              <button class="ui negative button" onclick="rejectPost({{ post.id }})">Reject</button>
+            </div>
+        </div>
+   {% endfor %}
+{% endblock %}
+
+{% block scripts %}
+{% load static %}
+<script src="{% static 'admin_post_management.js' %}"></script>
+{% endblock %}

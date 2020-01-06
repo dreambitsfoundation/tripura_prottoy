@@ -1,0 +1,384 @@
+{% extends 'base.html' %} {% block body %}
+<div class="ui raised segment">
+  <h3>WRITE NEW POST</h3>
+  <br />
+  <form class="ui form" method="POST">
+    <label>Select Article Category</label>
+    <select name="category_id">
+      {% for c in categories %}
+      <option value="{{c.id}}">{{c.name}}</option>
+      {% endfor %}
+    </select>
+    <br />
+    <div class="ui input fluid">
+      <input name="heading" placeholder="Enter Heading" />
+    </div>
+    <br />
+    <div class="ui input fluid">
+      <textarea name="body" placeholder="Enter the content"></textarea>
+    </div>
+    <div class="ui yellow raised segment" id="image_upload_segment" hidden>
+      <div class="ui container">
+        <div class="ui two column stackable grid">
+          <div class="ui thirteen wide column">
+            <h3 id="image_upload">UPLOAD PHOTOS</h3>
+          </div>
+          <div class="ui three wide right aligned column">
+            <div class="ui buttons mini">
+              <button class="ui button mini green" type="button" id="done_btn">
+                <i class="ui icon check"></i> Done
+              </button>
+              <button
+                class="ui button mini yellow"
+                type="button"
+                onclick="add_image_input()"
+              >
+                <i class="ui icon add"></i>Add New
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</form>
+    <div class="ui purple raised segment" id="post_reference_segment" hidden>
+      <div class="ui two column equal width grid">
+        <div class="ui column">
+          Add Post Reference
+        </div>
+        <div class="ui right aligned column">
+          <button class="ui mini green button" id="post_done">Done</button>
+        </div>
+      </div>
+      <br/>
+      <form method="POST" id="post_search_form" style="margin-bottom: 5px">
+        <div class="ui fluid action input">
+          <input
+            type="text"
+            placeholder="Start typing and Hit Enter to see results"
+            id="article_search_text"
+          />
+          <button class="ui button" type="submit">
+            <i class="ui icon search"></i>Search
+          </button>
+        </div>
+      </form>
+      <small id="all_results">All Results</small>
+    </div>
+  </form>
+  <br />
+  <div class="ui container">
+    <div class="ui two equal width column stackable grid">
+      <div class="ui column">
+        <button class="ui mini button" id="add_post_btn">
+          Add Post References
+        </button>
+        <button class="ui mini button" id="add_image_btn">Add Image</button>
+      </div>
+      <div class="ui right aligned column">
+        <button class="ui mini button green" onclick="publish()">Publish</button>
+        <button class="ui mini button blue" onclick="draft()">Draft</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block scripts %} {% load static %}
+<script>
+  var images = [];
+  $("#add_image_btn").click(function(event) {
+    event.preventDefault();
+    if (images.length) {
+      for (var i = 0; i < images.length; i++) {
+        $("#image_upload").after(
+          '<form class="image_upload_form">' +
+            '<div class="ui right action input">' +
+            '<input type="hidden" name="csrfmiddlewaretoken" value="{{carf_token}}"/>' +
+            '<input type="file" name="image" placeholder="Find domain" disabled/>' +
+            '<button type="button" id="' +
+            images[i] +
+            '" class="ui button red mini delete_btn" onclick="del(' +
+            "'" +
+            images[i] +
+            "'" +
+            ')">' +
+            '<i class="ui icon close"></i>' +
+            "</button>" +
+            '<button type="button"  class="ui green mini labeled icon button add_image" onclick="add_image_input()">' +
+            '<i class="ui icon add"></i> Add' +
+            "</button>" +
+            "</div>" +
+            "</form><br/>"
+        );
+      }
+    } else {
+      $("#image_upload").after(
+        '<form class="image_upload_form" method="POST">' +
+          '<div class="ui right action input">' +
+          '<input type="hidden" name="csrfmiddlewaretoken" value="{{csrf_token}}"/>' +
+          '<input type="file" name="image" placeholder="Find domain" required/>' +
+          '<button type="submit" class="ui button blue mini upload_btn">' +
+          '<i class="ui icon upload"></i> Upload' +
+          "</button>" +
+          '<button type="button" class="ui button red mini delete_btn" onclick="del()">' +
+          '<i class="ui icon close"></i>' +
+          "</button>" +
+          '<button type="button"  class="ui green mini labeled icon button add_image" onclick="add_image_input()">' +
+          '<i class="ui icon add"></i> Add' +
+          "</button>" +
+          "</div>" +
+          "</form><br/>"
+      );
+      activate();
+    }
+    $("#image_upload_segment").show();
+  });
+
+  $(".add_image").on("click", function(event) {
+    alert("clicked");
+    event.preventDefault();
+  });
+
+  function add_image_input() {
+    $("#image_upload").after(
+      '<form class="image_upload_form" method="POST">' +
+        '<div class="ui right action input">' +
+        '<input type="hidden" name="csrfmiddlewaretoken" value="{{csrf_token}}"/>' +
+        '<input type="file" name="image" placeholder="Find domain" required/>' +
+        '<button type="submit" class="ui button blue mini upload_btn">' +
+        '<i class="ui icon upload"></i> Upload' +
+        "</button>" +
+        '<button type="button" class="ui button red mini delete_btn" onclick="del()">' +
+        '<i class="ui icon close"></i>' +
+        "</button>" +
+        '<button type="button" class="ui green mini labeled icon button add_image" onclick="add_image_input()">' +
+        '<i class="ui icon add"></i> Add' +
+        "</button>" +
+        "</div>" +
+      '</form><br/>'
+    );
+    activate();
+  }
+
+  function del(public_id = "") {
+    if (public_id.length) {
+      $.ajax({
+        url: "admin/image_upload",
+        data: JSON.stringify({ public_id: public_id }),
+        type: "delete",
+        success: function(data) {
+          if (data.status) {
+            alert("Image Deleted successfully");
+            $("#" + public_id)
+              .parent()
+              .hide();
+            var index = images.indexOf(public_id);
+            if (index > -1) {
+              images.splice(index, 1);
+            }
+          }
+        }
+      });
+    }
+  }
+
+  function activate() {
+    $(".image_upload_form").off("submit");
+    $(".image_upload_form").on("submit", function(e) {
+      e.preventDefault();
+      var form = $(this);
+      var data = $(form).serializeArray();
+      $(form)
+        .find("button")
+        .attr("disabled", true);
+      $(form)
+        .find(".upload_btn")
+        .addClass("loading");
+      var fd = new FormData();
+      var img = $(form).find("input")[1].files[0];
+      fd.append("image", img);
+      $.ajax({
+        url: "admin/image_upload",
+        data: fd,
+        type: "post",
+        contentType: false,
+        processData: false,
+        success: function(data) {
+          $(form)
+            .find("button")
+            .attr("disabled", false);
+          if (data.status) {
+            images.push(data.data[0]);
+            $(form)
+              .find(".upload_btn")
+              .hide();
+            $(form)
+              .find("button.red")
+              .attr("id", data.data[0])
+              .click(function(event) {
+                event.preventDefault();
+                del(data.data[0]);
+              });
+          }
+        },
+        error: function() {
+          $(form)
+            .find("button")
+            .attr("disabled", false);
+        },
+        always: function() {
+          $(form)
+            .find(".button")
+            .attr("disabled", false);
+          $(form)
+            .find(".upload_btn")
+            .removeClass("loading");
+        }
+      });
+      $(".delete_btn").on("click", function() {
+        if (!$(this)[0].hasAttribute("id")) {
+          $(this)
+            .parent()
+            .hide();
+        }
+      });
+    });
+
+    $("#done_btn").click(function() {
+      $("#image_upload")
+        .siblings()
+        .html("");
+      $("#image_upload_segment").hide();
+    });
+  }
+</script>
+<script>
+    var selectedposts = [];
+  $("#add_post_btn").click(function() {
+    $("#post_reference_segment").show();
+  });
+  $("#post_search_form").submit(function(event) {
+    event.preventDefault();
+    var query = $(this)
+      .find("input")
+      .val();
+    $.get("api/postsearch", { q: query }).done(function(data) {
+      populate_search_result(data.data);
+    });
+  });
+  $("#post_done").click(function(){
+    $("#post_reference_segment").hide();    
+  })
+  function populate_selected_search(){
+    $("#post_search_form").nextUntil("#all_results").remove();
+      if(selectedposts.length){
+          selectedposts.forEach(function(element, index){
+            $("#post_search_form").after(
+                '<div class="ui message" style="backgorund-color: white">' + 
+                '<div class="ui header">' + element['title'] + '<button class="ui button mini red" onclick="remove_from_post(\'' + element['id'] + '\')"><i class="ui icon close"></i>Cancel</button></div>' +
+                '<p>' + element['body'] + '</p>' +
+                '</div>'
+            )
+          })
+      }
+  }
+
+  function populate_search_result(data){
+    $("#all_results").nextAll().remove();
+      var visibility = 'style="display:none"';
+      if(data.length){
+          data.forEach(function(element){
+            var check = "";
+            var uncheck = "";
+            if(post_not_selected(element["id"].toString())){
+              check = "";
+              uncheck = visibility;
+            }else{
+              check = visibility;
+              uncheck = "";
+            }
+            $("#all_results").after(
+                '<div class="ui message green" style="backgorund-color: white" id="p'+ element["id"] +'">' + 
+                '<div class="ui header">' + element['title'] + '</div>' +
+                '<p>' + element['body'] + '</p>' +
+                '<button id="check'+ element["id"] +'" ' + check + ' class="ui button mini green" onclick="add_to_selected_post(\''+element['title']+'\', \''+element['body']+'\', \''+element['id']+'\')"><i class="ui icon check"></i>Select</button>' + 
+                '<button id="close'+ element["id"] +'" ' + uncheck + ' class="ui button mini red"  onclick="remove_from_post(\''+element['id']+'\')" hidden><i class="ui icon close"></i>Disselect</button>' +
+                '</div>'
+            )
+          })
+      }
+  }
+
+  function add_to_selected_post(title, body, id){
+    data = {
+      title: title,
+      body: body,
+      id: id
+    };
+    if(post_not_selected(id)){
+      selectedposts.push(data);
+      $("#check" + id).hide();
+      $("#close" + id).show();
+      populate_selected_search();
+    }
+  }
+
+  function post_not_selected(id){
+    var final = true;
+    selectedposts.forEach(function(element){
+      if(element["id"] == id){
+        final = false;
+        return;
+      }
+    });
+    return final;
+  }
+
+  function remove_from_post(id){
+    if(!post_not_selected(id)){
+      selectedposts.forEach(function(element, index){
+        if(element["id"] == id){
+          selectedposts.splice(index,1);
+          populate_selected_search();
+          $("#close" + id).hide();
+          $("#check" + id).show();
+          return;
+        }
+      })
+    }
+  }
+</script>
+<script>
+  function submit_post(publish = false, draft = false){
+    var title = $("form").find("[name=\"heading\"]").val();
+    var body = $("form").find("[name=\"body\"]").val();
+    var category_id = $("form").find("[name=\"category_id\"]").val();
+    var imgs = images;
+    var posts = []
+    selectedposts.forEach(function(element){
+      posts.push(element["id"])
+    });
+    $.post("admin/article/", JSON.stringify({
+      head: title,
+      body: body,
+      category_id: category_id,
+      images: imgs,
+      posts: posts,
+      publish: publish,
+      draft: draft
+    })).done(function(data){
+      if(data.status){
+        alert("Article Created Successfully.");
+        document.location.reload();
+      }
+    })
+  }
+
+  function publish(){
+    submit_post(publish=true);
+  }
+
+  function draft(){
+    submit_post(draft=true);
+  }
+</script>
+{% endblock %}

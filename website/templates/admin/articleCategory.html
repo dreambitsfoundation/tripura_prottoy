@@ -1,0 +1,192 @@
+{% extends 'base.html' %} {% block body %}
+<div class="ui raised segment">
+  <h3 class="comfortaa">Add new article category</h3>
+  <form class="ui form" id="new_form" autocomplete="off">
+    <select name="parent_id">
+      <option value="0">No Parent</option>
+      {% for parent in parent_categories %}
+      <option value="{{parent.id}}">{{parent.name}}</option>
+      {% endfor %}
+    </select>
+    <br />
+    <input name="name" placeholder="Enter Category Name" />
+    <br /><br />
+    <button class="ui small button green" type="submit">Submit</button>
+  </form>
+</div>
+<small>Existing categories ({{ parent_categories | length }})</small>
+{% for a in parent_categories %}
+<div class="ui raised segment yellow">
+  <form class="update_form ui form">
+    <input type="hidden" name="id" value="{{ a.id }}" />
+    <input name="name" placeholder="Enter Category Name" value="{{ a.name }}" />
+    <br /><br />
+    <div class="ui buttons">
+      <button class="ui mini button green" type="submit">Update</button>
+      <button
+        class="ui mini button red"
+        type="button"
+        onclick="delete_article('{{ a.id }}')"
+      >
+        Delete
+      </button>
+    </div>
+  </form>
+  <br />
+  <small>
+    Deleting any category will delete all the articles associated with that
+    category.
+  </small>
+</div>
+{% if a.sub_categories.all|length > 0 %}
+<small>Sub Categories ({{a.sub_categories.all|length}})</small>
+{% for sub in a.sub_categories.all %}
+<div class="ui raised segment yellow" style="margin-left: 20px">
+  <form class="update_form ui form">
+    <input type="hidden" name="id" value="{{ sub.id }}" />
+    <input
+      name="name"
+      placeholder="Enter Category Name"
+      value="{{ sub.name }}"
+    />
+    <br /><br />
+    <div class="ui buttons">
+      <button class="ui mini button green" type="submit">Update</button>
+      <button
+        class="ui mini button red"
+        type="button"
+        onclick="delete_article('{{ sub.id }}')"
+      >
+        Delete
+      </button>
+    </div>
+  </form>
+  <br />
+  <small>
+    Deleting any category will delete all the articles associated with that
+    category.
+  </small>
+</div>
+{% endfor %} {% endif %} {% endfor %} {% endblock %} {% block scripts %}
+<script>
+  $("#new_form").submit(function(event) {
+    event.preventDefault();
+    var inputs = $(this).find("input");
+    var name = inputs[0].value;
+    var selects = $(this).find("select");
+    var parentId = selects[0].value;
+    $.post(
+      "admin/articleCategory",
+      JSON.stringify({
+        name: name,
+        parent_id: parentId
+      })
+    )
+      .done(function(data) {
+        if (data.status) {
+          $("body").toast({
+            class: "success",
+            message: "Data updated successfully!",
+            title: "Success",
+            showProgress: "bottom"
+          });
+          document.location.reload();
+        } else {
+          $("body").toast({
+            class: "error",
+            message: data.message,
+            title: "Failed!",
+            showProgress: "bottom"
+          });
+        }
+      })
+      .fail(function(data) {
+        $("body").toast({
+          class: "error",
+          message: "Something went wrong. Try again.",
+          title: "Error!",
+          showProgress: "bottom"
+        });
+      });
+  });
+</script>
+<script>
+  $(".update_form").submit(function(event) {
+    event.preventDefault();
+    var inputs = $(this).find("input");
+    var id = inputs[0].value;
+    var name = inputs[1].value;
+    $.ajax({
+      url: "admin/articleCategory",
+      type: "put",
+      data: JSON.stringify({
+        id: id,
+        name: name
+      }),
+      success: function(data) {
+        if (data.status) {
+          $("body").toast({
+            class: "success",
+            message: "Data updated successfully!",
+            title: "Success",
+            showProgress: "bottom"
+          });
+          document.location.reload();
+        } else {
+          $("body").toast({
+            class: "error",
+            message: data.message,
+            title: "Failed!",
+            showProgress: "bottom"
+          });
+        }
+      },
+      error: function(data) {
+        $("body").toast({
+          class: "error",
+          message: "Something went wrong. Try again.",
+          title: "Error!",
+          showProgress: "bottom"
+        });
+      }
+    });
+  });
+
+  function delete_article(id) {
+    // Something
+    $.ajax({
+      url: "admin/articleCategory",
+      type: "delete",
+      data: JSON.stringify({
+        id: id
+      }),
+      success: function(data) {
+        if (data.status) {
+          $("body").toast({
+            class: "success",
+            message: "Data updated successfully!",
+            title: "Success",
+            showProgress: "bottom"
+          });
+          document.location.reload();
+        } else {
+          $("body").toast({
+            class: "error",
+            message: data.message,
+            title: "Failed!",
+            showProgress: "bottom"
+          });
+        }
+      },
+      error: function(data) {
+        $("body").toast({
+          class: "error",
+          message: "Something went wrong. Try again.",
+          title: "Error!",
+          showProgress: "bottom"
+        });
+      }
+    });
+  }
+</script>
+{% endblock %}

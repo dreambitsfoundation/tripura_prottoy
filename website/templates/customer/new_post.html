@@ -1,0 +1,36 @@
+{% extends 'base.html' %} {% block body %}
+
+<div class="ui raised segment">
+  <h3 class="comfortaa">Write Your Complaint</h3>
+  <small
+    ><b>Note:</b> Writer is solely responsible for the correctness and
+    authenticity of the information provided
+  </small>
+  <br /><br />
+  <form class="ui form" id="new_post">
+    <div class="ui field">
+      <input
+        name="head"
+        type="text"
+        placeholder="Write a short title"
+        required
+      />
+    </div>
+    <div class="ui field">
+      <input name="organisation" type="text" placeholder="Organisation Name" />
+    </div>
+    <div class="ui field">
+      <textarea
+        name="body"
+        type="text"
+        placeholder="Explain your query in the most understandable way"
+        required
+      ></textarea>
+    </div>
+    <button type="submit" class="ui green button">Submit</button>
+  </form>
+</div>
+
+{% endblock %} {% block scripts %} {% load static %}
+<script src="{% static 'new_post.js' %}"></script>
+{% endblock %}

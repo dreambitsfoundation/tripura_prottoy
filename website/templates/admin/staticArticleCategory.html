@@ -1,0 +1,192 @@
+{% extends 'base.html' %} {% block body %}
+<div class="ui raised segment">
+  <h3 class="comfortaa">NEW STATIC ARTICLE CATEGORY</h3>
+  <form class="ui form" id="new_form" autocomplete="off">
+    <select name="parent_id">
+      <option value="0">No Parent Category</option>
+      {% for c in categories %}
+      <option value="{{c.id}}">{{c.name}}</option>
+      {% endfor %}
+    </select>
+    <br />
+    <input name="name" placeholder="Enter Category Name" />
+    <br /><br />
+    <button class="ui small button green" type="submit">Submit</button>
+  </form>
+</div>
+<small>Existing categories ({{ categories | length }})</small>
+{% for a in categories %}
+<div class="ui raised segment yellow">
+  <form class="update_form ui form">
+    <input type="hidden" name="id" value="{{ a.id }}" />
+    <input name="name" placeholder="Enter Category Name" value="{{ a.name }}" />
+    <br /><br />
+    <div class="ui buttons">
+      <button class="ui mini button green" type="submit">Update</button>
+      <button
+        class="ui mini button red"
+        type="button"
+        onclick="delete_article('{{ a.id }}')"
+      >
+        Delete
+      </button>
+    </div>
+  </form>
+  <br />
+  {% if a.head_category %}
+  <b style="margin-left: 20px"
+    >Sub Categories ({{a.sub_categories.all|length}} records)</b
+  >
+  <br /><br />
+  {% for s in a.sub_categories.all %}
+  <div style="margin-left: 20px">
+    <form class="update_form ui form">
+      <input type="hidden" name="id" value="{{ s.id }}" />
+      <input
+        name="name"
+        placeholder="Enter Category Name"
+        value="{{ s.name }}"
+      />
+      <br /><br />
+      <div class="ui buttons">
+        <button class="ui mini button green" type="submit">Update</button>
+        <button
+          class="ui mini button red"
+          type="button"
+          onclick="delete_article('{{ s.id }}')"
+        >
+          Delete
+        </button>
+      </div>
+    </form>
+  </div>
+  <br />
+  {% endfor %} {% endif %}
+  <small>
+    Deleting any category will delete all the articles associated with that
+    category.
+  </small>
+</div>
+{% endfor %} {% endblock %} {% block scripts %}
+<script>
+  $("#new_form").submit(function(event) {
+    event.preventDefault();
+    var inputs = $(this).find("input");
+    var name = inputs[0].value;
+    var selects = $(this).find("select");
+    var parent_id = selects[0].value;
+    $.post(
+      "admin/staticCategory",
+      JSON.stringify({
+        name: name,
+        parent_id: parent_id
+      })
+    )
+      .done(function(data) {
+        if (data.status) {
+          $("body").toast({
+            class: "success",
+            message: "Data updated successfully!",
+            title: "Success",
+            showProgress: "bottom"
+          });
+          document.location.reload();
+        } else {
+          $("body").toast({
+            class: "error",
+            message: data.message,
+            title: "Failed!",
+            showProgress: "bottom"
+          });
+        }
+      })
+      .fail(function(data) {
+        $("body").toast({
+          class: "error",
+          message: "Something went wrong. Try again.",
+          title: "Error!",
+          showProgress: "bottom"
+        });
+      });
+  });
+</script>
+<script>
+  $(".update_form").submit(function(event) {
+    event.preventDefault();
+    var inputs = $(this).find("input");
+    var id = inputs[0].value;
+    var name = inputs[1].value;
+    $.ajax({
+      url: "admin/staticCategory",
+      type: "put",
+      data: JSON.stringify({
+        id: id,
+        name: name
+      }),
+      success: function(data) {
+        if (data.status) {
+          $("body").toast({
+            class: "success",
+            message: "Data updated successfully!",
+            title: "Success",
+            showProgress: "bottom"
+          });
+          document.location.reload();
+        } else {
+          $("body").toast({
+            class: "error",
+            message: data.message,
+            title: "Failed!",
+            showProgress: "bottom"
+          });
+        }
+      },
+      error: function(data) {
+        $("body").toast({
+          class: "error",
+          message: "Something went wrong. Try again.",
+          title: "Error!",
+          showProgress: "bottom"
+        });
+      }
+    });
+  });
+
+  function delete_article(id) {
+    // Something
+    $.ajax({
+      url: "admin/staticCategory",
+      type: "delete",
+      data: JSON.stringify({
+        id: id
+      }),
+      success: function(data) {
+        if (data.status) {
+          $("body").toast({
+            class: "success",
+            message: "Data updated successfully!",
+            title: "Success",
+            showProgress: "bottom"
+          });
+          document.location.reload();
+        } else {
+          $("body").toast({
+            class: "error",
+            message: data.message,
+            title: "Failed!",
+            showProgress: "bottom"
+          });
+        }
+      },
+      error: function(data) {
+        $("body").toast({
+          class: "error",
+          message: "Something went wrong. Try again.",
+          title: "Error!",
+          showProgress: "bottom"
+        });
+      }
+    });
+  }
+</script>
+{% endblock %}

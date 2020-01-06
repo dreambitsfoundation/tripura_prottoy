@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.7.8/dist/semantic.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Titillium+Web"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Satisfy"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Comfortaa"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Comfortaa", cursive;
+        /* background: #ff512f;
+        background: -webkit-linear-gradient(
+          to right,
+          #ff512f,
+          #f09819
+        );
+        background: linear-gradient(to right, #ff512f, #f09819); */
+      }
+
+      body.pushable > .pusher {
+        /* background: #ff512f; 
+        background: -webkit-linear-gradient(
+          to right,
+          #ff512f,
+          #f09819
+        ); 
+        background: linear-gradient(to right, #ff512f, #f09819); */
+      }
+
+      .chevichef-logo-font {
+        font-family: "Satisfy", cursive;
+        color: red;
+      }
+
+      .comfortaa {
+        font-family: "Comfortaa", cursive;
+      }
+
+      .white-text {
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="ui sidebar vertical menu">
+      <div class="item">
+        <img
+          class="ui centered tiny circular image"
+          src="https://png.icons8.com/office/100/000000/administrator-male.png"
+        />
+        <br />
+        <center>
+          <b class="customer_name"
+            >{{ user.first_name }} {{ user.last_name }}<br /><br />
+            {{ user.phone_number }}
+          </b>
+        </center>
+      </div>
+      {% if user.user_type == 0 %}
+      <a class="item" href="/accountInfo">
+        Account Info
+      </a>
+      {% endif %} {% if user.user_type == 2 %}
+      <a class="item" href="/adminDashboard">
+        Dashboard
+      </a>
+      <a class="item" href="/adminPostReview">
+        Review Posts
+      </a>
+      <a class="item" href="/adminUsers">
+        Users List
+      </a>
+      <a class="item" href="/adminWriteArticle">
+        New Article
+      </a>
+      <a class="item" href="/adminArticleCategory">
+        Article Category
+      </a>
+      <a class="item" href="/adminStaticArticleCategory">
+        Static Article Category
+      </a>
+      <a class="item" href="/adminWriteStaticArticle">
+        New Static Article
+      </a>
+      {% endif %}
+      <a class="item" href="/newPost">
+        New Post
+      </a>
+      <a class="item" href="/activities">
+        Activities
+      </a>
+      <a class="item" href="/changePassword">
+        Change Password
+      </a>
+      <a class="item red text" href="/signout">
+        Signout
+      </a>
+    </div>
+    <div class="pusher">
+      <!-- Top Nav Bar -->
+      <div class="ui medium menu">
+        <a class="item" id="hamburger"> <i class="bars icon"></i> Menu </a>
+        <a class="item" href="/dashboard">
+          <b
+            class="ui green text comfortaa"
+            style="color: red; font-size: large"
+            >Indian Consumers</b
+          >
+        </a>
+        <div class="right menu">
+          <div class="item">
+            <form action="/search" method="GET">
+              <div class="ui transparent icon input">
+                <input type="text" placeholder="Search..." name="q" />
+                <i class="search link icon"></i>
+              </div>
+            </form>
+          </div>
+          <div class="item">
+            <a class="red ui button small" href="/signout">Sign Out</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- End of Top Nav Bar -->
+
+      <div class="ui container">
+        <div class="ui one column stackable grid">
+          <div class="column">
+            <div class="ui raised segment" m-view="destination_view">
+              <a class="ui green ribbon label">Dashboard</a>
+              <b>{{ page_title }}</b>
+              {% block head %}
+
+              <!-- Content goes here -->
+
+              {% endblock %}
+            </div>
+            {% block body %}
+
+            <!-- Content goes here -->
+
+            {% endblock %}
+          </div>
+        </div>
+
+        <div class="ui four column stackable grid">
+          <div class="ui column">
+            <a
+              href="/terms_n_conditions"
+              style="text-decoration: none; color: white"
+              >Terms and Conditions</a
+            >
+          </div>
+          <div class="ui column">
+            <a href="/policies" style="text-decoration: none; color: white"
+              >Policies</a
+            >
+          </div>
+
+          <div class="ui column">
+            <a
+              href="/know_our_business"
+              style="text-decoration: none; color: white"
+              >Our Business</a
+            >
+          </div>
+        </div>
+        <div class="ui two column stackable grid">
+          <div class="column middle aligned">
+            Copyright &copy; 2019,
+            <b class="ui red text comfortaa" style="color: red"
+              >Consumers Protection Association, India</b
+            >. All rights reserved.
+          </div>
+          <div class="column right aligned">
+            With <i class="heart icon red"></i> from
+            <b class="chevichef-logo-font" style="font-size: large"
+              >Chevichef.</b
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <script
+      src="https://code.jquery.com/jquery-3.1.1.min.js"
+      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.7.8/dist/semantic.min.js"></script>
+    <script>
+      $("#hamburger").click(function() {
+        $(".ui.sidebar").sidebar("toggle");
+      });
+      $(".ui.dropdown").dropdown();
+
+      $(".ui.sticky").sticky({
+        context: "#example1"
+      });
+      $(".ui.accordion").accordion();
+
+      window.getCookie = function(name) {
+        var match = document.cookie.match(
+          new RegExp("(^| )" + name + "=([^;]+)")
+        );
+        if (match) return match[2];
+      };
+    </script>
+    <script>
+      function jsonArrayToObject(jsonArray) {
+        var jsonValue = {};
+        for (let i = 0; i < jsonArray.length; i++) {
+          jsonValue[jsonArray[i]["name"]] = jsonArray[i]["value"];
+        }
+        return jsonValue;
+      }
+    </script>
+    {% block scripts %} {% endblock %}
+  </body>
+</html>

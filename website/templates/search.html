@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Indian Consumers</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Titillium+Web"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Satisfy"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Comfortaa"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Comfortaa", cursive;
+      }
+
+      body.pushable > .pusher {
+        background: #ff512f; /* fallback for old browsers */
+        background: -webkit-linear-gradient(
+          to right,
+          #ff512f,
+          #f09819
+        ); /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to right, #ff512f, #f09819);
+      }
+
+      .chevichef-logo-font {
+        font-family: "Satisfy", cursive;
+        color: red;
+      }
+
+      .comfortaa {
+        font-family: "Comfortaa", cursive;
+      }
+
+      .white-text {
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    {% load static %}
+    <div class="ui container">
+      <br /><br />
+      <div class="ui two column equal stackable grid">
+        <div class="ui twelve wide column">
+          <img
+            src="{% static 'images/logo_wide.png' %}"
+            height="130"
+            width="300"
+          />
+        </div>
+        <div class="ui four wide center aligned column">
+          <br /><br />
+          {% if user.is_authenticated %}
+          <small style="color: grey"
+            ><i class="ui user icon"></i> {{user.get_full_name}}</small
+          >
+          <br />
+          <a href="/accountInfo" style="color: orange"><b>My Account</b></a>
+          {% else %}
+          <a href="/joinus" style="color: orange"><b>Join Us / Sign in</b></a>
+          {% endif %}
+        </div>
+      </div>
+      <div class="ui one column stackable grid">
+        <div class="ui column">
+          <span class="montserrat" style="font-size: large"
+            >Search Result(s) for <b>"{{query}}"</b></span
+          >
+          {% if results == 0 %}
+          <br /><br /><br />
+          <div style="text-align: center">
+            <img
+              src="https://img.icons8.com/cotton/64/000000/laptop-alert.png"
+            />
+            <br /><br />
+            <h2 class="comfortaa">Nothing Was Found!</h2>
+            <small style="color: grey"
+              >Note: A search string must be atleast 4-characters long</small
+            >
+          </div>
+          {% else %}
+          <small style="color: grey"
+            >&nbsp; &nbsp;The requested query string was found in the following
+            data points.</small
+          >
+          {% if posts|length %}
+          <div class="ui divider"></div>
+          <span id="title" class="montserrat">
+            Posts
+            <br />
+            <small style="color: grey"
+              >User reports related to their personal graviences.</small
+            >
+          </span>
+          {% for p in posts %}
+          <div class="ui segment" id="postView">
+            <a href="/postView?id={{p.id}}" target="_blank" style="color: black"
+              ><b>{{ p.title }}</b></a
+            >
+            <br />
+            <small style="color: gray">{{p.posted_on}}</small>
+            <br />
+          </div>
+          {% endfor %} {% endif %} {% endif %} {% if articles|length %}
+          <div class="ui divider"></div>
+          <span id="title" class="montserrat">
+            Articles
+            <br />
+            <small style="color: grey"
+              >Summerized reports written by CPA editors based on user
+              posts.</small
+            >
+          </span>
+          {% for a in articles %}
+          <div class="ui segment" id="postView">
+            <b
+              ><a
+                href="/articleView?id={{a.id}}"
+                target="_blank"
+                style="color: black"
+                >{{ a.title }}</a
+              ></b
+            >
+          </div>
+          {% endfor %} {% endif %} {% if static_articles|length %}
+          <div class="ui divider"></div>
+          <span id="title" class="montserrat">
+            Head Articles
+            <br />
+            <small style="color: grey"
+              >These are static information provided by the organisation about
+              itself.</small
+            >
+          </span>
+          {% for s in static_articles %}
+          <div class="ui segment" id="postView">
+            <b
+              ><a style="color: black" href="/showStaticArticle?id={{s.id}}"
+                >{{ s.title }}</a
+              ></b
+            >
+          </div>
+          {% endfor %} {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://code.jquery.com/jquery-3.1.1.min.js"
+      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.js"
+      type="text/javascript"
+    ></script>
+    {% load static %}
+    <script src="{% static 'comment.js' %}"></script>
+  </body>
+</html>

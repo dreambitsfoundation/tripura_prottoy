@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <div class="ui two equal width column stackable grid">
+        <div class="ui column">
+            <h3 class="comfortaa" style="color:white">Posts</h3>
+            <div class="ui raised segment" id="no_post_alert">
+                <span>You have no posts &nbsp;<a class="ui orange tiny button" href="/newPost">Write new post</a></span>
+            </div>
+            <div id="post_content">
+
+            </div>
+        </div>
+        <div class="ui column">
+            <h3 class="comfortaa" style="color:white">Comments</h3>
+            <div class="ui raised segment" id="no_comment_alert">
+                <span>You have no comments</span>
+            </div>
+            <div id="comment_content">
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    {% load static %}
+    <script src="{% static 'activities.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,9 @@
+{% extends 'base.html' %} {% block body %}
+<div class="ui raised segment">
+  <h3 class="comfortaa">Organisation Account Request</h3>
+  <form class="ui form" method="POST">
+    {% csrf_token %}
+    <input name="company_name" placeholder="Enter name of your organisation" />
+  </form>
+</div>
+{% endblock %} {% block script %}{%endblock %}
