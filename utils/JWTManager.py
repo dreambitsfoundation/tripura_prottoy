@@ -3,7 +3,7 @@ import datetime
 import jwt
 from jwt import ExpiredSignatureError
 from authentication.models import User
-from indianconsumersofficial.settings import SECRET_KEY
+from janatar_kolom.settings import SECRET_KEY
 
 
 class JWTManager:

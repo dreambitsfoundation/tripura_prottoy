@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
     />
     <link
       href="https://fonts.googleapis.com/css?family=Titillium+Web"
@@ -19,6 +19,14 @@
     />
     <link
       href="https://fonts.googleapis.com/css?family=Comfortaa"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Atma|Galada&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
     />
     <style>
@@ -48,21 +56,29 @@
       .white-text {
         color: white;
       }
+
+      .bangla_heading {
+        font-family: "Galada", cursive;
+      }
+
+      .bangla_body {
+        font-family: "Atma", cursive;
+      }
     </style>
   </head>
   <body>
     {% load static %}
     <div class="ui container">
       <br /><br />
-      <div class="ui two column equal stackable grid">
-        <div class="ui twelve wide column">
+      <div class="row">
+        <div class="col s12 l6">
           <img
-            src="{% static 'images/logo_wide.png' %}"
+            src="{% static 'images/janatar_kolom.png' %}"
             height="130"
-            width="300"
+            width="250"
           />
         </div>
-        <div class="ui four wide center aligned column">
+        <div class="col s12 l6 right-align">
           <br /><br />
           {% if user.is_authenticated %}
           <small style="color: grey"
@@ -77,8 +93,8 @@
       </div>
       <div class="ui one column stackable grid">
         <div class="ui column">
-          <span class="montserrat" style="font-size: large"
-            >Search Result(s) for <b>"{{query}}"</b></span
+          <span class="" style="font-size: large"
+            >আপনার খোঁজের ফলাফল <b>"{{query}}"</b></span
           >
           {% if results == 0 %}
           <br /><br /><br />
@@ -94,9 +110,9 @@
           </div>
           {% else %}
           <small style="color: grey"
-            >&nbsp; &nbsp;The requested query string was found in the following
-            data points.</small
-          >
+            >&nbsp; &nbsp;আপনার জিজ্ঞাসাবাদের ভিত্তিতে এই নিম্নোক্ত উত্তরসমূহ
+            পাওয়া গেছে
+          </small>
           {% if posts|length %}
           <div class="ui divider"></div>
           <span id="title" class="montserrat">
@@ -117,24 +133,44 @@
           </div>
           {% endfor %} {% endif %} {% endif %} {% if articles|length %}
           <div class="ui divider"></div>
+          <br /><br />
           <span id="title" class="montserrat">
             Articles
             <br />
             <small style="color: grey"
-              >Summerized reports written by CPA editors based on user
-              posts.</small
+              >Summerized reports written by our editors.</small
             >
           </span>
           {% for a in articles %}
-          <div class="ui segment" id="postView">
-            <b
-              ><a
-                href="/articleView?id={{a.id}}"
-                target="_blank"
-                style="color: black"
-                >{{ a.title }}</a
-              ></b
-            >
+          <div class="card horizontal">
+            {% if a.generate_all_image_urls|length > 0 %}
+            <div class="card-image">
+              <img src="{{a.generate_all_image_urls.0}}" height="300" />
+            </div>
+            {% endif %}
+            <div class="card-stacked">
+              <div class="card-content">
+                <h5 class="bangla_heading">{{a.title}}</h5>
+                <p style="color: grey">{{a.published_on}}</p>
+              </div>
+              <div class="card-action">
+                <span class="valign-wrapper"
+                  ><i
+                    class="material-icons"
+                    style="background-color: red; color: white"
+                    >chevron_right</i
+                  >
+                  &nbsp;
+                  <a
+                    class="grey lighten-5 black-text bangla_body"
+                    href="articleView?id={{a.id}}"
+                    target="_blank"
+                  >
+                    বিস্তারিত পরুন</a
+                  ></span
+                >
+              </div>
+            </div>
           </div>
           {% endfor %} {% endif %} {% if static_articles|length %}
           <div class="ui divider"></div>

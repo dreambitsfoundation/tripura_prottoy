@@ -162,6 +162,12 @@ class SuperAdminSetup(models.Model):
     def is_partner_signup_enabled(self):
         return self.customer_signup_enabled
 
+    def init_basic_access_permission(self):
+        self.admin_dashboard_enabled = True
+        self.customer_signup_enabled = True
+        self.image_upload_enabled = True
+        self.services_enabled = True
+
     def update_permission(self, geo_location, google_places, geo_traking, partner_app, customer_app, admin_dashboard,
                           image_upload, geo_fencing, services, customer_signup, partner_signup):
         self.geo_location_enabled = geo_location

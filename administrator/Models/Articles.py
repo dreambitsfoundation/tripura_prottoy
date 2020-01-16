@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.postgres.fields import ArrayField
+from django.contrib.postgres.fields import ArrayField, JSONField
 
 from administrator.Models import ArticleCategoryModel
 from customer.Models.Post import PostModel
@@ -14,7 +14,8 @@ class ArticlesModel(models.Model):
     title = models.TextField(default="")
     body = models.TextField(default = "")
     posts = models.ManyToManyField(PostModel)
-    photos = ArrayField(models.TextField(default = ""), null=True)
+    photos = ArrayField(JSONField(default=""), null=True)
+    videos = ArrayField(models.TextField(default=""), null=True)
     published = models.BooleanField(default= False)
     draft = models.BooleanField(default=True)
     last_updated = models.DateTimeField(default = timezone.now)
@@ -22,7 +23,7 @@ class ArticlesModel(models.Model):
     published_on = models.DateTimeField(null=True)
     category = models.ForeignKey(ArticleCategoryModel, on_delete=models.CASCADE, null=True)
 
-    def create_article(self, user:User, title: str, body: str, publish:bool = False, posts:list = None, photos:list = None):
+    def create_article(self, user:User, title: str, body: str, publish:bool = False, posts:list = None, photos:list = None, videos:list = None):
         self.title = title
         self.body = body
         self.user = user
@@ -35,6 +36,8 @@ class ArticlesModel(models.Model):
         if self.published:
             self.draft = False
             self.published_on = timezone.now()
+        if videos:
+            self.videos = videos
 
     def generate_all_image_urls(self):
         urls = []
@@ -43,8 +46,7 @@ class ArticlesModel(models.Model):
         if self.photos:
             for photo in current_photos:
                 try:
-                    res = resource(photo)
-                    urls.append(res['secure_url'])
+                    urls.append(photo['secure_urls'])
                     final_photos.append(photo)
                 except NotFound as e:
                     print("not found")

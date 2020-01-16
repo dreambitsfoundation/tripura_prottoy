@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
     />
     <link
       href="https://fonts.googleapis.com/css?family=Titillium+Web"
@@ -21,12 +21,21 @@
       href="https://fonts.googleapis.com/css?family=Comfortaa"
       rel="stylesheet"
     />
+    <link
+      href="https://fonts.googleapis.com/css?family=Atma|Galada&display=swap"
+      rel="stylesheet"
+    />
     <style>
       body {
-        font-family: "Comfortaa", cursive;
+        font-family: "Titillium Web", cursive;
       }
 
-      body.pushable > .pusher {
+      .bangla_heading {
+        font-family: "Galada", cursive;
+      }
+
+      .bangla_body {
+        font-family: "Atma", cursive;
       }
 
       .chevichef-logo-font {
@@ -41,134 +50,224 @@
       .white-text {
         color: white;
       }
+
+      /* label color */
+      .input-field label {
+        color: #d50000;
+      }
+      /* label focus color */
+      .input-field textarea:focus + label, .materialize-textarea:focus:not([readonly]) + label {
+        color: #d50000 !important;
+      }
+
+      .input-field textarea:focus, .materialize-textarea:focus:not([readonly]) {
+        border-bottom: 1px solid #d50000 !important;
+        box-shadow: 0 1px 0 0 #d50000 !important;
+      }
+
+      /* valid color */
+      .input-field input[type=text].valid {
+        border-bottom: 1px solid #d50000;
+        box-shadow: 0 1px 0 0 #d50000;
+      }
+      /* invalid color */
+      .input-field input[type=text].invalid {
+        border-bottom: 1px solid #d50000;
+        box-shadow: 0 1px 0 0 #d50000;
+      }
+      /* icon prefix focus color */
+      .input-field .prefix.active {
+        color: #d50000;
+      }
     </style>
   </head>
   <body>
     {% load static %}
-    <div class="ui container">
-      <br /><br />
-      <div class="ui one column stackable grid">
-        <div class="ui column">
-          <a href="/">
-            <img
-              src="{% static 'images/logo_wide.png' %}"
-              height="130"
-              width="300"
-            />
-          </a>
-          {% if article == None %}
-          <div class="ui center aligned segment" id="noPotView">
-            <br /><br />
-            <img
-              src="https://img.icons8.com/cotton/64/000000/laptop-alert.png"
-            />
-            <br /><br />
-            <h2 class="comfortaa">Article Not Found!</h2>
-            <br />
-          </div>
-          {% else %}
-          <div class="ui segment" id="postView">
-            <br />
-            <b id="title" class="comfortaa" style="font-size: x-large">
-              {{ article.title }}
-            </b>
-            <br />
-            <small>{{ article.published_on }}</small>
-            <br /><br />
-            <p id="postContent">{{ article.body }}</p>
-            <br />
-            <b>Reference Posts</b> ({{ article.posts.all | length }} posts)
-            <!---->
-            {% if article.posts.all %}
-            <br /><br />
-            <div class="ui three equal width column stackable grid">
-              {%for post in article.posts.all %}
-              <div class="ui five wide column">
-                <div
-                  class="ui raised segment"
-                  style="border:1px solid lightgreen"
-                >
-                  <a
-                    href="/postView?id={{ post.id }}"
-                    target="_blank"
-                    style="color:black;"
-                  >
-                    <small><b>{{ post.title }}</b></small>
-                  </a>
-                  <br />
-                  <small style="font-size: x-small">{{ post.posted_on }}</small>
-                </div>
-              </div>
-              {% endfor %}
+    <br />
+    <div class="container">
+      <div class="row">
+        <div class="col s1 valign-wrapper">
+          <span class="new badge red" style="padding-right: 20px"
+            >Latest &gt;</span
+          >
+        </div>
+        <div class="col s11">
+          <marquee
+            onmouseover="this.stop();"
+            onmouseout="this.start();"
+            style="margin-top: 4px"
+          >
+            {% for article in latest_articles %}
+            <a
+              href="articleView?id={{article.id}}"
+              target="_blank"
+              style="text-decoration: none; color: black"
+              >{{article.title}}</a
+            ><small class="grey-text" style="margin-right: 70px"
+              >&nbsp;&nbsp;{{article.published_on}}</small
+            ><i class="ui circle icon mini"></i>&nbsp;&nbsp;&nbsp; {% endfor %}
+          </marquee>
+        </div>
+        <div class="divider"></div>
+        <div class="col s12 center-align">
+          <img
+            src="{% static 'images/janatar_kolom.png' %}"
+            height="80"
+            width="140"
+            style="margin-top: 20px"
+          />
+          <br />
+          <small id="current_time"></small>
+        </div>
+      </div>
+    </div>
+    <nav class="nav-extended red darken-4">
+      <!-- <div class="nav-wrapper">
+          <a href="#" class="brand-logo">Logo</a>
+          <a href="#" data-target="mobile-demo" class="sidenav-trigger"
+            ><i class="material-icons">menu</i></a
+          >
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="sass.html">Sass</a></li>
+            <li><a href="badges.html">Components</a></li>
+            <li><a href="collapsible.html">JavaScript</a></li>
+          </ul>
+        </div> -->
+      <div class="container">
+        <div class="nav-content">
+          <ul class="tabs tabs-transparent">
+            {% for category in categories %}
+            <li class="tab">
+              <a href="search?q={{category.name}}">{{category.name}}</a>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="col s12">
+        {% if article == None %}
+        <div class="ui center aligned segment" id="noPotView">
+          <br /><br />
+          <img src="https://img.icons8.com/cotton/64/000000/laptop-alert.png" />
+          <br /><br />
+          <h2 class="comfortaa">Article Not Found!</h2>
+          <br />
+        </div>
+        {% else %}
+        <div class="card-panel" id="postView">
+          <b id="title" class="bangla_heading" style="font-size: x-large">
+            {{ article.title }}
+          </b>
+          <br />
+          <small>{{ article.published_on }}</small>
+          <br /><br />
+          <p id="postContent" class="bangla_body">{{ article.body }}</p>
+        </div>
+          <!-- <h5 class="">Reference Posts ({{ article.posts.all | length }} posts)</h5>
+          
+          {% if article.posts.all %}
+          <div class="card-panel">
+            <div class="collection">
+            {%for post in article.posts.all %}
+            <li class="collection-item">
+              <a
+                href="/postView?id={{ post.id }}"
+                target="_blank"
+                style="color:black;"
+              >
+                <small><b>{{ post.title }}</b></small>
+              </a>
+              <br />
+              <small style="font-size: x-small">{{ post.posted_on }}</small>
+            </li>
+            {% endfor %}
             </div>
-            {% endif %}
-            <br />
-            <b>Reference Images</b> ({{ images | length }} images)
-            <!---->
-            {% if images %}
-            <br /><br />
-            {%for image in images %}
-            <a href="{{ image }}" target="_blank">
-              <img src="{{ image }}" width="80" height="80" />
-            </a>
-            {% endfor %} {% endif %}
-            <br /><br />
-            <b>{{ comments | length }} Comment(s)</b>
-            <br /><br />
-            {% if user.is_authenticated %}
+          </div>
+          {% endif %} -->
+          <br />
+          <span style="font-size: large" class="bangla_heading"><b>সংযুক্ত ছবি </b> ({{ images | length }} ছবি)</span>
+          <!---->
+          {% if images %}
+          <br /><br />
+          {%for image in images %}
+          <a href="{{ image }}" target="_blank">
+            <img src="{{ image }}" width="80" height="80" />
+          </a>
+          {% endfor %} {% endif %}
+          <br /><br />
+          <b>{{ comments | length }} Comment(s)</b>
+          <br /><br />
+          {% if user.is_authenticated %}
+          <div class="card-panel">
+            <b>New Comment</b>
             <form class="ui form comment_form" method="post">
               <input type="hidden" name="head_comment" value="True" />
               <input type="hidden" name="article_id" value="{{ article.id }}" />
               <input type="hidden" name="root_comment_id" value="0" />
-              <div class="ui field">
+              <div class="input-field">
                 <textarea
                   rows="3"
                   name="text"
-                  placeholder="Type in your comment"
+                  class="materialize-textarea"
+                  placeholder="Write your comment"
                 ></textarea>
               </div>
-              <button class="ui button green tiny">Submit</button>
+              <button class="btn waves-effect waves-light red darken-4">Submit</button>
             </form>
-            {% else %}
-            <small
-              ><i class="ui icon lock"></i> <a href="/joinus">Sign In</a> to
-              comment.</small
-            >
-            {% endif %} {% for comment in comments %}
-            <div class="ui message">
+          </div>
+          {% else %}
+          <small
+            ><i class="ui icon lock"></i> <a href="/joinus">Sign In</a> to
+            comment.</small
+          >
+          {% endif %} {% for comment in comments %}
+          <div class="ui message">
+            <div class="valign-wrapper">
               <img
                 class="ui avatar image"
                 src="https://img.icons8.com/ios/50/000000/user.png"
               />
-              <b style="font-size: large" id="postcomment{{ comment.id }}">
-                {{ comment.user.get_full_name }}
-              </b>
-              {% if article.user.id == comment.user.id %}
-              <div class="ui label teal mini">Author</div>
-              {% endif %}
-              <br />
-              <small style="margin-left: 35px">
-                {{ comment.last_updated }}
-              </small>
-              <p>{{ comment.text }}</p>
-              <div style="margin-left: 20px">
-                <b>{{ comment.sub_comment.all | length }} Response(s)</b>
-                <br /><br />
-                {% for c in comment.sub_comment.all %}
+              <p>
+                <b style="font-size: large" id="postcomment{{ comment.id }}">
+                  {{ comment.user.get_full_name }}
+                </b>
+                {% if article.user.id == comment.user.id %}
+                <span class="new badge red" data-badge-caption="Author"></span>
+                {% endif %}
+                <br/>
+                <small>
+                  {{ comment.last_updated }}
+                </small>
+              </p>
+            </div>
+            <p>{{ comment.text }}</p>
+            <div style="margin-left: 20px">
+              <b>{{ comment.sub_comment.all | length }} Response(s)</b>
+              <br /><br />
+              {% for c in comment.sub_comment.all %}
+              <div class="valign-wrapper">
                 <img
                   class="ui avatar image"
                   src="https://img.icons8.com/ios/50/000000/user.png"
                 />
-                <b id="postcomment{{ c.id }}">{{ c.user.get_full_name }}</b>
-                {% if article.user.id == c.user.id %}
-                <div class="ui label teal mini">Author</div>
-                {% endif %}
-                <br />
-                <small style="margin-left: 35px">{{ c.last_updated }}</small>
-                <p>{{ c.text }}</p>
-                <div class="ui divider"></div>
-                {% endfor %} {% if user.is_authenticated %}
-                <form class="ui form comment_form" method="post">
+                <p>
+                  <b id="postcomment{{ c.id }}">{{ c.user.get_full_name }}</b>
+                  {% if article.user.id == c.user.id %}
+                  <span class="new badge red" data-badge-caption="Author"></span>
+                  {% endif %}
+                  <br />
+                  <small>{{ c.last_updated }}</small>
+                </p>
+              </div>
+              <p>{{ c.text }}</p>
+              <div class="ui divider"></div>
+              {% endfor %} {% if user.is_authenticated %}
+              <div class="card-panel">
+                <b>Response Comment</b>
+                <form class="comment_form" method="post">
                   <input type="hidden" name="head_comment" value="False" />
                   <input
                     type="hidden"
@@ -180,29 +279,30 @@
                     name="root_comment_id"
                     value="{{ comment.id }}"
                   />
-                  <div class="ui field">
+                  <div class="input-field">
                     <textarea
                       rows="1"
                       name="text"
+                      class="materialize-textarea"
                       placeholder="Type in your comment"
                     ></textarea>
                   </div>
-                  <button class="ui button green tiny">Submit</button>
+                  <button class="btn red">Submit</button>
                 </form>
-                {% else %}
-                <small
-                  ><b
-                    ><i class="ui icon lock"></i>
-                    <a href="/joinus">Sign In</a> to Comment</b
-                  ></small
-                >
-                {% endif %}
               </div>
+              {% else %}
+              <small
+                ><b
+                  ><i class="ui icon lock"></i> <a href="/joinus">Sign In</a> to
+                  Comment</b
+                ></small
+              >
+              {% endif %}
             </div>
-            {% endfor %}
           </div>
-          {% endif %}
+          {% endfor %}
         </div>
+        {% endif %}
       </div>
     </div>
 
@@ -211,11 +311,44 @@
       integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
       crossorigin="anonymous"
     ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.js"
-      type="text/javascript"
-    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     {% load static %}
     <script src="{% static 'comment.js' %}"></script>
+    <script>
+      function startTime() {
+        var today = new Date();
+        var d = today.getDay();
+        var h = today.getHours();
+        var m = today.getMinutes();
+        var s = today.getSeconds();
+        var meridian = "am";
+        m = checkTime(m);
+        s = checkTime(s);
+        if (h >= 12) {
+          meridian = "pm";
+        }
+        document.getElementById("current_time").innerHTML =
+          today.toDateString() + ", " + h + ":" + m + ":" + s + " " + meridian;
+        var t = setTimeout(startTime, 500);
+      }
+      function checkTime(i) {
+        if (i < 10) {
+          i = "0" + i;
+        } // add zero in front of numbers < 10
+        return i;
+      }
+      function getDayText(i) {
+        var weekday = new Array(7);
+        weekday[0] = "Sunday";
+        weekday[1] = "Monday";
+        weekday[2] = "Tuesday";
+        weekday[3] = "Wednesday";
+        weekday[4] = "Thursday";
+        weekday[5] = "Friday";
+        weekday[6] = "Saturday";
+
+        return weekday[i];
+      }
+    </script>
   </body>
 </html>

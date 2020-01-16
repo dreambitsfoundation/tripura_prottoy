@@ -70,7 +70,7 @@ class ImageUploadView(View):
         if status:
             try:
                 result = upload(image)
-                data = [result['public_id'],result['secure_url']]
+                data = [{"public_id": result['public_id'], "secure_urls": result['secure_url']}]
             except:
                 raise
                 status = False

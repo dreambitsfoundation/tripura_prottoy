@@ -171,9 +171,11 @@
             $("#" + public_id)
               .parent()
               .hide();
-            var index = images.indexOf(public_id);
-            if (index > -1) {
-              images.splice(index, 1);
+            for(var i = 0; i<images.length; i++){
+              if(images[i]["public_id"] == public_id){
+                images.splice(i, 1);
+                break;
+              }
             }
           }
         }
@@ -216,7 +218,7 @@
               .attr("id", data.data[0])
               .click(function(event) {
                 event.preventDefault();
-                del(data.data[0]);
+                del(data.data[0]["public_id"]);
               });
           }
         },

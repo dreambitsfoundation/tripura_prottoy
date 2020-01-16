@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
     />
     <link
       href="https://fonts.googleapis.com/css?family=Titillium+Web"
@@ -23,6 +23,14 @@
     />
     <link
       href="https://fonts.googleapis.com/css?family=Montserrat&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Atma|Galada&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
     />
     {% load static %}
@@ -51,6 +59,14 @@
           #f09819
         ); /* Chrome 10-25, Safari 5.1-6 */
         background: linear-gradient(to right, #ff512f, #f09819);
+      }
+
+      .bangla_heading {
+        font-family: "Galada", cursive;
+      }
+
+      .bangla_body {
+        font-family: "Atma", cursive;
       }
 
       .chevichef-logo-font {
@@ -99,43 +115,24 @@
         width: 100%;
       }
 
-      .underline{
-        border: 2px solid indigo; 
-        background-color: indigo; 
-        width: 40px; 
-        margin-bottom: 20px
+      .underline {
+        border: 2px solid indigo;
+        background-color: indigo;
+        width: 40px;
+        margin-bottom: 20px;
       }
     </style>
   </head>
-  <body>
+  <body onload="startTime()">
     <br />
-    <div class="ui container">
-      <div class="ui two column equal stackable grid">
-        <div class="ui twelve wide column">
-          <img
-            src="{% static 'images/logo_wide.png' %}"
-            height="130"
-            width="300"
-          />
-        </div>
-        <div class="ui four wide center aligned column">
-          <br /><br />
-          {% if user.is_authenticated %}
-          <small style="color: grey"
-            ><i class="ui user icon"></i> {{user.get_full_name}}</small
+    <div class="container">
+      <div class="row">
+        <div class="col s1 valign-wrapper">
+          <span class="new badge red" style="padding-right: 20px"
+            >Latest &gt;</span
           >
-          <br />
-          <a href="/accountInfo" style="color: orange"><b>My Account</b></a>
-          {% else %}
-          <a href="/joinus" style="color: orange"><b>Join Us / Sign in</b></a>
-          {% endif %}
         </div>
-      </div>
-      <div class="ui two column grid">
-        <div class="ui one wide column">
-          <div class="ui label red">Latest</div>
-        </div>
-        <div class="ui fifteen wide column">
+        <div class="col s11">
           <marquee
             onmouseover="this.stop();"
             onmouseout="this.start();"
@@ -147,593 +144,255 @@
               target="_blank"
               style="text-decoration: none; color: black"
               >{{article.title}}</a
-            >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="ui circle icon mini"></i
-            >&nbsp;&nbsp;&nbsp; {% endfor %}
+            ><small class="grey-text" style="margin-right: 70px"
+              >&nbsp;&nbsp;{{article.published_on}}</small
+            ><i class="ui circle icon mini"></i>&nbsp;&nbsp;&nbsp; {% endfor %}
           </marquee>
         </div>
-      </div>
-    </div>
-    <br /><br />
-    <div style="background-color: indigo">
-      <div class="ui container">
-        <div class="ui one column stackable tablet only computer only grid">
-          <div class="ui column">
-            <div class="ui secondary menu">
-              {% for cat in article_menu %}
-              <div
-                class="ui dropdown item montserrat"
-                style="color: white; text-transform: uppercase; font-size: small"
-              >
-                {{cat.name}}
-                <i class="ui dropdown icon"></i>
-                <div class="menu">
-                  {% for sub in cat.sub_categories.all %}
-                  <div class="item">
-                    <a href="/search?q={{sub.name}}" style="text-decoration: none; color: black">{{sub.name|safe}}</a>
-                  </div>
-                  {% endfor %}
-                </div>
-              </div>
-              {% endfor %}
-              <div
-                class="item montserrat"
-                style="color: white; text-transform: uppercase; font-size: small"
-              >
-                Consumer Rights
-              </div>
-              <div class="ui dropdown item montserrat" style="color: white; text-transform: uppercase; font-size: small">
-                Important Links
-                <i class="ui dropdown icon"></i>
-                <div class="ui menu">
-                  <div class="item"><a href="https://main.trai.gov.in" target="_blank" style="text-decoration: none; color: black">Telephone Regulatory Authority of India (TRAI)</a></div>
-                  <div class="item"><a href="https://sebi.gov.in" target="_blank" style="text-decoration: none; color: black">Securities and Exchange Board of India (SEBI)</a></div>
-                  <div class="item"><a href="https://irdai.gov.in" target="_blank" style="text-decoration: none; color: black">Insurance Regulatory and Development Authority of India (IRDA)</a></div>
-                  <div class="item"><a href="https://cci.gov.in" target="_blank" style="text-decoration: none; color: black">Competition Commission of India (CCI)</a></div>
-                </div>
-              </div>
-              <div
-                class="item montserrat"
-                style="color: white; text-transform: uppercase; font-size: small"
-              >
-                Media
-              </div>
-              <div class="ui right secondary menu">
-                <div class="item">
-                  <a class="ui yellow button" href="/newPost">Publish Complaint</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="ui one column stackable mobile only grid">
-            <div class="ui column">
-              <div class="ui secondary menu">
-                <div 
-                  class="ui dropdown item montserrat" 
-                  style="color: white; text-transform: uppercase; font-size: small"
-                >
-                  MENU
-                  <i class="ui dropdown icon"></i>
-                  <div class="menu">
-                    {% for cat in article_menu %}
-                    <div
-                      class="ui dropdown item montserrat"
-                      style="color: white; text-transform: uppercase; font-size: small"
-                    >
-                      {{cat.name}}
-                      <i class="ui dropdown icon"></i>
-                      <div class="menu">
-                        {% for sub in cat.sub_categories.all %}
-                        <div class="item">
-                          <a href="/search?q={{sub.name}}" style="text-decoration: none; color: black">{{sub.name|safe}}</a>
-                        </div>
-                        {% endfor %}
-                      </div>
-                    </div>
-                    {% endfor %}
-                    <div
-                      class="item montserrat"
-                      style="color: white; text-transform: uppercase; font-size: small"
-                    >
-                      Consumer Rights
-                    </div>
-                    <div class="ui dropdown item montserrat" style="color: white; text-transform: uppercase; font-size: small">
-                      Important Links
-                      <i class="ui dropdown icon"></i>
-                      <div class="ui menu">
-                        <div class="item"><a href="https://main.trai.gov.in" target="_blank" style="text-decoration: none; color: black">Telephone Regulatory Authority of India (TRAI)</a></div>
-                        <div class="item"><a href="https://sebi.gov.in" target="_blank" style="text-decoration: none; color: black">Securities and Exchange Board of India (SEBI)</a></div>
-                        <div class="item"><a href="https://irdai.gov.in" target="_blank" style="text-decoration: none; color: black">Insurance Regulatory and Development Authority of India (IRDA)</a></div>
-                        <div class="item"><a href="https://cci.gov.in" target="_blank" style="text-decoration: none; color: black">Competition Commission of India (CCI)</a></div>
-                      </div>
-                    </div>
-                    <div
-                      class="item montserrat"
-                      style="color: white; text-transform: uppercase; font-size: small"
-                    >
-                      Media
-                    </div>
-                  </div>
-                </div>
-                <div class="ui right secondary menu">
-                  <div class="item">
-                    <a class="ui yellow button" href="/newPost">Publish Complaint</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-      </div>
-    </div>
-    <!-- <div class="ui container">
-      <div class="ui two column stackable grid">
-        <div class="ui column">
-          <br /><br /><br />
-          <h1 class="montserrat" style="font-size: x-large">IndianConsumers.org</h1>
-          <p>
-            Indian Consumers is an initiative by
-            <b>Consumers Protection Association, India</b>
-            to protect consumer rights and help consumers to get their day to
-            day life transaction issues.
-            <form class="ui form" action="search" method="GET">
-                <div class="ui action fluid input">
-                  <input type="text" name="q" placeholder="Search... (min 4-characters)" style="border: 1px solid orange">
-                  <button class="ui icon button" style="background-color: #137f7f; color: white">
-                    <i class="search icon"></i>
-                  </button>
-                </div>
-            </form>
-            <br/>
-            <a href="#sticky_menu" class="ui yellow button">Explore Articles and Posts</a>
-          </p>
-        </div>
-        <div class="ui column">
-          <img src="{% static 'images/consumersprotection.svg' %}" />
+        <div class="divider"></div>
+        <div class="col s12 center-align">
+          <img
+            src="{% static 'images/janatar_kolom.png' %}"
+            height="80"
+            width="140"
+            style="margin-top: 20px"
+          />
+          <br />
+          <small id="current_time"></small>
         </div>
       </div>
     </div>
-    <div style="background-color: #fffdd9">
-      <div class="ui container">
-          <br/><br/>
-          <h1 style="text-align: center; color: #f09819; margin-bottom: 60px" class="montserrat">What do we do?</h1>
-          <div class="ui three column center aligned stackable grid">
-            <div class="ui three wide column">
-              <img src="{% static 'images/cp1.png' %}" height="150" width="150"/>
-              <br/>
-              <b>Shield</b>
-              <br/><br/>
-              <p>Protecting buyers, providing an ease of shopping.</p>
-            </div>
-            <div class="ui three wide column">
-              <img src="{% static 'images/cp2.png' %}" height="150" width="150"/>
-              <br/>
-              <b>Monitoring</b>
-              <br/><br/>
-              <p>
-                Helping consumers resolve their graviences.
-              </p>
-            </div>
-            <div class="ui three wide column">
-              <img src="{% static 'images/cp3.png' %}" height="150" width="150"/>
-              <br/>
-              <b>Education</b>
-              <br/><br/>
-              <p>Spreading awareness for making right move in claiming consumer rights.</p>
-            </div>
-          </div>
-          <div class="ui one column center aligned stackable grid">
-            <div class="ui six wide column">
-              <br/><br/>
-              <a href="/joinus" class="ui yellow fluid button">Join Us</a>
-            </div>
-          </div>
-      </div>
-      <br /><br /><br /><br /><br />
-    </div> -->
-    <div id="main">
-      <!-- <div class="ui mobile only grid">
-        <div class="ui sticky menu sticky_menu" style="margin-bottom: 0px">
-          <div class="item">
-            <img src="{% static 'images/logo.png' %}" />
-          </div>
-          <a class="ui dropdown item">
-            Menu
-            <i class="dropdown icon"></i>
-            <div class="menu">
-              {% for cat in menu %}
-              <div class="item">
-                {{cat.name}}
-                <i class="right dropdown icon"></i>
-                <div class="right menu">
-                  {% for sub in cat.sub_categories.all %}
-                  <div class="item">
-                    {{sub.name}}
-                    <i class="right dropdown icon"></i>
-                    <div class="left menu">
-                      {% for a in sub.articles.all %}
-                      <div class="item">{{a.title}}</div>
-                      {% endfor %}
-                    </div>
-                  </div>
-                  {% endfor %}
-                  <div class="ui divider"></div>
-                  {% for a in cat.articles.all %}
-                  <div class="item">{{a.title}}</div>
-                  {% endfor %}
-                </div>
-              </div>
-              {% endfor %}
-            </div>
-          </a>
-          <div class="right menu">
-            <div class="ui right aligned category search item">
-              <form action="search" method="GET">
-                  <div class="ui transparent icon input">
-                      <input
-                        class="prompt"
-                        type="text"
-                        name="q"
-                        placeholder="Search... (min 4-characters)"
-                      />
-                      <i class="search link icon"></i>
-                    </div>
-              </form>
-              <div class="results">
-                <div class="item">Hello</div>
-                <div class="item">Hello</div>
-              </div>
-            </div>
-          </div>
+    <nav class="nav-extended red darken-4">
+      <div class="container">
+        <div class="nav-content">
+          <ul class="tabs tabs-transparent">
+            {% for category in articles %}
+            <li class="tab">
+              <a href="search?q={{category.name}}">{{category.name}}</a>
+            </li>
+            {% endfor %}
+          </ul>
         </div>
       </div>
-      <div class="ui one column computer only grid">
-        <div class="ui secondary menu sticky_menu comfortaa" style="width: 100%; height: 100px; background-color: white">
-          <div class="ui item">
-            <img src="{% static 'images/logo.png' %}" />
-          </div>
-          {% for cat in menu %}
-          <a class="ui dropdown item">
-            <span style="color: red; text-transform: uppercase" class="comfortaa"><b>{{cat.name|title }}</b></span>
-            <i class="dropdown icon"></i>
-            <div class="menu">
-              {% for sub in cat.sub_categories.all %}
-              <div class="ui item">
-                {{ sub.name }}
-                <i class="ui right dropdown icon"></i>
-                <div class="ui right menu">
-                  {% for a in sub.articles.all %}
-                  <div class="ui item">{{a.title}}</div>
-                  {% endfor %}
-                </div>
-              </div>
-              {% endfor %}
-            </div>
-          </a>
-          {% endfor %}
-          <div class="right menu">
-            <div class="ui right aligned category search item">
-              <form action="search" method="GET">
-                  <div class="ui transparent icon input">
-                      <input
-                        class="prompt"
-                        type="text"
-                        name="q"
-                        placeholder="Search... (min 4-characters)"
-                      />
-                      <i class="search link icon"></i>
-                    </div>
-              </form>
-              <div class="results">
-                <div class="item">Hello</div>
-                <div class="item">Hello</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> -->
-      <!-- <div style="background: #f9e29c; padding: 20px">
-        <div class="ui container">
-          <h2 class="comfortaa" style="color:black"><b>Consumer Posts</b></h2>
-          <p>Experiences and graviences from our readers</p>
-        </div>
-        <br/>
-        <div class="glide" id="post_glide">
-          <div class="ui container">
+    </nav>
+    <div class="container">
+      <div class="row">
+        <div class="col s12">
+          <div class="glide article_glide">
             <div class="glide__track" data-glide-el="track">
               <ul class="glide__slides">
-                {% for post in posts %}
-                <li class="glide__slide">
-                  <div class="ui segment thumbnail">
-                    <a
-                      href="/postView?id={{post.id}}"
-                      target="_blank"
-                      style="color:black"
-                      >{{post.title}}</a
-                    >
-                    <br /><br />
-                    <small style="color: grey; position: fixed; bottom: 5px">
-                      {{post.organisation}} | {{post.posted_on|date:"M d, Y"}}
-                    </small>
+                {% for article in latest_articles %}
+                <li>
+                  <div class="card">
+                    {% if article.images|length %}
+                    <div class="card-image">
+                      <img
+                        src="{{article.images.0}}"
+                        height="400px"
+                        width="auto"
+                      />
+                      <a
+                        href="articleView?id={{article.id}}"
+                        class="card-title black text"
+                        style="text-decoration-color: white"
+                        >{{article.title}}</a
+                      >
+                    </div>
+                    {% endif %}
                   </div>
                 </li>
                 {% endfor %}
               </ul>
             </div>
-          </div>
-
-          <div class="glide__arrows" data-glide-el="controls">
-            <button
-              class="glide__arrow glide__arrow--left"
-              data-glide-dir="<"
-              style="height: 100%"
-            >
-              <i class="ui icon left arrow black"></i>
-            </button>
-            <button
-              class="glide__arrow glide__arrow--right"
-              data-glide-dir=">"
-              style="height: 100%"
-            >
-              <i class="ui icon right arrow black"></i>
-            </button>
-          </div>
-        </div>
-      </div> -->
-      <!-- Container for news update -->
-      <div style="margin-top: 10px; padding-bottom: 20px; background-color: indigo">
-        <div class="ui container">
-          <div class="ui one column center aligned stackable grid">
-            <div class="ui ten wide column">
-              <form method="GET" class="ui form" action="search">
-                <div class="ui fluid action input">
-                  <input name="q" placeholder="Search Complaints, Posts and more..." />
-                  <button class="ui yellow button"><i class="ui search icon"></i>Search</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div style="background-color: indigo">
-        <br/><br/>
-        <!-- <div class="ui container">
-          <h2 class="comfortaa" style="color:red"><b>Latest Updates</b></h2>
-          <p>Directly from the editor's desk</p>
-        </div> -->
-        <div class="ui container">
-          <div class="ui two column stackable grid">
-            <div class="ui ten wide column">
-              <div class="glide article_glide">
-                <div class="glide__track" data-glide-el="track">
-                  <ul class="glide__slides">
-                    {% for article in latest_articles %}
-                    <li>
-                      <div
-                        class="ui stacked segment thumbnail2"
-                        style="background-image: url('{{article.images.0}}')"
-                      >
-                        <div
-                          class="ui label red"
-                          style="position: fixed; top: 70%; text-transform: uppercase"
-                        >
-                          {{article.category.name}}
-                        </div>
-                        <span
-                          style="position: fixed; bottom: 8px; font-size: large; background-color: yellow; padding: 10px; overflow-x: auto"
-                        >
-                          <b>{{article.title}}</b>
-                          <br />
-                          <small style="color: grey; font-size: 10px"
-                            >{{article.published_on}}</small
-                          >
-                        </span>
-                      </div>
-                    </li>
-                    {% endfor %}
-                  </ul>
-                </div>
-                <div class="glide__arrows" data-glide-el="controls">
-                  <button
-                    class="glide__arrow glide__arrow--left"
-                    data-glide-dir="<"
-                    style="height: 15%"
-                  >
-                    <i class="ui icon left arrow black"></i>
-                  </button>
-                  <button
-                    class="glide__arrow glide__arrow--right"
-                    data-glide-dir=">"
-                    style="height: 15%; background: black 0.8"
-                  >
-                    <i class="ui icon right arrow black"></i>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div class="ui six wide column">
-              <div class="ui attached message">
-                <h3 class="comfortaa">
-                  <b>Latest Consumer Complaints</b>
-                </h3>
-              </div>
-              <div>
-                <marquee
-                  onmouseover="this.stop();"
-                  onmouseout="this.start();"
-                  direction="up"
-                  scrolldelay="130"
-                  height="300px"
+            <div class="glide__arrows" data-glide-el="controls">
+              <button
+                class="glide__arrow glide__arrow--left"
+                data-glide-dir="<"
+                style="height: 15%"
+              >
+                <i
+                  class="material-icons"
+                  style="background-color: red; color: white"
+                  >chevron_left</i
                 >
-                  {% for article in posts %}
-                  <div class="ui raised segment" style="height: 75px">
-                    <div>
+              </button>
+              <button
+                class="glide__arrow glide__arrow--right"
+                data-glide-dir=">"
+                style="height: 15%; background: black 0.8"
+              >
+                <i
+                  class="material-icons"
+                  style="background-color: red; color: white"
+                  >chevron_right</i
+                >
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- Latest Post -->
+        <div class="col s12">
+          <h5
+            class="grey lighten-2 bangla_heading"
+            style="border-left: 4px solid red; height: 50px; padding: 15px"
+          >
+            সর্বশেষ
+          </h5>
+          <div class="row">
+            {% for article in latest_articles %}
+            <div class="col l6 s12">
+              <div class="card">
+                {% if article.images|length > 0 %}
+                <div class="card-image">
+                  <img src="{{article.images.0}}" />
+                </div>
+                {% endif %}
+                <div class="card-content">
+                  <span
+                    style="background-color: red; color: white; padding-left: 5px; padding-right: 5px"
+                    >{{article.category.name}}</span
+                  >
+                  <br />
+                  <small class="grey-text">{{article.published_on}}</small>
+                  <br />
+                  <br />
+                  <b>{{ article.title }}</b>
+                  <br /><br />
+                  <p>
+                    <small>{{ article.body|slice:":50" }}..</small>
+                  </p>
+                </div>
+                <div class="card-action">
+                  <span class="valign-wrapper"
+                    ><i
+                      class="material-icons"
+                      style="background-color: red; color: white"
+                      >chevron_right</i
+                    >
+                    &nbsp;
+                    <a
+                      class="grey lighten-5 black-text bangla_body"
+                      href="articleView?id={{article.id}}"
+                      target="_blank"
+                    >
+                      বিস্তারিত পরুন</a
+                    ></span
+                  >
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        <!-- End of Latest Post -->
+        <!-- Categories -->
+        {% for category in articles %} {% if category.articles|length > 0 %}
+        <div class="col l6 s12">
+          <h5
+            class="grey lighten-2 bangla_heading"
+            style="border-left: 4px solid red; height: 50px; padding: 15px"
+          >
+            {{category.name}}
+          </h5>
+          <div class="glide article_glide">
+            <div class="glide__track" data-glide-el="track">
+              <ul class="glide__slides">
+                {% for article in category.articles %}
+                <li>
+                  <div
+                    class="ui stacked segment thumbnail2"
+                    style="background-image: url('{{article.images.0}}')"
+                  >
+                    <span
+                      style="position: fixed; bottom: 8px; background-color: yellow; padding: 10px; overflow-x: auto"
+                    >
                       <a
-                        href="postView?id={{article.id}}"
-                        target="_blank"
-                        style="color: black"
+                        href="articleView?id={{article.id}}"
+                        style="color:black; text-decoration: none"
                         ><b>{{article.title}}</b></a
                       >
-                      <br /><br/>
-                      <div class="ui green smalls label">
-                        {{article.user.first_name}}
-                        <div class="detail">{{article.organisation}}</div>
-                      </div>
                       <br />
-                      <small>{{article.posted_on}}</small>
-                    </div>
-                  </div>
-                  {% endfor %}
-                </marquee>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- End of news update container -->
-      <!-- Beginning of Abous us section -->
-      <div style="background-color: aqua; margin-top: 10px">
-        <div class="ui container">
-          <div class="ui one column stackable grid">
-            <div class="ui justified column" style="padding-top: 30px; padding-bottom: 30px">
-              <h2 class="montserrat"><b>About Us</b></h2>
-              <div class="underline"></div>
-              <p class="montserrat">
-                  www.indianconsumers.org is designed and maintained by the Consumers’ Protection Association (CPA India). The interactive website www.indianconsumers.org was launched in 2009. But the website was hacked by the enemies of Indian Consumers. Now it has been redesigned and launched again to publish consumer complaints and company responses on settlement of complaints. The website shall publish important news, views, judgments and law concerning consumers. All are requested to involve in this dream project and make it a success.
-    
-                  CPA India was established in 1984 and registered in 1987 under the Societies Registration Act 1860. CPA INDIA was invited in 1985 by the Govt of India to participate in the discussions before finalizing the Consumer Protection Bill 1986. Formerly member of CCPC, BIS, CPA India was also a member of CAG registered with TRAI and an Investors Association recognized by SEBI. CPA INDIA works in close co-operation with civil society and Government and received National Award for works in the interest of consumers.
-                  
-                  Dignified Guests to CPA India's past programmes are:
-                  
-                  Central Ministers, Chief Ministers, Vice-Chancellor, Law makers, representatives from MRTP Commission, National Consumer Court (NCDRC), Bureau of India Standards, Consumer Organizations & Activists from many states, Friedrich Naumann Stiftung (Germany). Chairman of TRAI, Chairman of SEBI.
-                  
-                  CPA India has organized National Seminar on Quality of telephone services and role of TRAI, Two-day National Consumer Convention on Consumer Justice- 2007 in New Delhi. As part of celebration of 25 years of voluntary consumer service, it organized National Seminar on Telecom Services and National Seminar of Investors Services. Chairman of TRAI and SEBI participated. President of this organization was elected Chairman of the CCC India, apex consumer body of leading consumer organizations in India. He was member of the Govt of India Task Force on UN Revisesd Guidelines on Consumer Protection.
-                  
-                  We intend to provide legal information to all consumers via website. We request you to support us to maintain this website & Consumer Education.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- End of about us section -->
-      <!-- Section for Category Based News -->
-      <div>
-        <br /><br /><br />
-        <div class="ui container">
-          <h2 class="montserrat"><b>Read by Topics</b></h2>
-          <div class="underline"></div>
-          <p>Choose our latest by your topic of choice.</p>
-        </div>
-        <div class="ui container">
-          <br /><br /><br />
-          <div class="ui four equal width column stackable grid">
-            {% for category in articles %} {% if category.articles|length > 0 %}
-            <div class="ui four wide column">
-              <span
-                style="background-color: red; padding: 15px; font-size: 16px; color: white"
-                >{{category.name}}</span
-              >
-              <div class="ui divider"></div>
-              <div class="glide article_glide">
-                <div class="glide__track" data-glide-el="track">
-                  <ul class="glide__slides">
-                    {% for article in category.articles %}
-                    <li>
-                      <div
-                        class="ui stacked segment thumbnail2"
-                        style="background-image: url('{{article.images.0}}')"
+                      <small style="color: grey; font-size: 10px"
+                        >{{article.published_on}}</small
                       >
-                        <span
-                          style="position: fixed; bottom: 8px; background-color: yellow; padding: 10px; overflow-x: auto"
-                        >
-                          <a href="articleView?id={{article.id}}" style="color:black; text-decoration: none"><b>{{article.title}}</b></a>
-                          <br />
-                          <small style="color: grey; font-size: 10px"
-                            >{{article.published_on}}</small
-                          >
-                        </span>
-                      </div>
-                    </li>
-                    {% endfor %}
-                  </ul>
-                </div>
-                <div class="glide__arrows" data-glide-el="controls">
-                  <button
-                    class="glide__arrow glide__arrow--left"
-                    data-glide-dir="<"
-                    style="height: 15%"
-                  >
-                    <i class="ui icon left arrow black"></i>
-                  </button>
-                  <button
-                    class="glide__arrow glide__arrow--right"
-                    data-glide-dir=">"
-                    style="height: 15%; background: black 0.8"
-                  >
-                    <i class="ui icon right arrow black"></i>
-                  </button>
-                </div>
-              </div>
+                    </span>
+                  </div>
+                </li>
+                {% endfor %}
+              </ul>
             </div>
-            {% endif %} {% endfor %}
-          </div>
-          <br /><br /><br />
-        </div>
-      </div>
-      <!-- End of category based news section -->
-      <div style="background-color: black">
-        <div class="ui container">
-          <br /><br /><br />
-          <div class="ui one column stackable grid"></div>
-
-          <!-- <div class="ui four column stackable grid">
-            <div class="ui column">
-              <a
-                href="/terms_n_conditions"
-                style="text-decoration: none; color: white"
-                >Terms and Conditions</a
+            <div class="glide__arrows" data-glide-el="controls">
+              <button
+                class="glide__arrow glide__arrow--left"
+                data-glide-dir="<"
+                style="height: 15%"
               >
-            </div>
-            <div class="ui column">
-              <a href="/policies" style="text-decoration: none; color: white"
-                >Policies</a
+                <i class="ui icon left arrow black"></i>
+              </button>
+              <button
+                class="glide__arrow glide__arrow--right"
+                data-glide-dir=">"
+                style="height: 15%; background: black 0.8"
               >
-            </div>
-
-            <div class="ui column">
-              <a
-                href="/know_our_business"
-                style="text-decoration: none; color: white"
-                >Our Business</a
-              >
-            </div>
-          </div> -->
-          <div class="ui two column stackable grid">
-            <div class="column middle aligned" style="color: white">
-              Copyright &copy; 2019,
-              <b class="ui red text montserrat" style="color: orange"
-                >Consumers Protection Association</b
-              >. All rights reserved.
-            </div>
-            <div class="column right aligned" style="color: white">
-              With <i class="heart icon red"></i> from
-              <b class="chevichef-logo-font" style="font-size: large"
-                >Chevichef.</b
-              >
+                <i class="ui icon right arrow black"></i>
+              </button>
             </div>
           </div>
         </div>
-        <br /><br />
+        {% endif %} {% endfor %}
       </div>
     </div>
+    <footer class="page-footer grey darken-4">
+      <div class="container">
+        <div class="row">
+          <div class="col l6 s12">
+            <img
+              src="{% static 'images/janatar_kolom.png' %}"
+              height="80"
+              width="140"
+            />
+            <p class="grey-text text-lighten-4">
+              জনতার ভাষায়, জনতার সাথে |
+            </p>
+            <p>
+              <small class="grey-text text-lighten-4">
+                Vector images used in this application that are not part of the
+                dyanamic news material are either propriatory or licensed
+                exclusively to Chevichef Private Limited.
+              </small>
+            </p>
+          </div>
+          <div class="col l4 offset-l2 s12">
+            <h5 class="white-text">Important Links</h5>
+            <ul>
+              <li>
+                <a class="grey-text text-lighten-3" href="#!">Privacy Policy</a>
+              </li>
+              <li>
+                <a class="grey-text text-lighten-3" href="#!">Disclaimer</a>
+              </li>
+              <li>
+                <a class="grey-text text-lighten-3" href="#!">Terms of Use</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-copyright">
+        <div class="container">
+          © 2020 Janatar Kolom. All Rights Reserved
+          <a class="grey-text text-lighten-4 right" href="http://devsiti.com"
+            >A &lt;devsiti /&gt; production.</a
+          >
+        </div>
+      </div>
+    </footer>
     <script
       src="https://code.jquery.com/jquery-3.1.1.min.js"
       integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
       crossorigin="anonymous"
     ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.js"
-      type="text/javascript"
-    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide"></script>
     <script>
       var slides = $("#post_glide");
@@ -790,16 +449,6 @@
     <script src="{% static 'location.js' %}"></script>
     <script src="{% static 'index_page_functions.js' %}"></script>
     <script>
-      $("#hamburger").click(function() {
-        $(".ui.sidebar").sidebar("toggle");
-      });
-      $(".ui.dropdown").dropdown();
-
-      $(".sticky_menu").sticky({
-        context: "#main"
-      });
-      $(".ui.accordion").accordion();
-
       window.getCookie = function(name) {
         var match = document.cookie.match(
           new RegExp("(^| )" + name + "=([^;]+)")
@@ -815,6 +464,40 @@
             $(this).attr("scrollamount", 5);
           });
       });
+      function startTime() {
+        var today = new Date();
+        var d = today.getDay();
+        var h = today.getHours();
+        var m = today.getMinutes();
+        var s = today.getSeconds();
+        var meridian = "am";
+        m = checkTime(m);
+        s = checkTime(s);
+        if (h >= 12) {
+          meridian = "pm";
+        }
+        document.getElementById("current_time").innerHTML =
+          today.toDateString() + ", " + h + ":" + m + ":" + s + " " + meridian;
+        var t = setTimeout(startTime, 500);
+      }
+      function checkTime(i) {
+        if (i < 10) {
+          i = "0" + i;
+        } // add zero in front of numbers < 10
+        return i;
+      }
+      function getDayText(i) {
+        var weekday = new Array(7);
+        weekday[0] = "Sunday";
+        weekday[1] = "Monday";
+        weekday[2] = "Tuesday";
+        weekday[3] = "Wednesday";
+        weekday[4] = "Thursday";
+        weekday[5] = "Friday";
+        weekday[6] = "Saturday";
+
+        return weekday[i];
+      }
     </script>
     <script></script>
   </body>

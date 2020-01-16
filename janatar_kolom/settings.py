@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 
-from indianconsumersofficial.environment_test import getPlatform
+from janatar_kolom.environment_test import getPlatform
 
 platform = getPlatform()
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -60,7 +60,7 @@ MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
-ROOT_URLCONF = 'indianconsumersofficial.urls'
+ROOT_URLCONF = 'janatar_kolom.urls'
 
 TEMPLATES = [
     {
@@ -78,7 +78,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'indianconsumersofficial.wsgi.application'
+WSGI_APPLICATION = 'janatar_kolom.wsgi.application'
 
 
 # Database
@@ -88,10 +88,10 @@ if platform == "Production":
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': "dbgnjfs8k1f8i0",
-            'USER': "hqslrfjtcrutmg",
-            'PASSWORD': "f75ca89e3c887cc6688f3d9bb524a4e2798a123bae3c08ee91dac783980ab5f2",
-            'HOST': "ec2-107-20-251-130.compute-1.amazonaws.com",
+            'NAME': "dfb3s2o2dp9dit",
+            'USER': "malzuojheeqbyk",
+            'PASSWORD': "f2dd5ea52ca33088ac42d72f93b7df7aebea061ab370f0165128c642d9bc0e91",
+            'HOST': "ec2-174-129-32-215.compute-1.amazonaws.com",
             'PORT': "5432"
         }
     }
@@ -99,7 +99,7 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': "IC",
+            'NAME': "janatar_kolom",
             'USER': "postgres",
             'PASSWORD': "pass1234",
             'HOST': "localhost",
@@ -150,9 +150,9 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 AUTH_USER_MODEL = 'authentication.User'
 
 CLOUDINARY = {
-    'cloud_name': 'indianconsumers-org',
-    'api_key': '827356223627921',
-    'api_secret': 'iF5JoxnoCa0qM4aOae5KnthWuE0'
+    'cloud_name': 'janatarkalam',
+    'api_key': '158518893827718',
+    'api_secret': 'TPhvUo9kxFVeETYmSKvMCYlXMLc'
 }
 
-CLOUDINARY_APP_NAME = "indianconsumers-org"
+CLOUDINARY_APP_NAME = "janatarkalam"

@@ -251,6 +251,8 @@ def view_article(request):
         article_id = request.GET['id']
         article = ArticlesModel.objects.get(id=int(article_id))
         comments = CommentModel.objects.filter(article = article, head_comment=True).order_by("-last_updated")
+        # For navigation bar
+        article_categories = ArticleCategoryModel.objects.all()
     except:
         article = None
         comments = None
@@ -259,6 +261,7 @@ def view_article(request):
         "articleView.html",
         context={
             "article": article,
+            "categories": [{"name": a.name} for a in article_categories],
             "comments": comments,
             "user": request.user,
             "page_title": "Article View",

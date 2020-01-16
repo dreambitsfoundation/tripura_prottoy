@@ -1,1 +1,1 @@
-web: gunicorn indianconsumersofficial.wsgi --log-file -
+web: gunicorn janatar_kolom.wsgi --log-file -
