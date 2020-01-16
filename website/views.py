@@ -46,7 +46,10 @@ def index(request):
 
 
 def user_login(request):
-    return render(request, "login.html")
+    try:
+        return render(request, "login.html")
+    except:
+        raise
 
 """ User Account Related Views """
 @login_required
