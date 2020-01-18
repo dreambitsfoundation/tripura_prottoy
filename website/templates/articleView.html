@@ -25,6 +25,7 @@
       href="https://fonts.googleapis.com/css?family=Atma|Galada&display=swap"
       rel="stylesheet"
     />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
     <style>
       body {
         font-family: "Titillium Web", cursive;
@@ -91,31 +92,16 @@
             >Latest &gt;</span
           >
         </div>
-        <div class="col s11">
-          <marquee
-            onmouseover="this.stop();"
-            onmouseout="this.start();"
-            style="margin-top: 4px"
-          >
-            {% for article in latest_articles %}
-            <a
-              href="articleView?id={{article.id}}"
-              target="_blank"
-              style="text-decoration: none; color: black"
-              >{{article.title}}</a
-            ><small class="grey-text" style="margin-right: 70px"
-              >&nbsp;&nbsp;{{article.published_on}}</small
-            ><i class="ui circle icon mini"></i>&nbsp;&nbsp;&nbsp; {% endfor %}
-          </marquee>
-        </div>
         <div class="divider"></div>
-        <div class="col s12 center-align">
-          <img
-            src="{% static 'images/janatar_kolom.png' %}"
-            height="80"
-            width="140"
-            style="margin-top: 20px"
-          />
+        <div class="col s12">
+          <a href="/">
+            <img
+              src="{% static 'images/janatar_kolom.png' %}"
+              height="100"
+              width="140"
+              style="margin-top: 20px"
+            />
+          </a>
           <br />
           <small id="current_time"></small>
         </div>
@@ -136,6 +122,9 @@
       <div class="container">
         <div class="nav-content">
           <ul class="tabs tabs-transparent">
+            <li class="tab">
+              <a href="/"><i class="tiny material-icons">home</i></a>
+            </li>
             {% for category in categories %}
             <li class="tab">
               <a href="search?q={{category.name}}">{{category.name}}</a>
@@ -158,13 +147,13 @@
         </div>
         {% else %}
         <div class="card-panel" id="postView">
-          <b id="title" class="bangla_heading" style="font-size: x-large">
+          <b id="title" class="bangla_heading" style="font-size: xx-large">
             {{ article.title }}
           </b>
           <br />
           <small>{{ article.published_on }}</small>
           <br /><br />
-          <p id="postContent" class="bangla_body">{{ article.body }}</p>
+          <p id="postContent" class="comfortaa" style="font-size: large">{{ article.body }}</p>
         </div>
           <!-- <h5 class="">Reference Posts ({{ article.posts.all | length }} posts)</h5>
           
