@@ -143,7 +143,7 @@
       '<form class="image_upload_form" method="POST">' +
         '<div class="ui right action input">' +
         '<input type="hidden" name="csrfmiddlewaretoken" value="{{csrf_token}}"/>' +
-        '<input type="file" name="image" placeholder="Find domain" required/>' +
+        '<input type="file" name="image" required/>' +
         '<button type="submit" class="ui button blue mini upload_btn">' +
         '<i class="ui icon upload"></i> Upload' +
         "</button>" +
@@ -215,7 +215,7 @@
               .hide();
             $(form)
               .find("button.red")
-              .attr("id", data.data[0])
+              .attr("id", data.data[0]["public_id"])
               .click(function(event) {
                 event.preventDefault();
                 del(data.data[0]["public_id"]);

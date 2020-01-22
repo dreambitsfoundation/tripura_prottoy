@@ -2,9 +2,12 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    {% load static %}
     <title>{% if article %}{{article.title}}{% else %}Article Not Found{% endif %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+    <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
     {% if article %}
     <meta property="org:app_id"       content="600959250691153" />
     <meta property="og:url"           content="http://janatarkalam.com/articleView?id={{article.id}}" />
@@ -179,10 +182,14 @@
           </b>
           <br />
           <small>{{ article.published_on }}</small>
-          <br /><br />
+          <br />
+          <div class="valign-wrapper">
+            <i class="grey-text tiny material-icons">visibility</i><span class="grey-text" style="font-size: small">{{article.views}}</span>
+            &nbsp;&nbsp; <div class="fb-share-button" data-href="http://janatarkalam.com/articleView?id={{article.id}}" data-layout="button_count" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
+          </div>
+          <br />
           <p id="postContent" class="comfortaa" style="font-size: large">{{ article.body }}</p>
-
-          <div class="fb-share-button" data-href="http://janatarkalam.com/articleView?id={{article.id}}" data-layout="box_count" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
+          <div class="fb-share-button" data-href="http://janatarkalam.com/articleView?id={{article.id}}" data-layout="button_count" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
         </div>
           <!-- <h5 class="">Reference Posts ({{ article.posts.all | length }} posts)</h5>
           
