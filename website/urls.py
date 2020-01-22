@@ -15,6 +15,7 @@ urlpatterns = [
     path('adminArticleCategory', views.article_category, name="admin_article_category"),
     path('adminStaticArticleCategory', views.static_category, name="admin_static_article_category"),
     path('adminWriteStaticArticle', views.static_article, name="admin_static_article"),
+    path('adminFacebookAccessToken', views.facebook_page_token, name="facebook_access_token"),
     # Standard User URLs
     path('accountInfo', views.account_info, name="account_info"),
     path('changePassword', views.change_password, name="change_password"),

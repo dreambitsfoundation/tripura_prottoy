@@ -2,9 +2,18 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Indian Consumers</title>
+    <title>{% if article %}{{article.title}}{% else %}Article Not Found{% endif %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    {% if article %}
+    <meta property="og:url"           content="http://janatarkalam.com/articleView?id={{article.id}}" />
+    <meta property="og:type"          content="website" />
+    <meta property="og:title"         content="{{article.title}}" />
+    <meta property="og:description"   content="{{article.body}}" />
+    {% if images|length > 0 %}
+    <meta property="og:image"         content="{{images.0}}" />
+    {% endif %}
+    {% endif %}
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
@@ -92,6 +101,23 @@
             >Latest &gt;</span
           >
         </div>
+        <div class="col s11">
+          <marquee
+            onmouseover="this.stop();"
+            onmouseout="this.start();"
+            style="margin-top: 4px"
+          >
+            {% for article in latest_articles %}
+            <a
+              href="articleView?id={{article.id}}"
+              target="_blank"
+              style="text-decoration: none; color: black"
+              >{{article.title}}</a
+            ><small class="grey-text" style="margin-right: 70px"
+              >&nbsp;&nbsp;{{article.published_on}}</small
+            ><i class="ui circle icon mini"></i>&nbsp;&nbsp;&nbsp; {% endfor %}
+          </marquee>
+        </div>
         <div class="divider"></div>
         <div class="col s12">
           <a href="/">
@@ -154,6 +180,8 @@
           <small>{{ article.published_on }}</small>
           <br /><br />
           <p id="postContent" class="comfortaa" style="font-size: large">{{ article.body }}</p>
+
+          <div class="fb-share-button" data-href="http://janatarkalam.com/articleView?id={{article.id}}" data-layout="box_count" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
         </div>
           <!-- <h5 class="">Reference Posts ({{ article.posts.all | length }} posts)</h5>
           
@@ -295,6 +323,18 @@
       </div>
     </div>
 
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v5.0&appId=600959250691153&autoLogAppEvents=1"></script>
+    
+    <!-- <script>
+      (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    </script> -->
     <script
       src="https://code.jquery.com/jquery-3.1.1.min.js"
       integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
@@ -302,7 +342,7 @@
     ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     {% load static %}
-    <script src="{% static 'comment.js' %}"></script>
+    <script src="{% static 'comment.js' %}"></script>    
     <script>
       function startTime() {
         var today = new Date();
@@ -339,5 +379,6 @@
         return weekday[i];
       }
     </script>
+    
   </body>
 </html>

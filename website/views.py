@@ -206,6 +206,9 @@ def static_article(request):
         }
     )
 
+def facebook_page_token(request):
+    return render(request, 'admin/add_facebook_page.html', {})
+
 
 """ Common Views """
 
@@ -259,10 +262,16 @@ def view_article(request):
     except:
         article = None
         comments = None
+        article_categories = []
+    if article is not None:
+        article.add_one_view()
+        article.save()
+    latest_articles = ArticlesModel.objects.all().order_by('-published_on')[:10]
     return render(
         request,
         "articleView.html",
         context={
+            "latest_articles": latest_articles,
             "article": article,
             "categories": [{"name": a.name} for a in article_categories],
             "comments": comments,

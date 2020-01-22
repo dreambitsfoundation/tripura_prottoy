@@ -22,6 +22,7 @@ class ArticlesModel(models.Model):
     created = models.DateTimeField(default = timezone.now)
     published_on = models.DateTimeField(null=True)
     category = models.ForeignKey(ArticleCategoryModel, on_delete=models.CASCADE, null=True)
+    views = models.IntegerField(default=0)
 
     def create_article(self, user:User, title: str, body: str, publish:bool = False, posts:list = None, photos:list = None, videos:list = None):
         self.title = title
@@ -58,6 +59,9 @@ class ArticlesModel(models.Model):
             self.save()
         return urls
 
+    def add_one_view(self):
+        self.views = self.views + 1
+
     def serialize(self):
         from customer.Models import CommentModel
         comments = []
@@ -73,5 +77,6 @@ class ArticlesModel(models.Model):
             "published_on": generate_readable_date_time(self.published_on) if self.published else "",
             "comments": comments,
             "last_drafted": self.last_updated,
-            "created_on": self.created
+            "created_on": self.created,
+            "total_views": self.views
         }
