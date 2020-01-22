@@ -51,7 +51,8 @@ class ArticleView(View):
             heading = arguments.get("head")
             body = arguments.get("body")
             images = arguments.get("images")
-            posts = arguments.get("posts")   
+            posts = arguments.get("posts")
+            video = arguments.get("video") 
             publish = bool(arguments.get("publish"))
             draft = bool(arguments.get("draft"))
             category_id = int(arguments.get("category_id"))
@@ -83,6 +84,8 @@ class ArticleView(View):
                         publish=publish
                     )
                     article.category = category
+                    video_ids = video.split(";")
+                    article.videos = video_ids
                     article.save()
                     print(article.id)
                     message = "Article is successfully created."
@@ -112,11 +115,11 @@ class ArticleView(View):
             body = arguments.get("body")
             images = arguments.get("images")
             posts = arguments.get("posts")   
+            video = arguments.get("video")
             publish = bool(arguments.get("publish"))
             draft = bool(arguments.get("draft"))
             category_id = int(arguments.get("category_id"))
         except:
-            raise
             status = False
             code = 500
             message = "Error parsing request data"
@@ -156,6 +159,8 @@ class ArticleView(View):
                     post.body = body
                     post.photos = images
                     post.category = category
+                    video_ids = video.split(";")
+                    post.videos = video_ids
                     post.save()
                 message = "Post status is successfully updated"
             except:

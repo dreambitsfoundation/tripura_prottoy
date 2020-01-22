@@ -132,6 +132,16 @@ class ArticlesModel(models.Model):
     def add_one_view(self):
         self.views = self.views + 1
 
+    def generate_youtube_iframes(self):
+        links = []
+        if self.videos is not None:
+            for v in self.videos:
+                link = '<iframe id="ytplayer" type="text/html" width="640" height="200"' + \
+                'src="https://www.youtube.com/embed/' + v + '"' + \
+                'frameborder="0" allowfullscreen></iframe>'
+                links.append(link)
+        return links
+
     def serialize(self):
         from customer.Models import CommentModel
         comments = []

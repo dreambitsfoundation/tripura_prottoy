@@ -17,6 +17,10 @@
     <div class="ui input fluid">
       <textarea name="body" placeholder="Enter the content">{% if article %}{{article.body}}{% endif %}</textarea>
     </div>
+    <br/>
+    <div class="ui input fluid">
+      <input name="video" placeholder="Enter Youtube Video ID" {% if article %}value="{{article.videos.0}}"{% endif %}/>
+    </div>
     <div class="ui yellow raised segment" id="image_upload_segment" hidden>
       <div class="ui container">
         <div class="ui two column stackable grid">
@@ -362,6 +366,7 @@
     var title = $("form").find("[name=\"heading\"]").val();
     var body = $("form").find("[name=\"body\"]").val();
     var category_id = $("form").find("[name=\"category_id\"]").val();
+    var video_id = $("form").find("[name=\"video\"]").val();
     var imgs = images;
     var posts = []
     selectedposts.forEach(function(element){
@@ -378,6 +383,7 @@
         body: body,
         category_id: category_id,
         images: imgs,
+        video: video_id,
         posts: posts,
         publish: publish,
         draft: draft
@@ -396,6 +402,7 @@
       body: body,
       category_id: category_id,
       images: imgs,
+      video: video_id,
       posts: posts,
       publish: publish,
       draft: draft

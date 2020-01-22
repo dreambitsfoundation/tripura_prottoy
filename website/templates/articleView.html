@@ -172,6 +172,14 @@
 
     <div class="container">
       <div class="row">
+        {% if article.generate_youtube_iframes|length > 0 %}
+        <br/>
+        <div class="col s12">
+          <div class="video-container">
+            {{article.generate_youtube_iframes.0|safe}}
+          </div>
+        </div>
+        {% endif %}
         <div class="col s12 l6 hide-on-large-only">
           {% if article == None %}
           <div class="ui center aligned segment" id="noPotView">
