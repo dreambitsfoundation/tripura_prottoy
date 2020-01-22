@@ -78,29 +78,29 @@
     </style>
   </head>
   <body>
-    <!-- <div class="ui container"> -->
-    <br /><br />
-    <div class="row">
-      <div class="col s12 l6">
-        <img
-          src="{% static 'images/janatar_kolom.png' %}"
-          height="130"
-          width="250"
-        />
+    <div class="ui container">
+      <br /><br />
+      <div class="row">
+        <div class="col s12 l6">
+          <img
+            src="{% static 'images/janatar_kolom.png' %}"
+            height="130"
+            width="250"
+          />
+        </div>
+        <div class="col s12 l6 right-align">
+          <br /><br />
+          {% if user.is_authenticated %}
+          <small style="color: grey"
+            ><i class="ui user icon"></i> {{user.get_full_name}}</small
+          >
+          <br />
+          <a href="/accountInfo" style="color: orange"><b>My Account</b></a>
+          {% else %}
+          <a href="/joinus" style="color: orange"><b>Join Us / Sign in</b></a>
+          {% endif %}
+        </div>
       </div>
-      <div class="col s12 l6 right-align">
-        <br /><br />
-        {% if user.is_authenticated %}
-        <small style="color: grey"
-          ><i class="ui user icon"></i> {{user.get_full_name}}</small
-        >
-        <br />
-        <a href="/accountInfo" style="color: orange"><b>My Account</b></a>
-        {% else %}
-        <a href="/joinus" style="color: orange"><b>Join Us / Sign in</b></a>
-        {% endif %}
-      </div>
-      <!-- </div> -->
       <div class="ui one column stackable grid">
         <div class="ui column">
           <span class="" style="font-size: large"
@@ -153,15 +153,17 @@
           </span>
           {% for a in articles %}
           <div class="card horizontal">
-            {% if a.generate_all_image_urls|length > 0 %}
+            {% if a.generate_card_image_urls|length > 0 %}
             <div class="card-image">
-              <img src="{{a.generate_all_image_urls.0}}" height="300" />
+              <img src="{{a.generate_card_image_urls.0}}" />
             </div>
             {% endif %}
             <div class="card-stacked">
               <div class="card-content">
-                <h5 class="bangla_heading">{{a.title}}</h5>
-                <p style="color: grey">{{a.published_on}}</p>
+                <p class="bangla_heading" style="font-size: large">
+                  <b>{{a.title}}</b>
+                </p>
+                <small style="color: grey">{{a.published_on}}</small>
               </div>
               <div class="card-action">
                 <span class="valign-wrapper"
