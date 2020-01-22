@@ -39,6 +39,11 @@
       rel="stylesheet"
     />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <!-- Required Core Stylesheet -->
+    <link rel="stylesheet" href="{% static 'css/glide.core.min.css' %}" />
+
+    <!-- Optional Theme Stylesheet -->
+    <link rel="stylesheet" href="{% static 'css/glide.theme.min.css' %}" />
     <style>
       body {
         font-family: "Titillium Web", cursive;
@@ -166,31 +171,85 @@
     </nav>
 
     <div class="container">
-      <div class="col s12">
-        {% if article == None %}
-        <div class="ui center aligned segment" id="noPotView">
-          <br /><br />
-          <img src="https://img.icons8.com/cotton/64/000000/laptop-alert.png" />
-          <br /><br />
-          <h2 class="comfortaa">Article Not Found!</h2>
-          <br />
-        </div>
-        {% else %}
-        <div class="card-panel" id="postView">
-          <b id="title" class="bangla_heading" style="font-size: xx-large">
-            {{ article.title }}
-          </b>
-          <br />
-          <small>{{ article.published_on }}</small>
-          <br />
-          <div class="valign-wrapper">
-            <i class="grey-text tiny material-icons">visibility</i><span class="grey-text" style="font-size: small">{{article.views}}</span>
-            &nbsp;&nbsp; <div class="fb-share-button" data-href="http://janatarkalam.com/articleView?id={{article.id}}" data-layout="button_count" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
+      <div class="row">
+        <div class="col s12 l6">
+          <div class="glide article_glide">
+            <div class="glide__track" data-glide-el="track">
+              <ul class="glide__slides">
+                {% for image in article.generate_card_image_urls %}
+                <li>
+                  <div class="card">
+                    <div class="card-image">
+                      <img src="{{image}}" />
+                    </div>
+                  </div>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+            <div class="glide__arrows" data-glide-el="controls">
+              <button
+                class="glide__arrow glide__arrow--left"
+                data-glide-dir="<"
+                style="height: 15%"
+              >
+                <i
+                  class="material-icons"
+                  style="background-color: red; color: white"
+                  >chevron_left</i
+                >
+              </button>
+              <button
+                class="glide__arrow glide__arrow--right"
+                data-glide-dir=">"
+                style="height: 15%; background: black 0.8"
+              >
+                <i
+                  class="material-icons"
+                  style="background-color: red; color: white"
+                  >chevron_right</i
+                >
+              </button>
+            </div>
           </div>
           <br />
-          <p id="postContent" class="comfortaa" style="font-size: large">{{ article.body }}</p>
-          <div class="fb-share-button" data-href="http://janatarkalam.com/articleView?id={{article.id}}" data-layout="button_count" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
+          <span style="font-size: large" class="bangla_heading"><b>সংযুক্ত ছবি </b> ({{ images | length }} ছবি)</span>
+          <!---->
+          {% if images %}
+          <br /><br />
+          {%for image in images %}
+          <a href="{{ image }}" target="_blank">
+            <img src="{{ image }}" width="80" height="80" />
+          </a>
+          {% endfor %} {% endif %}
         </div>
+        <div class="col s12 l6">
+          {% if article == None %}
+          <div class="ui center aligned segment" id="noPotView">
+            <br /><br />
+            <img src="https://img.icons8.com/cotton/64/000000/laptop-alert.png" />
+            <br /><br />
+            <h2 class="comfortaa">Article Not Found!</h2>
+            <br />
+          </div>
+          {% else %}
+          <div class="card-panel" id="postView">
+            <b id="title" class="bangla_heading" style="font-size: xx-large">
+              {{ article.title }}
+            </b>
+            <br />
+            <small>{{ article.published_on }}</small>
+            <br />
+            <div class="valign-wrapper">
+              <i class="grey-text tiny material-icons">visibility</i><span class="grey-text" style="font-size: small">{{article.views}}</span>
+              &nbsp;&nbsp; <div class="fb-share-button" data-href="http://janatarkalam.com/articleView?id={{article.id}}" data-layout="button_count" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
+            </div>
+            <br />
+            <p id="postContent" class="comfortaa" style="font-size: large">{{ article.body }}</p>
+            <div class="fb-share-button" data-href="http://janatarkalam.com/articleView?id={{article.id}}" data-layout="button_count" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
+          </div>
+        </div>
+      </div>
           <!-- <h5 class="">Reference Posts ({{ article.posts.all | length }} posts)</h5>
           
           {% if article.posts.all %}
@@ -212,16 +271,6 @@
             </div>
           </div>
           {% endif %} -->
-          <br />
-          <span style="font-size: large" class="bangla_heading"><b>সংযুক্ত ছবি </b> ({{ images | length }} ছবি)</span>
-          <!---->
-          {% if images %}
-          <br /><br />
-          {%for image in images %}
-          <a href="{{ image }}" target="_blank">
-            <img src="{{ image }}" width="80" height="80" />
-          </a>
-          {% endfor %} {% endif %}
           <br /><br />
           <b>{{ comments | length }} Comment(s)</b>
           <br /><br />
@@ -395,6 +444,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     {% load static %}
     <script src="{% static 'comment.js' %}"></script>    
+    <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide"></script>
     <script>
       function startTime() {
         var today = new Date();
@@ -431,6 +481,28 @@
         return weekday[i];
       }
     </script>
-    
+    <script>
+    var slides = $(".glide");
+    console.log(slides);
+    for (var i = 0; i < slides.length; i++) {
+      var glide = new Glide(slides[i], {
+        type: "slider",
+        perView: 1,
+        gap: 3,
+        rewind: true,
+        breakpoints: {
+          800: {
+            perView: 2
+          },
+          480: {
+            perView: 1
+          }
+        },
+        autoplay: 4000,
+        hoverpause: true
+      });
+      glide.mount();
+    }
+    </script>
   </body>
 </html>
