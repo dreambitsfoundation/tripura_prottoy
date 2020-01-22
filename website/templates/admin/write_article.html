@@ -6,16 +6,16 @@
     <label>Select Article Category</label>
     <select name="category_id">
       {% for c in categories %}
-      <option value="{{c.id}}">{{c.name}}</option>
+      <option value="{{c.id}}" {% if article %}{% if article.category.id == c.id %}selected{% endif %}{% endif %}>{{c.name}}</option>
       {% endfor %}
     </select>
     <br />
     <div class="ui input fluid">
-      <input name="heading" placeholder="Enter Heading" />
+      <input name="heading" placeholder="Enter Heading" {% if article %}value="{{article.title}}"{% endif %}/>
     </div>
     <br />
     <div class="ui input fluid">
-      <textarea name="body" placeholder="Enter the content"></textarea>
+      <textarea name="body" placeholder="Enter the content">{% if article %}{{article.body}}{% endif %}</textarea>
     </div>
     <div class="ui yellow raised segment" id="image_upload_segment" hidden>
       <div class="ui container">
@@ -84,7 +84,15 @@
 </div>
 {% endblock %} {% block scripts %} {% load static %}
 <script>
+  {% if article.photos %}
+  var images = [
+    {% for img  in article.photos %}
+    {"public_id": "{{img.public_id}}", "secure_urls": "{{img.secure_urls}}"},
+    {% endfor %}
+  ];
+  {% else %}
   var images = [];
+  {% endif %}
   $("#add_image_btn").click(function(event) {
     event.preventDefault();
     if (images.length) {
@@ -95,10 +103,10 @@
             '<input type="hidden" name="csrfmiddlewaretoken" value="{{carf_token}}"/>' +
             '<input type="file" name="image" placeholder="Find domain" disabled/>' +
             '<button type="button" id="' +
-            images[i] +
+            images[i]["public_id"] +
             '" class="ui button red mini delete_btn" onclick="del(' +
             "'" +
-            images[i] +
+            images[i]["public_id"] +
             "'" +
             ')">' +
             '<i class="ui icon close"></i>' +
@@ -359,6 +367,30 @@
     selectedposts.forEach(function(element){
       posts.push(element["id"])
     });
+    {% if article %}
+    $.ajax({
+      url: "admin/article/",
+      method: "put",
+      data: JSON.stringify(
+        {
+        id: {{article.id}},
+        head: title,
+        body: body,
+        category_id: category_id,
+        images: imgs,
+        posts: posts,
+        publish: publish,
+        draft: draft
+      }
+      ),
+      success: function(data){
+        alert(data.message);
+      },
+      error: function(err){
+        alert("Something went wrong. Please try again!");
+      }
+    });
+    {% else %}
     $.post("admin/article/", JSON.stringify({
       head: title,
       body: body,
@@ -373,6 +405,7 @@
         document.location.reload();
       }
     })
+    {% endif %}
   }
 
   function publish(){

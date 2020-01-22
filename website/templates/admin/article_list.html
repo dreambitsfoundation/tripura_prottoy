@@ -1,0 +1,58 @@
+{% extends 'base.html' %} {% block body %}
+<h3 class="montserrat">All Articles are listed below</h3>
+{% for article in articles %}
+<div class="ui stacked segment">
+  <h4>{{article.title}}</h4>
+  <small>{{article.published_on}}</small>
+  <br /><br />
+  <div class="ui buttons">
+    <button
+      class="ui button mini orange update_article"
+      onclick="updateArticle('{{article.id}}')"
+    >
+      Edit
+    </button>
+    <div class="ui or"></div>
+    <button class="ui button mini red del_article" anchor_id="{{article.id}}">
+      Delete
+    </button>
+  </div>
+</div>
+{% endfor %} {% endblock %} {% block scripts %}
+<script>
+  $(".del_article").click(function() {
+    var button = $(this);
+    var result = confirm(
+      "This will delete this article permanently. Do you wish to continue?"
+    );
+    if (result) {
+      var id = $(this).attr("anchor_id");
+      button.addClass("loading");
+      $.ajax({
+        url: "admin/article/",
+        method: "delete",
+        data: JSON.stringify({ id: id }),
+        success: function(data) {
+          button.removeClass("loading");
+          if (data.status) {
+            alert("Article Deleted Successfully");
+            location.reload();
+          } else {
+            alert("Error: " + data.message);
+          }
+        },
+        error: function(err) {
+          button.removeClass("loading");
+          alert("Something went wrong. Please try again!");
+        }
+      });
+    }
+  });
+
+  function updateArticle(id = "") {
+    if (id.length > 0) {
+      location.href = "adminEditArticle?id=" + id;
+    }
+  }
+</script>
+{% endblock %}

@@ -108,8 +108,15 @@ class ArticleView(View):
         arguments = JsonRequestParser(request)
         try:
             id = int(arguments.get("id"))
-            publish = arguments.get("publish")
+            heading = arguments.get("head")
+            body = arguments.get("body")
+            images = arguments.get("images")
+            posts = arguments.get("posts")   
+            publish = bool(arguments.get("publish"))
+            draft = bool(arguments.get("draft"))
+            category_id = int(arguments.get("category_id"))
         except:
+            raise
             status = False
             code = 500
             message = "Error parsing request data"
@@ -129,15 +136,30 @@ class ArticleView(View):
                 code = 403
                 message = "Post not found"
         if status:
+            categories = ArticleCategoryModel.objects.filter(id=category_id)
+            if len(categories):
+                category = categories[0]
+            else:
+                status = False
+                code = 403
+                message = "Category Not Found."
+        if status:
             try:
-                if publish:
-                    post.approve()
-                    post.save()
-                else:
-                    post.reject()
+                with transaction.atomic():
+                    if publish:
+                        post.published = True
+                        post.save()
+                    else:
+                        post.draft = True
+                        post.save()
+                    post.title = heading
+                    post.body = body
+                    post.photos = images
+                    post.category = category
                     post.save()
                 message = "Post status is successfully updated"
             except:
+                raise
                 status = False
                 code = 500
                 message = "Internal server error"

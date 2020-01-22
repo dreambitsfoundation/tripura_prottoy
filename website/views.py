@@ -206,9 +206,30 @@ def static_article(request):
         }
     )
 
+@login_required
+@admin_only_route
 def facebook_page_token(request):
     return render(request, 'admin/add_facebook_page.html', {})
 
+@login_required
+@admin_only_route
+def articleList(request):
+    if request.method == "GET":
+        articles = ArticlesModel.objects.all().order_by('-published_on')
+        return render(request, 'admin/article_list.html', {"articles": articles})
+
+@login_required
+@admin_only_route
+def edit_article(request):
+    if request.method == "GET":
+        id = int(request.GET.get("id", None))
+        categories = ArticleCategoryModel.objects.all()
+        if id is not None:
+            articles = ArticlesModel.objects.filter(id=id)
+            if len(articles):
+                article = articles[0]
+            return render(request, 'admin/write_article.html', {"article": article, "categories": categories})
+        return HttpResponseRedirect("/adminArticleList")
 
 """ Common Views """
 
