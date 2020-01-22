@@ -95,12 +95,13 @@
             ><i class="ui user icon"></i> {{user.get_full_name}}</small
           >
           <br />
-          <a href="/accountInfo" style="color: orange"><b>My Account</b></a>
+          <a href="/accountInfo" style="color: red"><b>My Account</b></a>
           {% else %}
-          <a href="/joinus" style="color: orange"><b>Join Us / Sign in</b></a>
+          <a href="/joinus" style="color: red"><b>Join Us / Sign in</b></a>
           {% endif %}
         </div>
       </div>
+      <br /><br />
       <div class="ui one column stackable grid">
         <div class="ui column">
           <span class="" style="font-size: large"
@@ -206,7 +207,52 @@
         </div>
       </div>
     </div>
-
+    <br /><br />
+    <footer class="page-footer grey darken-4">
+      <div class="container">
+        <div class="row">
+          <div class="col l6 s12">
+            <img
+              src="{% static 'images/janatar_kolom.png' %}"
+              height="80"
+              width="140"
+            />
+            <p class="grey-text text-lighten-4">
+              জনতার ভাষায়, জনতার সাথে |
+            </p>
+            <p>
+              <small class="grey-text text-lighten-4">
+                Vector images used in this application that are not part of the
+                dyanamic news material are either propriatory or licensed
+                exclusively to Chevichef Private Limited.
+              </small>
+            </p>
+          </div>
+          <div class="col l4 offset-l2 s12">
+            <h5 class="white-text">Important Links</h5>
+            <ul>
+              <li>
+                <a class="grey-text text-lighten-3" href="#!">Privacy Policy</a>
+              </li>
+              <li>
+                <a class="grey-text text-lighten-3" href="#!">Disclaimer</a>
+              </li>
+              <li>
+                <a class="grey-text text-lighten-3" href="#!">Terms of Use</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-copyright">
+        <div class="container">
+          © 2020 Janatar Kalam. All Rights Reserved
+          <a class="grey-text text-lighten-4 right" href="http://devsiti.com"
+            >A &lt;devsiti /&gt; production.</a
+          >
+        </div>
+      </div>
+    </footer>
     <script
       src="https://code.jquery.com/jquery-3.1.1.min.js"
       integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="

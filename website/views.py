@@ -309,7 +309,7 @@ def search(request):
         if len(query) < 4:
             q = query
             raise Exception('Invalid Argument')
-        articles = ArticlesModel.objects.filter(Q(title__icontains=query)|Q(body__icontains=query)|Q(category__name=query)).distinct()
+        articles = ArticlesModel.objects.filter(Q(title__icontains=query)|Q(body__icontains=query)|Q(category__name=query)).distinct().order_by('-published_on')
         posts = PostModel.objects.filter(Q(title__icontains=query)|Q(body__icontains=query)|Q(organisation__icontains=query), approved=True).distinct()
         static_articles = StaticArticleModel.objects.filter(Q(title__icontains=query)|Q(content__icontains=query)).distinct()
         comments = CommentModel.objects.filter(text__icontains=query).order_by("-last_updated")
