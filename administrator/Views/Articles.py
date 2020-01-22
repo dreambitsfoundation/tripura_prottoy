@@ -71,6 +71,13 @@ class ArticleView(View):
                 code = 403
                 message = "Category not found"
         if status:
+            if status:
+                temp_ids = video.split(";")
+            video_ids = []
+            for t in temp_ids:
+                if len(t) > 0:
+                    video_ids.append(t)
+        if status:
             try:
                 with transaction.atomic():
                     article = self.model()
@@ -84,7 +91,6 @@ class ArticleView(View):
                         publish=publish
                     )
                     article.category = category
-                    video_ids = video.split(";")
                     article.videos = video_ids
                     article.save()
                     print(article.id)
@@ -147,6 +153,12 @@ class ArticleView(View):
                 code = 403
                 message = "Category Not Found."
         if status:
+            temp_ids = video.split(";")
+            video_ids = []
+            for t in temp_ids:
+                if len(t) > 0:
+                    video_ids.append(t)
+        if status:
             try:
                 with transaction.atomic():
                     if publish:
@@ -159,7 +171,6 @@ class ArticleView(View):
                     post.body = body
                     post.photos = images
                     post.category = category
-                    video_ids = video.split(";")
                     post.videos = video_ids
                     post.save()
                 message = "Post status is successfully updated"

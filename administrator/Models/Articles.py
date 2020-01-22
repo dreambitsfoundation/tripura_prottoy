@@ -134,12 +134,14 @@ class ArticlesModel(models.Model):
 
     def generate_youtube_iframes(self):
         links = []
+        print(len(self.videos))
         if self.videos is not None:
             for v in self.videos:
                 link = '<iframe id="ytplayer" type="text/html" width="640" height="200"' + \
                 'src="https://www.youtube.com/embed/' + v + '"' + \
                 'frameborder="0" allowfullscreen></iframe>'
                 links.append(link)
+        print(links)
         return links
 
     def serialize(self):
