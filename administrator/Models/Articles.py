@@ -42,12 +42,16 @@ class ArticlesModel(models.Model):
 
     def generate_all_image_urls(self):
         urls = []
+        card_urls = []
         current_photos = self.photos
         final_photos = []
         if self.photos:
             for photo in current_photos:
                 try:
                     urls.append(photo['secure_urls'])
+                    current_url = photo['secure_urls']
+                    current_url = current_url.split("/")
+                    card_urls.append(self.crop_to_card_size(current_url))
                     final_photos.append(photo)
                 except NotFound as e:
                     print("not found")
@@ -58,6 +62,72 @@ class ArticlesModel(models.Model):
             self.photos = final_photos
             self.save()
         return urls
+
+    def generate_card_image_urls(self):
+        card_urls = []
+        current_photos = self.photos
+        final_photos = []
+        if self.photos:
+            for photo in current_photos:
+                try:
+                    current_url = photo['secure_urls']
+                    current_url = current_url.split("/")
+                    card_urls.append(self.crop_to_card_size(current_url))
+                    final_photos.append(photo)
+                except NotFound as e:
+                    print("not found")
+                    pass
+                except Exception as e:
+                    print(e)
+                    final_photos.append(photo)
+            self.photos = final_photos
+            self.save()
+        return card_urls
+
+    def generate_thumbnail_image_urls(self):
+        card_urls = []
+        current_photos = self.photos
+        final_photos = []
+        if self.photos:
+            for photo in current_photos:
+                try:
+                    current_url = photo['secure_urls']
+                    current_url = current_url.split("/")
+                    card_urls.append(self.crop_to_thumbnail_size(current_url))
+                    final_photos.append(photo)
+                except NotFound as e:
+                    print("not found")
+                    pass
+                except Exception as e:
+                    print(e)
+                    final_photos.append(photo)
+            self.photos = final_photos
+            self.save()
+        return card_urls
+
+    def crop_to_card_size(self, url:list):
+        final = ""
+        if len(url) == 8:
+            url[-2] = "w_300,h_200,c_fill"            
+        elif len(url) == 7:
+            url.insert(6, "w_300,h_200,c_fill")
+        for index, piece in enumerate(url):
+            final = final + piece
+            if index < len(url)-1:
+                final = final + "/"
+        return final
+
+    def crop_to_thumbnail_size(self, url:list):
+        final = ""
+        if len(url) == 8:
+            url[-2] = "h_200,c_fill"            
+        elif len(url) == 7:
+            url.insert(6, "h_200,c_fill")
+        for index, piece in enumerate(url):
+            final = final + piece
+            if index < len(url)-1:
+                final = final + "/"
+        return final
 
     def add_one_view(self):
         self.views = self.views + 1

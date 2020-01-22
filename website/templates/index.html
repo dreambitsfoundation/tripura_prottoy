@@ -103,7 +103,7 @@
       }
 
       .thumbnail2 {
-        height: 350px;
+        height: 200px;
         background-repeat: no-repeat;
       }
 
@@ -305,10 +305,10 @@
           <div class="row">
             {% for article in latest_articles %}
             <div class="col l6 s12">
-              <div class="card">
+              <div class="card large">
                 {% if article.images|length > 0 %}
                 <div class="card-image">
-                  <img src="{{article.images.0}}" />
+                  <img src="{{article.generate_card_image_urls.0}}" />
                 </div>
                 {% endif %}
                 <div class="card-content">
@@ -320,7 +320,7 @@
                   <small class="grey-text">{{article.published_on}}</small>
                   <br />
                   <br />
-                  <b>{{ article.title }}</b>
+                  <b>{{article.title|slice:":40"}} ...</b>
                   <br /><br />
                   <p>
                     <small>{{ article.body|slice:":50" }}..</small>
@@ -363,23 +363,18 @@
               <ul class="glide__slides">
                 {% for article in category.articles %}
                 <li>
-                  <div
-                    class="ui stacked segment thumbnail2"
-                    style="background-image: url('{{article.images.0}}')"
-                  >
-                    <span
-                      style="position: fixed; bottom: 8px; background-color: yellow; padding: 10px; overflow-x: auto"
-                    >
+                  <div class="card">
+                    {% if article.images|length > 0 %}
+                    <div class="card-image">
+                      <img src="{{article.generate_card_image_urls.0}}" />
                       <a
                         href="articleView?id={{article.id}}"
-                        style="color:black; text-decoration: none"
-                        ><b>{{article.title}}</b></a
+                        class="card-title black text"
+                        style="text-decoration-color: white;"
+                        ><small>{{article.title|slice:":30"}} ...</small></a
                       >
-                      <br />
-                      <small style="color: grey; font-size: 10px"
-                        >{{article.published_on}}</small
-                      >
-                    </span>
+                    </div>
+                    {% endif %}
                   </div>
                 </li>
                 {% endfor %}
