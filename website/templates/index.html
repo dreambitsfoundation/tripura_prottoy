@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Title</title>
+    <title>Janatar Kalam</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link
@@ -165,67 +165,67 @@
   </head>
   <body onload="startTime()">
     <br />
-    <div class="container">
-      <div class="row">
-        <div class="col s1 valign-wrapper">
-          <span class="new badge red" style="padding-right: 20px"
-            >Latest &gt;</span
-          >
-        </div>
-        <div class="col s11">
-          <marquee
-            onmouseover="this.stop();"
-            onmouseout="this.start();"
-            style="margin-top: 4px"
-          >
-            {% for article in latest_articles %}
-            <a
-              href="articleView?id={{article.id}}"
-              target="_blank"
-              style="text-decoration: none; color: black"
-              >{{article.title}}</a
-            ><small class="grey-text" style="margin-right: 70px"
-              >&nbsp;&nbsp;{{article.published_on}}</small
-            ><i class="ui circle icon mini"></i>&nbsp;&nbsp;&nbsp; {% endfor %}
-          </marquee>
-        </div>
-        <div class="divider"></div>
-        <div class="col s12 l4 center-align">
-          <img
-            src="{% static 'images/janatar_kolom.png' %}"
-            height="80"
-            width="120"
-            style="margin-top: 20px"
-            class="center-align"
-          />
-          <br />
-          <b class="comfortaa">জনতার ভাষায়, জনতার সাথে |</b>
-        </div>
-        <div class="col s12 l8 right-align">
-          <small id="current_time"></small>
-          <br /><br />
-          {% if user.is_authenticated %}
-          <small style="color: grey"
-            ><i class="ui user icon"></i> {{user.get_full_name}}</small
-          >
-          <br />
-          <a href="/accountInfo" style="color: red"><b>My Account</b></a>
-          {% else %}
-          <a href="/joinus" style="color: red"><b>Join Us / Sign in</b></a>
-          {% endif %}
-          <br />
-          <form
-            class="input-field"
-            method="GET"
-            action="/search"
-            style="width: 30%; float:right; margin-top: 5px; margin-bottom: 0px"
-          >
-            <i class="material-icons prefix">search</i>
-            <input type="text" name="q" placeholder="Search" />
-          </form>
-        </div>
+    <!-- <div class="container"> -->
+    <div class="row">
+      <div class="col s1 valign-wrapper">
+        <span class="new badge red" style="padding-right: 20px"
+          >Latest &gt;</span
+        >
+      </div>
+      <div class="col s11">
+        <marquee
+          onmouseover="this.stop();"
+          onmouseout="this.start();"
+          style="margin-top: 4px"
+        >
+          {% for article in latest_articles %}
+          <a
+            href="articleView?id={{article.id}}"
+            target="_blank"
+            style="text-decoration: none; color: black"
+            >{{article.title}}</a
+          ><small class="grey-text" style="margin-right: 70px"
+            >&nbsp;&nbsp;{{article.published_on}}</small
+          ><i class="ui circle icon mini"></i>&nbsp;&nbsp;&nbsp; {% endfor %}
+        </marquee>
+      </div>
+      <div class="divider"></div>
+      <div class="col s12 l4 center-align">
+        <img
+          src="{% static 'images/janatar_kolom.png' %}"
+          height="80"
+          width="120"
+          style="margin-top: 20px"
+          class="center-align"
+        />
+        <br />
+        <b class="comfortaa">জনতার ভাষায়, জনতার সাথে |</b>
+      </div>
+      <div class="col s12 l8 right-align">
+        <small id="current_time"></small>
+        <br /><br />
+        {% if user.is_authenticated %}
+        <small style="color: grey"
+          ><i class="ui user icon"></i> {{user.get_full_name}}</small
+        >
+        <br />
+        <a href="/accountInfo" style="color: red"><b>My Account</b></a>
+        {% else %}
+        <a href="/joinus" style="color: red"><b>Join Us / Sign in</b></a>
+        {% endif %}
+        <br />
+        <form
+          class="input-field"
+          method="GET"
+          action="/search"
+          style="width: 30%; float:right; margin-top: 5px; margin-bottom: 0px"
+        >
+          <i class="material-icons prefix">search</i>
+          <input type="text" name="q" placeholder="Search" />
+        </form>
       </div>
     </div>
+    <!-- </div> -->
     <nav class="nav-extended red darken-4">
       <div class="container">
         <div class="nav-content">
@@ -465,12 +465,12 @@
       for (var i = 0; i < slides.length; i++) {
         var glide = new Glide(slides[i], {
           type: "slider",
-          perView: 4,
+          perView: 1,
           gap: 3,
           rewind: true,
           breakpoints: {
             800: {
-              perView: 2
+              perView: 1
             },
             480: {
               perView: 1
@@ -495,7 +495,7 @@
           rewind: true,
           breakpoints: {
             800: {
-              perView: 2
+              perView: 1
             },
             480: {
               perView: 1
