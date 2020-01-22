@@ -320,8 +320,7 @@
                   <small class="grey-text">{{article.published_on}}</small>
                   <br />
                   <br />
-                  <b>{{article.title|slice:":40"}} ...</b>
-                  <br /><br />
+                  <b>{{article.title|slice:":50"}} ...</b>
                   <p>
                     <small>{{ article.body|slice:":50" }}..</small>
                   </p>
@@ -386,14 +385,22 @@
                 data-glide-dir="<"
                 style="height: 15%"
               >
-                <i class="ui icon left arrow black"></i>
+                <i
+                  class="material-icons"
+                  style="background-color: red; color: white"
+                  >chevron_left</i
+                >
               </button>
               <button
                 class="glide__arrow glide__arrow--right"
                 data-glide-dir=">"
                 style="height: 15%; background: black 0.8"
               >
-                <i class="ui icon right arrow black"></i>
+                <i
+                  class="material-icons"
+                  style="background-color: red; color: white"
+                  >chevron_right</i
+                >
               </button>
             </div>
           </div>
