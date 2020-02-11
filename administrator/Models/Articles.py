@@ -120,9 +120,9 @@ class ArticlesModel(models.Model):
     def crop_to_thumbnail_size(self, url:list):
         final = ""
         if len(url) == 8:
-            url[-2] = "h_200,c_fill"            
+            url[-2] = "h_200,c_thumb,g_center"            
         elif len(url) == 7:
-            url.insert(6, "h_200,c_fill,g_auto")
+            url.insert(6, "h_200,c_thumb,g_center")
         for index, piece in enumerate(url):
             final = final + piece
             if index < len(url)-1:
