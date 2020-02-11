@@ -115,6 +115,14 @@
         height: auto;
       }
 
+      .vertical-center {
+        margin: 0;
+        position: absolute;
+        top: 50%;
+        -ms-transform: translateY(-50%);
+        transform: translateY(-50%);
+      }
+
       marquee:hover {
         -moz-animation-play-state: paused;
         -webkit-animation-play-state: paused;
@@ -239,9 +247,21 @@
         </div>
       </div>
     </nav>
-    <div class="container">
+    <div class="hide-on-small-only">
       <div class="row">
-        <div class="col s12">
+        <div class="col m2" style="height: 400px">
+          <div
+            style="height: inherit; width: 200px; background-color: lightgrey; margin-top: 20px; text-align: center;"
+          >
+            <div>
+              <br /><br /><br /><br />
+              <span class="montserrat" style="font-size: large">Ad Here</span>
+              <br />
+              <p class="montserrat" style="font-size: x-large">200 x 400</p>
+            </div>
+          </div>
+        </div>
+        <div class="col m8">
           <div class="glide article_glide">
             <div class="glide__track" data-glide-el="track">
               <ul class="glide__slides">
@@ -294,6 +314,22 @@
             </div>
           </div>
         </div>
+        <div class="col m2" style="height: 400px">
+          <div
+            style="height: inherit; width: 200px; background-color: lightgrey; margin-top: 20px; text-align: center;"
+          >
+            <div>
+              <br /><br /><br /><br />
+              <span class="montserrat" style="font-size: large">Ad Here</span>
+              <br />
+              <p class="montserrat" style="font-size: x-large">200 x 400</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
         <!-- Latest Post -->
         <div class="col s12">
           <h5
