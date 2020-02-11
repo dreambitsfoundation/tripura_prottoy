@@ -100,7 +100,7 @@
       }
     </style>
   </head>
-  <body>
+  <body onmousedown="return false;" onselectstart="return false;">
     {% load static %}
     <br />
     <!-- <div class="container"> -->
@@ -191,18 +191,18 @@
           </div>
           {% else %}
           <div class="card-panel" id="postView">
-            <b id="title" class="bangla_heading" style="font-size: xx-large">
+            <b id="title" class="bangla_heading" style="font-size: xx-large" onmousedown="return false;" onselectstart="return false;">
               {{ article.title }}
             </b>
             <br />
             <small>{{ article.published_on }}</small>
             <br />
             <div class="valign-wrapper">
-              <i class="grey-text tiny material-icons">visibility</i><span class="grey-text" style="font-size: small">{{article.views}}</span>
+              {% if user.is_administrator %}<i class="grey-text tiny material-icons">visibility</i><span class="grey-text" style="font-size: small">{{article.get_fake_views}}</span>{% endif %}
               &nbsp;&nbsp; <div class="fb-share-button" data-href="http://janatarkalam.com/articleView?id={{article.id}}" data-layout="button_count" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
             </div>
             <br />
-            <p id="postContent" class="comfortaa" style="font-size: large">{{ article.body }}</p>
+            <p id="postContent" class="comfortaa" style="font-size: large" onmousedown="return false;" onselectstart="return false;">{{ article.body }}</p>
             <div class="fb-share-button" data-href="http://janatarkalam.com/articleView?id={{article.id}}" data-layout="button_count" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
           </div>
           {% endif %}
@@ -306,7 +306,7 @@
                 </small>
               </p>
             </div>
-            <p>{{ comment.text }}</p>
+            <p onmousedown="return false;" onselectstart="return false;">{{ comment.text }}</p>
             <div style="margin-left: 20px">
               <b>{{ comment.sub_comment.all | length }} Response(s)</b>
               <br /><br />
@@ -325,7 +325,7 @@
                   <small>{{ c.last_updated }}</small>
                 </p>
               </div>
-              <p>{{ c.text }}</p>
+              <p onmousedown="return false;" onselectstart="return false;">{{ c.text }}</p>
               <div class="ui divider"></div>
               {% endfor %} {% if user.is_authenticated %}
               <div class="card-panel">
@@ -377,18 +377,18 @@
           </div>
           {% else %}
           <div class="card-panel" id="postView">
-            <b id="title" class="bangla_heading" style="font-size: xx-large">
+            <b id="title" class="bangla_heading" style="font-size: xx-large" onmousedown="return false;" onselectstart="return false;">
               {{ article.title }}
             </b>
             <br />
             <small>{{ article.published_on }}</small>
             <br />
             <div class="valign-wrapper">
-              <i class="grey-text tiny material-icons">visibility</i><span class="grey-text" style="font-size: small">{{article.views}}</span>
+              {% if user.is_administrator %}<i class="grey-text tiny material-icons">visibility</i><span class="grey-text" style="font-size: small">{{article.get_fake_views}}</span>{% endif %}
               &nbsp;&nbsp; <div class="fb-share-button" data-href="http://janatarkalam.com/articleView?id={{article.id}}" data-layout="button_count" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
             </div>
             <br />
-            <p id="postContent" class="comfortaa" style="font-size: large">{{ article.body }}</p>
+            <p id="postContent" class="comfortaa" style="font-size: large" onmousedown="return false;" onselectstart="return false;">{{ article.body }}</p>
             <div class="fb-share-button" data-href="http://janatarkalam.com/articleView?id={{article.id}}" data-layout="button_count" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
           </div>
           {% endif %}

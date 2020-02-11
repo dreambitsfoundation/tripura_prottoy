@@ -144,6 +144,9 @@ class ArticlesModel(models.Model):
         print(links)
         return links
 
+    def get_fake_views(self):
+        return 100 + self.views
+
     def serialize(self):
         from customer.Models import CommentModel
         comments = []
