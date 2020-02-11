@@ -58,12 +58,9 @@ class ImageUploadView(View):
         code = 200
         message = ""
         data = []
-        print("request is here")
-        print(request.FILES)
         try:
             image = request.FILES['image']
         except:
-            raise
             status = False
             code = 500
             message = "Error parsing request data"

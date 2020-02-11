@@ -1,0 +1,172 @@
+{% extends 'base.html' %} {% block body %}
+<h3 class="comfortaa">Manage Ad Images</h3>
+<div class="ui raised segment">
+  <div class="ui container">
+    <div class="ui two column grid">
+      <div class="ui four wide column">
+        {% if image and image.tall_image_id|length > 0 %}
+        <img src="{{image.tall_image_secure_url}}" height="400" width="200" />
+        {% else %}
+        <div
+          style="height: 400px; width: 200px; background-color: lightgrey; text-align: center;"
+        >
+          <div>
+            <br /><br /><br /><br />
+            <span class="montserrat" style="font-size: large">Ad Here</span>
+            <br />
+            <p class="montserrat" style="font-size: x-large">200 x 400</p>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+      <div class="ui twelve wide column">
+        <h2 class="comfortaa">Tall Ad Banner.</h2>
+        <div class="ui divider"></div>
+        <p>
+          <b>Please Note:</b> the submitted image will be automatically cropped
+          to 400 x 200 while uploading.
+        </p>
+        <form class="ui form" id="tall_image_form">
+          <input type="file" name="image" class="ui input" />
+          <br /><br />
+          <button class="ui small button green" type="submit">
+            Submit Image
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<br /><br />
+<div class="ui raised segment">
+  <div class="ui container">
+    <div class="ui two column grid">
+      <div class="ui six wide column">
+        {% if image and image.wide_image_id|length > 0 %}
+        <img src="{{image.wide_image_secure_url}}" height="50" width="300" />
+        {% else %}
+        <div
+          style="height: 50px; width: 300px; background-color: lightgrey; text-align: center;"
+        >
+          <div>
+            <span class="montserrat">Ad Here</span>
+            <br />
+            <p class="montserrat">300 x 50</p>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+      <div class="ui ten wide column">
+        <h2 class="comfortaa">
+          Wide Ad Banner. <small>(For Mobile Devices)</small>
+        </h2>
+        <div class="ui divider"></div>
+        <p>
+          <b>Please Note:</b> the submitted image will be automatically cropped
+          to 300 x 50 while uploading.
+        </p>
+        <form class="ui form" method="PUT" id="wide_image_form">
+          <input type="file" name="image" class="ui input" />
+          <input type="hidden" name="purpose" value="wide" />
+          <br /><br />
+          <button class="ui small button green" type="submit">
+            Submit Image
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block scripts %}
+<script>
+  $("#tall_image_form").on("submit", function(event) {
+    event.preventDefault();
+    var form = $(this);
+    var fd = new FormData();
+    console.log($(form).find("input"));
+    var img = $(form).find("input")[0].files[0];
+    fd.append("image", img);
+    fd.append("purpose", "tall");
+    $(form)
+      .find("button")
+      .addClass("loading");
+    $.ajax({
+      url: "admin/ad_image",
+      data: fd,
+      type: "post",
+      contentType: false,
+      processData: false,
+      success: function(data) {
+        $(form)
+          .find("button")
+          .attr("disabled", false);
+        if (data.status) {
+          alert("Image Updated Successfully.");
+          window.location.reload();
+        } else {
+          alert("Error: " + data.message);
+        }
+      },
+      error: function() {
+        alert("Error: Something went wrong.");
+      },
+      always: function() {
+        $(form)
+          .find(".button")
+          .attr("disabled", false);
+        $(form)
+          .find(".upload_btn")
+          .removeClass("loading");
+      }
+    });
+  });
+
+  $("#wide_image_form").on("submit", function(event) {
+    event.preventDefault();
+    var form = $(this);
+    var fd = new FormData();
+    console.log($(form).find("input"));
+    var img = $(form).find("input")[0].files[0];
+    fd.append("image", img);
+    fd.append("purpose", "wide");
+    $(form)
+      .find("button")
+      .addClass("loading");
+    $.ajax({
+      url: "admin/ad_image",
+      data: fd,
+      type: "post",
+      contentType: false,
+      processData: false,
+      success: function(data) {
+        $(form)
+          .find("button")
+          .attr("disabled", false);
+        if (data.status) {
+          alert("Image Updated Successfully.");
+          window.location.reload();
+        } else {
+          $(form)
+            .find("button")
+            .removeClass("loading");
+          alert("Error: " + data.message);
+        }
+      },
+      error: function() {
+        $(form)
+          .find("button")
+          .removeClass("loading");
+        alert("Error: Something went wrong.");
+      },
+      always: function() {
+        $(form)
+          .find(".button")
+          .attr("disabled", false);
+        $(form)
+          .find(".upload_btn")
+          .removeClass("loading");
+      }
+    });
+  });
+</script>
+{% endblock %}

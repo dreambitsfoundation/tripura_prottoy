@@ -10,7 +10,7 @@ from django.contrib.auth import logout
 from authentication.Decorators.AuthorizationValidator import login_required, admin_only, admin_only_route, \
     parse_user_profile
 from customer.Models import PostModel, CommentModel
-from administrator.Models import ArticlesModel, ArticleCategoryModel, StaticCategoryModel, StaticArticleModel
+from administrator.Models import ArticlesModel, ArticleCategoryModel, StaticCategoryModel, StaticArticleModel, AdImageModel
 from authentication.models import User
 
 @parse_user_profile
@@ -35,12 +35,18 @@ def index(request):
     latest_articles = ArticlesModel.objects.all().order_by('-published_on')[:10]
     for r in latest_articles:
             r.images = r.generate_all_image_urls()
+    ad_image = AdImageModel.objects.all()
+    if len(ad_image) > 0:
+        ad_image = ad_image[0]
+    else:
+        ad_image = None
     return render(request, "index.html", context={
         "posts": all_posts,
         "articles": article,
         "menu": static_cat,
         "article_menu": parent_articles,
-        "latest_articles": latest_articles
+        "latest_articles": latest_articles,
+        "image": ad_image
         }
     )
 
@@ -230,6 +236,16 @@ def edit_article(request):
                 article = articles[0]
             return render(request, 'admin/write_article.html', {"article": article, "categories": categories})
         return HttpResponseRedirect("/adminArticleList")
+
+@login_required
+@admin_only
+def manage_ad_image(request):
+    ad_image = AdImageModel.objects.all()
+    if len(ad_image) > 0:
+        ad_image = ad_image[0]
+    else:
+        ad_image = None
+    return render(request, 'admin/add_ad_image.html', {"title": "Manage Ads", "image":ad_image})
 
 """ Common Views """
 
