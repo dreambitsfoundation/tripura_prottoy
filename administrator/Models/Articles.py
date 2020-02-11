@@ -108,9 +108,9 @@ class ArticlesModel(models.Model):
     def crop_to_card_size(self, url:list):
         final = ""
         if len(url) == 8:
-            url[-2] = "w_300,h_200,c_fill"            
+            url[-2] = "w_300,h_200,c_scale"            
         elif len(url) == 7:
-            url.insert(6, "w_300,h_200,c_fill")
+            url.insert(6, "w_300,h_200,c_scale")
         for index, piece in enumerate(url):
             final = final + piece
             if index < len(url)-1:
@@ -122,7 +122,7 @@ class ArticlesModel(models.Model):
         if len(url) == 8:
             url[-2] = "h_200,c_fill"            
         elif len(url) == 7:
-            url.insert(6, "h_200,c_fill")
+            url.insert(6, "h_200,c_fill,g_auto")
         for index, piece in enumerate(url):
             final = final + piece
             if index < len(url)-1:
