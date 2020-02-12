@@ -129,43 +129,43 @@
         </div>
       </div>
       <div class="container">
-          <div class="row">
-            <div class="col s12 l4">
-              <img
-                src="{% static 'images/janatar_kolom.png' %}"
-                height="80"
-                width="120"
-                style="margin-top: 20px"
-                class="center-align"
-              />
-              <br />
-              <b class="comfortaa">জনতার ভাষায়, জনতার সাথে |</b>
-            </div>
-            <div class="col s12 l8 right-align">
-              <small id="current_time"></small>
-              <br /><br />
-              {% if user.is_authenticated %}
-              <small style="color: grey"
-                ><i class="ui user icon"></i> {{user.get_full_name}}</small
-              >
-              <br />
-              <a href="/accountInfo" style="color: red"><b>My Account</b></a>
-              {% else %}
-              <a href="/joinus" style="color: red"><b>Join Us / Sign in</b></a>
-              {% endif %}
-              <br />
-              <form
-                class="input-field"
-                method="GET"
-                action="/search"
-                style="width: 30%; float:right; margin-top: 5px; margin-bottom: 0px"
-              >
-                <i class="material-icons prefix">search</i>
-                <input type="text" name="q" placeholder="Search" />
-              </form>
-            </div>
-          </div>
+      <div class="row">
+        <div class="col s12 l4">
+          <img
+            src="{% static 'images/janatar_kolom.png' %}"
+            height="80"
+            width="120"
+            style="margin-top: 20px"
+            class="center-align"
+          />
+          <br />
+          <b class="comfortaa">জনতার ভাষায়, জনতার সাথে |</b>
         </div>
+        <div class="col s12 l8 right-align">
+          <small id="current_time"></small>
+          <br /><br />
+          {% if user.is_authenticated %}
+          <small style="color: grey"
+            ><i class="ui user icon"></i> {{user.get_full_name}}</small
+          >
+          <br />
+          <a href="/accountInfo" style="color: red"><b>My Account</b></a>
+          {% else %}
+          <a href="/joinus" style="color: red"><b>Join Us / Sign in</b></a>
+          {% endif %}
+          <br />
+          <form
+            class="input-field"
+            method="GET"
+            action="/search"
+            style="width: 30%; float:right; margin-top: 5px; margin-bottom: 0px"
+          >
+            <i class="material-icons prefix">search</i>
+            <input type="text" name="q" placeholder="Search" />
+          </form>
+        </div>
+      </div>
+    </div>
     <!-- </div> -->
     <nav class="nav-extended red darken-4">
       <!-- <div class="nav-wrapper">
@@ -194,7 +194,6 @@
         </div>
       </div>
     </nav>
-
     <div class="container">
       <div class="row">
         {% if article.generate_youtube_iframes|length > 0 %}
@@ -466,13 +465,10 @@
             <h5 class="white-text">Important Links</h5>
             <ul>
               <li>
-                <a class="grey-text text-lighten-3" href="#!">Privacy Policy</a>
+                <a class="grey-text text-lighten-3" href="/viewStaticArticle?id=1">Privacy Policy</a>
               </li>
               <li>
-                <a class="grey-text text-lighten-3" href="#!">Disclaimer</a>
-              </li>
-              <li>
-                <a class="grey-text text-lighten-3" href="#!">Terms of Use</a>
+                <a class="grey-text text-lighten-3" href="/viewStaticArticle?id=2">Legal Disclaimer</a>
               </li>
             </ul>
           </div>
