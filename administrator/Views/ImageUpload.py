@@ -1,3 +1,4 @@
+import cloudinary
 from django.http import JsonResponse
 from django.utils.decorators import method_decorator
 from django.views import View
@@ -66,7 +67,25 @@ class ImageUploadView(View):
             message = "Error parsing request data"
         if status:
             try:
+                cloudinary.config(
+                    cloud_name="janatarkalambackup",
+                    api_key="337747625353345",
+                    api_secret="XsW3rNnGzG7slxyKz2KS3MLNsSo"
+                )
                 result = upload(image)
+                print(result)
+                data = [{"public_id": result['public_id'], "secure_urls": result['secure_url']}]
+            except cloudinary.api.Error:
+                print("-----------------------------------------------")
+                print("Got error in first config trying second")
+                print("-----------------------------------------------")
+                cloudinary.config(
+                    cloud_name="janatarkalam",
+                    api_key="158518893827718",
+                    api_secret="TPhvUo9kxFVeETYmSKvMCYlXMLc"
+                )
+                result = upload(image)
+                print(result)
                 data = [{"public_id": result['public_id'], "secure_urls": result['secure_url']}]
             except:
                 raise

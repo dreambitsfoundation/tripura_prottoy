@@ -178,10 +178,10 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 AUTH_USER_MODEL = 'authentication.User'
 
-CLOUDINARY = {
-    'cloud_name': 'janatarkalam',
-    'api_key': '158518893827718',
-    'api_secret': 'TPhvUo9kxFVeETYmSKvMCYlXMLc'
-}
-
-CLOUDINARY_APP_NAME = "janatarkalam"
+# CLOUDINARY = {
+#     'cloud_name': 'janatarkalam',
+#     'api_key': '158518893827718',
+#     'api_secret': 'TPhvUo9kxFVeETYmSKvMCYlXMLc'
+# }
+#
+# CLOUDINARY_APP_NAME = "janatarkalam"
