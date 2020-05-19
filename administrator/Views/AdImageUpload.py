@@ -52,6 +52,7 @@ class AdImageView(View):
         print(request.FILES)
         try:
             image = request.FILES['image']
+            print(request.POST.get("purpose"))
         except:
             raise
             status = False
