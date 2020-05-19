@@ -65,13 +65,14 @@ class AdImageView(View):
                 message = "Purpose not provided"
         if status:
             try:
-                ad_image_instance = self.model.objects.filter(id=1)
+                ad_image_instance = self.model.objects.filter(id=0)
                 if len(ad_image_instance) == 0:
                     ad_image_instance = self.model()
                     ad_image_instance.save()
                 else:
                     ad_image_instance = ad_image_instance[0]
             except:
+                raise
                 status = False
                 code = 500
                 message = "Internal Server Error"
