@@ -38,15 +38,55 @@ class AdImageModel(models.Model):
 
     def update_tall_image(self, image_file):
         #result = upload(image_file, height=400, width=200)
-        result = upload(image_file)
-        self.tall_image_id = result['public_id']
-        self.tall_image_secure_url = result['secure_url']
+        try:
+            cloudinary.config(
+                cloud_name="janatarkalambackup",
+                api_key="337747625353345",
+                api_secret="XsW3rNnGzG7slxyKz2KS3MLNsSo"
+            )
+            result = upload(image_file)
+            self.tall_image_id = result['public_id']
+            self.tall_image_secure_url = result['secure_url']
+        except cloudinary.api.Error:
+            print("-----------------------------------------------")
+            print("Got error in first config trying second")
+            print("-----------------------------------------------")
+            cloudinary.config(
+                cloud_name="janatarkalam",
+                api_key="158518893827718",
+                api_secret="TPhvUo9kxFVeETYmSKvMCYlXMLc"
+            )
+            result = upload(image_file)
+            self.tall_image_id = result['public_id']
+            self.tall_image_secure_url = result['secure_url']
+        except:
+            raise
 
     def update_wide_image(self, image_file):
         #result = upload(image_file, height=400, width=200)
-        result = upload(image_file)
-        self.wide_image_id = result['public_id']
-        self.wide_image_secure_url = result['secure_url']
+        try:
+            cloudinary.config(
+                cloud_name="janatarkalambackup",
+                api_key="337747625353345",
+                api_secret="XsW3rNnGzG7slxyKz2KS3MLNsSo"
+            )
+            result = upload(image_file)
+            self.wide_image_id = result['public_id']
+            self.wide_image_secure_url = result['secure_url']
+        except cloudinary.api.Error:
+            print("-----------------------------------------------")
+            print("Got error in first config trying second")
+            print("-----------------------------------------------")
+            cloudinary.config(
+                cloud_name="janatarkalam",
+                api_key="158518893827718",
+                api_secret="TPhvUo9kxFVeETYmSKvMCYlXMLc"
+            )
+            result = upload(image_file)
+            self.wide_image_id = result['public_id']
+            self.wide_image_secure_url = result['secure_url']
+        except:
+            raise
 
     def serialize(self):
         return {
