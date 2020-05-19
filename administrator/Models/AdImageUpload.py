@@ -3,6 +3,7 @@ from django.utils import timezone
 from utils.ReadableDateTime import generate_readable_date_time
 from cloudinary.api import resource, delete_resources, NotFound
 from cloudinary.uploader import upload
+import cloudinary
 
 
 class AdImageModel(models.Model):
