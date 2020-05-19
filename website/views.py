@@ -304,6 +304,11 @@ def view_article(request):
         article.add_one_view()
         article.save()
     latest_articles = ArticlesModel.objects.all().order_by('-published_on')[:10]
+    ad_image = AdImageModel.objects.all()
+    if len(ad_image) > 0:
+        ad_image = ad_image[0]
+    else:
+        ad_image = None
     return render(
         request,
         "articleView.html",
@@ -314,7 +319,8 @@ def view_article(request):
             "comments": comments,
             "user": request.user,
             "page_title": "Article View",
-            "images": article.generate_all_image_urls() if article else None
+            "images": article.generate_all_image_urls() if article else None,
+            "image": ad_image,
         }
     )
 

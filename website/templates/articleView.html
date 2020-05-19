@@ -196,6 +196,16 @@
     </nav>
     <div class="container">
       <div class="row">
+        <div class="col s12">
+          {% if image.wide_image_secure_url %}
+            Ad.<br/>
+            <img src="{{image.wide_image_secure_url}}" alt="ad_image" width="100%" height="100px"/>
+          {% else %}
+          <div style="text-align: center; background-color: grey; font-size: 30px; padding: 30px">
+              Ad Image Here
+          </div>
+          {% endif %}
+        </div>
         {% if article.generate_youtube_iframes|length > 0 %}
         <br/>
         <div class="col s12">
@@ -414,6 +424,16 @@
             <br />
             <p id="postContent" class="comfortaa" style="font-size: large" onmousedown="return false;" onselectstart="return false;">{{ article.body }}</p>
             <div class="fb-share-button" data-href="http://janatarkalam.com/articleView?id={{article.id}}" data-layout="button_count" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
+          </div>
+          {% endif %}
+        </div>
+        <div class="col s12">
+          {% if image.wide_image_secure_url %}
+            Ad.<br/>
+            <img src="{{image.wide_image_secure_url}}" alt="ad_image" width="100%" height="100px"/>
+          {% else %}
+          <div style="text-align: center; background-color: grey; font-size: 30px; padding: 30px">
+              Ad Image Here
           </div>
           {% endif %}
         </div>

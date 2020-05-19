@@ -37,12 +37,14 @@ class AdImageModel(models.Model):
             pass
 
     def update_tall_image(self, image_file):
-        result = upload(image_file, height=400, width=200)
+        #result = upload(image_file, height=400, width=200)
+        result = upload(image_file)
         self.tall_image_id = result['public_id']
         self.tall_image_secure_url = result['secure_url']
 
     def update_wide_image(self, image_file):
-        result = upload(image_file, height=400, width=200)
+        #result = upload(image_file, height=400, width=200)
+        result = upload(image_file)
         self.wide_image_id = result['public_id']
         self.wide_image_secure_url = result['secure_url']
 
