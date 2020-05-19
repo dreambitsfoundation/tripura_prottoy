@@ -65,7 +65,7 @@ class AdImageView(View):
                 message = "Purpose not provided"
         if status:
             try:
-                ad_image_instance = self.model.objects.filter(id=0)
+                ad_image_instance = self.model.objects.filter(id=1)
                 if len(ad_image_instance) == 0:
                     ad_image_instance = self.model()
                     ad_image_instance.save()
