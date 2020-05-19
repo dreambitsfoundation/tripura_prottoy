@@ -35,7 +35,7 @@ def index(request):
     latest_articles = ArticlesModel.objects.all().order_by('-published_on')[:10]
     for r in latest_articles:
             r.images = r.generate_all_image_urls()
-    ad_image = AdImageModel.objects.all()
+    ad_image = AdImageModel.objects.filter(id=1)
     if len(ad_image) > 0:
         ad_image = ad_image[0]
     else:
@@ -304,7 +304,7 @@ def view_article(request):
         article.add_one_view()
         article.save()
     latest_articles = ArticlesModel.objects.all().order_by('-published_on')[:10]
-    ad_image = AdImageModel.objects.all()
+    ad_image = AdImageModel.objects.filter(id=1)
     if len(ad_image) > 0:
         ad_image = ad_image[0]
     else:
