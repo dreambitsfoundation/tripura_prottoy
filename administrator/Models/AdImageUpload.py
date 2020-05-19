@@ -86,6 +86,7 @@ class AdImageModel(models.Model):
             result = upload(image_file)
             self.wide_image_id = result['public_id']
             self.wide_image_secure_url = result['secure_url']
+            print(self.wide_image_secure_url)
         except:
             raise
 

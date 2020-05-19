@@ -98,6 +98,7 @@ class AdImageView(View):
                             ad_image_instance.delete_wide_image()
                             ad_image_instance.save()
                         ad_image_instance.update_wide_image(image)
+                        print(ad_image_instance.wide_image_secure_url)
                         ad_image_instance.save()
                 except:
                     raise
