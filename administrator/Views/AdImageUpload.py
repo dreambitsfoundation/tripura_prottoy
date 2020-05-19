@@ -85,6 +85,7 @@ class AdImageView(View):
                         ad_image_instance.update_tall_image(image)
                         ad_image_instance.save()
                 except:
+                    raise
                     status = False
                     code = 500
                     message = "Internal Server Error"
@@ -97,6 +98,7 @@ class AdImageView(View):
                         ad_image_instance.update_wide_image(image)
                         ad_image_instance.save()
                 except:
+                    raise
                     status = False
                     code = 500
                     message = "Internal Server Error"
