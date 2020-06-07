@@ -113,7 +113,7 @@ WSGI_APPLICATION = 'janatar_kolom.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-if platform == "Development":
+if platform == "Production":
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
