@@ -455,6 +455,41 @@
     </div>
     <!-- End of midle ads -->
 
+    <!-- Beginning of section -->
+    <div class="container">
+      <br /><br />
+      <h4 style="width: 100%; text-align: center"><b>বিভাগীয়</b></h4>
+      <div class="row">
+        {% for a in articles %}
+        <h4 class="heading orange-text">{{ a.name }}</h4>
+        <div class="swiper-container">
+          <div class="swiper-wrapper">
+            {% for c in a.articles %}
+            <div class="swiper-slide">
+              <img
+                src="{{ c.photos.0.secure_urls }}"
+                width="auto"
+                height="120px"
+                style="border-radius: 10px; text-align: center"
+              />
+              <br /><br />
+              <a href="articleView?id={{c.id}}" style="color: black"
+                ><b>{{ c.title }}</b></a
+              >
+              <br />
+              <small>{{ c.published_on }}</small>
+            </div>
+            {% endfor %}
+          </div>
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
+        </div>
+        {% endfor %}
+      </div>
+      <hr/>
+    </div>
+    <!-- End of section -->
+
     <!-- Beginning Mostly viewed -->
     <div class="container">
       <br /><br />
