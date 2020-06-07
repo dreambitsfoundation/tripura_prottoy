@@ -33,6 +33,7 @@
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css" />
     {% load static %}
     <link
       rel="shortcut icon"
@@ -247,7 +248,7 @@
       </div>
     </div>
     <!-- </div> -->
-    <nav class="nav-extended red darken-4">
+    <nav class="nav-extended orange darken-4">
       <div class="container">
         <div class="nav-content">
           <ul class="tabs tabs-transparent">
@@ -425,21 +426,83 @@
           <br />
         </div>
         {% endif %} {% endif %}{% endfor %}
+      </div>
+      <hr />
+    </div>
+    <!-- End of latest news container -->
+
+    <!-- Beginning of Middle ads-->
+    <div class="container">
+      <div class="row">
         <div
           class="col s12 l3"
           style="height: 100px; background-color: yellow;"
         >
           Your Ad here.
         </div>
+        <div class="col s12 l6 valign-wrapper" style="text-align: center">
+          <div style="width: 100%">
+            <h4><b>বিজ্ঞাপন</b></h4>
+            <p>
+              আমাদের প্রচেষ্টায় আপনাদের উন্নতি |
+            </p>
+          </div>
+        </div>
         <div class="col s12 l3" style="height: 100px; background-color: grey;">
           Your Ad here.
         </div>
       </div>
-      <hr />
     </div>
-    <!-- End of latest news container -->
+    <!-- End of midle ads -->
 
-    <!--  -->
+    <!-- Beginning Mostly viewed -->
+    <div class="container">
+      <br /><br />
+      <h4>সর্বোচ্চ নজরে জনতার</h4>
+      <p>
+        সবচাইতে বেশি জনপ্রিয় খবর সমূহ |
+      </p>
+      <div class="row">
+        <div class="swiper-container">
+          <div class="swiper-wrapper">
+            {% for content in mostly_viewed %}
+            <div class="swiper-slide">
+              <img
+                src="{{ content.photos.0.secure_urls }}"
+                width="auto"
+                height="120px"
+                style="border-radius: 10px; text-align: center"
+              />
+              <br /><br />
+              <a href="articleView?id={{content.id}}" style="color: black"
+                ><b>{{ content.title }}</b></a
+              >
+              <br />
+              <small
+                >মোট দৃষ্টিপাত: {{ content.views }} : {{ content.published_on }}
+              </small>
+            </div>
+            {% endfor %}
+          </div>
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
+        </div>
+      </div>
+    </div>
+    <!-- End of mostly viewed -->
+
+    <!-- Beginning of farewell message -->
+    <div class="container" style="color: grey">
+      <h4>
+        আমাদের আপনার বহুমূল্য সময় দেবার জন্য অসংখ্য ধন্যবাদ
+      </h4>
+      <p>
+        সম্পাদক,
+        <br />
+        জনতার কলম |
+      </p>
+    </div>
+    <!-- End of farewell message -->
 
     <!-- Beginning of footer section -->
     <footer class="page-footer grey darken-4">
@@ -497,6 +560,7 @@
       integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
       crossorigin="anonymous"
     ></script>
+    <script src="https://unpkg.com/swiper/js/swiper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide"></script>
     <script>
@@ -604,6 +668,20 @@
         return weekday[i];
       }
     </script>
-    <script></script>
+    <script>
+      var swiper = new Swiper(".swiper-container", {
+        slidesPerView: 3,
+        spaceBetween: 30,
+        // pagination: {
+        //   el: ".swiper-pagination",
+        //   clickable: true
+        // },
+
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev"
+        }
+      });
+    </script>
   </body>
 </html>

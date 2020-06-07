@@ -21,6 +21,7 @@ def index(request):
     all_posts = PostModel.objects.filter(approved=True).order_by('-id')[:10]
     article_categories = ArticleCategoryModel.objects.all()
     parent_articles = ArticleCategoryModel.objects.filter(parent_category = True)
+    mostly_viewed = ArticlesModel.objects.all().order_by('-views')[:10]
     ax = ArticlesModel.objects.all()
     article = []
     for a in article_categories:
@@ -46,7 +47,8 @@ def index(request):
         "menu": static_cat,
         "article_menu": parent_articles,
         "latest_articles": latest_articles,
-        "image": ad_image
+        "image": ad_image,
+        "mostly_viewed": mostly_viewed,
         }
     )
 
