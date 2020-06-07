@@ -40,7 +40,7 @@ def index(request):
         ad_image = ad_image[0]
     else:
         ad_image = None
-    return render(request, "index.html", context={
+    return render(request, "index_new.html", context={
         "posts": all_posts,
         "articles": article,
         "menu": static_cat,

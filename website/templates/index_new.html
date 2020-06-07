@@ -240,8 +240,8 @@
       <div class="row">
         <div class="col s12 right-align">
           <div style="font-size: small; float: right">
-            <b>বিজ্ঞপ্তি : </b>কোনো ধরনের বিজ্ঞাপনের সঠিকতা যাচাই করার জন্য জনতার
-            কলম কতৃপক্ষ দায়ী নয় |
+            <b>বিজ্ঞপ্তি : </b>কোনো ধরনের বিজ্ঞাপনের সঠিকতা যাচাই করার জন্য
+            জনতার কলম কতৃপক্ষ দায়ী নয় |
           </div>
         </div>
       </div>
@@ -311,40 +311,6 @@
                     </div>
                     {% endif %}
                   </div>
-                  <!-- <div class="row">
-                    <div class="col l6">
-                      <img
-                        class="responsive-img"
-                        src="{{article.images.0}}"
-                        height="400px"
-                      />
-                    </div>
-                    <div
-                      class="col l6"
-                      style="height: 400px; margin-right: 20px; padding: 15px; width: 300px"
-                    >
-                      <p>
-                        <a href="articleView?id={{article.id}}"
-                          ><b>{{article.title}}</b></a
-                        >
-                        <br />
-                        <br />
-                        <span
-                          style="background-color: red; color: white; padding: 5px"
-                          >&nbsp;{{article.category.name}}&nbsp;</span
-                        >
-                        <br />
-                        <small class="text-grey"
-                          >{{article.published_on}}</small
-                        >
-                      </p>
-                      <p>
-                        dfjdkfkjfdfdkjfdj fkdfkdfkjd dkdjfkdk k kk djffkdfd kd
-                        kdjf kd fkdjdk ojeek kdj kd kd kdjdog g k fkej fke
-                        kmfmdnf d kd dkdfdkd k d
-                      </p>
-                    </div>
-                  </div> -->
                 </li>
                 {% endfor %}
               </ul>
@@ -398,122 +364,84 @@
         </div>
       </div>
     </div>
-    <div class="container">
+    <!-- End of hero segment -->
+
+    <!-- Beginning 1st Ad continer -->
+    <!-- <div class="container">
       <div class="row">
-        <!-- Latest Post -->
-        <div class="col s12">
-          <h5
-            class="grey lighten-2 bangla_heading"
-            style="border-left: 4px solid red; height: 50px; padding: 15px"
-          >
-            সর্বশেষ
-          </h5>
-          <div class="row">
-            {% for article in latest_articles %}
-            <div class="col l6 s12">
-              <div class="card large">
-                {% if article.images|length > 0 %}
-                <div class="card-image">
-                  <img src="{{article.generate_card_image_urls.0}}" />
-                </div>
-                {% endif %}
-                <div class="card-content">
-                  <span
-                    style="background-color: red; color: white; padding-left: 5px; padding-right: 5px"
-                    >{{article.category.name}}</span
-                  >
-                  <br />
-                  <small class="grey-text">{{article.published_on}}</small>
-                  <br />
-                  <br />
-                  <b>{{article.title|slice:":50"}} ...</b>
-                  <p>
-                    <small>{{ article.body|slice:":50" }}..</small>
-                  </p>
-                </div>
-                <div class="card-action">
-                  <span class="valign-wrapper"
-                    ><i
-                      class="material-icons"
-                      style="background-color: red; color: white"
-                      >chevron_right</i
-                    >
-                    &nbsp;
-                    <a
-                      class="grey lighten-5 black-text bangla_body"
-                      href="articleView?id={{article.id}}"
-                      target="_blank"
-                    >
-                      বিস্তারিত পরুন</a
-                    ></span
-                  >
-                </div>
-              </div>
-            </div>
-            {% endfor %}
-          </div>
+        <div class="col s12 l3" style="height: 100px; background-color: grey">
+          Your Ad here.
         </div>
-        <!-- End of Latest Post -->
-        <!-- Categories -->
-        {% for category in articles %} {% if category.articles|length > 0 %}
-        <div class="col l6 s12">
-          <h5
-            class="grey lighten-2 bangla_heading"
-            style="border-left: 4px solid red; height: 50px; padding: 15px"
-          >
-            {{category.name}}
-          </h5>
-          <div class="glide article_glide">
-            <div class="glide__track" data-glide-el="track">
-              <ul class="glide__slides">
-                {% for article in category.articles %}
-                <li>
-                  <div class="card">
-                    {% if article.images|length > 0 %}
-                    <div class="card-image">
-                      <img src="{{article.generate_card_image_urls.0}}" />
-                      <a
-                        href="articleView?id={{article.id}}"
-                        class="card-title black text"
-                        style="text-decoration-color: white;"
-                        ><small>{{article.title|slice:":30"}} ...</small></a
-                      >
-                    </div>
-                    {% endif %}
-                  </div>
-                </li>
-                {% endfor %}
-              </ul>
-            </div>
-            <div class="glide__arrows" data-glide-el="controls">
-              <button
-                class="glide__arrow glide__arrow--left"
-                data-glide-dir="<"
-                style="height: 15%"
-              >
-                <i
-                  class="material-icons"
-                  style="background-color: red; color: white"
-                  >chevron_left</i
-                >
-              </button>
-              <button
-                class="glide__arrow glide__arrow--right"
-                data-glide-dir=">"
-                style="height: 15%; background: black 0.8"
-              >
-                <i
-                  class="material-icons"
-                  style="background-color: red; color: white"
-                  >chevron_right</i
-                >
-              </button>
-            </div>
-          </div>
+        <div
+          class="col s12 l3 offset-l1"
+          style="height: 100px; background-color: grey;"
+        >
+          Your Ad here.
         </div>
-        {% endif %} {% endfor %}
+        <div
+          class="col s12 l3 offset-l1"
+          style="height: 100px; background-color: grey;"
+        >
+          Your Ad here.
+        </div>
       </div>
+    </div> -->
+    <!-- End of 1st ad container -->
+
+    <!-- Latest new container -->
+    <div class="container">
+      <h3>
+        সর্বশেষ
+      </h3>
+      <p>খবর যে আপনাকে ভাবতে বাদ্ধ করে |</p>
+      <div class="row">
+        {% for article in latest_articles %} {% if forloop.counter == 1 %}
+        <div class="col s12 l6">
+          <img
+            src="{{ article.photos.0.secure_urls }}"
+            height="auto"
+            width="100%"
+            style="border-radius: 10px"
+          />
+          <br />
+          <a href="articleView?id={{article.id}}" style="color: black"
+            ><b>{{ article.title }}</b></a
+          >
+          <br />
+          <small>{{ article.published_on }}</small>
+          <br /><br />
+          {{ article.body|slice:"100" }}
+        </div>
+        {% else %} {% if forloop.counter < 9 %}
+        <div class="col s12 l6">
+          <div class="valign-wrapper">
+            <img
+              src="{{ article.photos.0.secure_urls }}"
+              width="80px"
+              height="auto"
+            />
+            <small style="margin-left: 10px">{{ article.title }}</small>
+          </div>
+          <br />
+        </div>
+        {% endif %} {% endif %}{% endfor %}
+        <div
+          class="col s12 l3"
+          style="height: 100px; background-color: yellow;"
+        >
+          Your Ad here.
+        </div>
+        <div class="col s12 l3" style="height: 100px; background-color: grey;">
+          Your Ad here.
+        </div>
+      </div>
+      <hr />
     </div>
+    <!-- End of latest news container -->
+
+    <!--  -->
+
+    <!-- Beginning of footer section -->
     <footer class="page-footer grey darken-4">
       <div class="container">
         <div class="row">
