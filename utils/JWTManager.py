@@ -14,7 +14,7 @@ class JWTManager:
 
     def generate_token(self, payload: dict):
         self.payload = payload
-        self.token = jwt.encode(payload, SECRET_KEY, algorithm=self.algorithms).decode('utf-8')
+        self.token = jwt.encode(payload, SECRET_KEY, algorithm=self.algorithms)
         return self.token
 
     def validate_token(self, cypher: str, leeway: datetime = 0):
