@@ -37,7 +37,7 @@ def index(request):
     latest_articles = ArticlesModel.objects.all().order_by('-published_on')[:10]
     for r in latest_articles:
             r.images = r.generate_all_image_urls()
-    ad_image = AdImageModel.objects.all().order_by("-last_updated").first()
+    ad_image = AdImageModel.objects.all().first()
     return render(request, "index_new.html", context={
         "posts": all_posts,
         "articles": article,
@@ -240,11 +240,12 @@ def edit_article(request):
 @login_required
 @admin_only
 def manage_ad_image(request):
-    ad_image = AdImageModel.objects.all()
-    if len(ad_image) > 0:
-        ad_image = ad_image[0]
-    else:
-        ad_image = None
+    ad_image = AdImageModel.objects.all().first()
+    # if ad_image:
+    #     ad_image = ad_image[0]
+    # else:
+    #     ad_image = None
+    print(ad_image)
     return render(request, 'admin/add_ad_image.html', {"title": "Manage Ads", "image":ad_image})
 
 @login_required

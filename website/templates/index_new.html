@@ -266,9 +266,19 @@
         </div>
       </div>
     </nav>
-    <div class="hide-on-small-only">
+    <div class="container-fluid">
       <div class="row">
-        <div class="col m2" style="height: 400px">
+        <div class="col s12 center-align">
+          {% if image and image.wide_image_id|length > 0 %}
+          <img
+            src="{{image.wide_image_secure_url}}"
+            height="200"
+            width="700"
+            style="margin-top: 20px"
+          />
+          {% endif %}
+        </div>
+        <div class="col l2 s12" style="height: 400px">
           {% if image and image.tall_image_id|length > 0 %}
           <img
             src="{{image.tall_image_secure_url}}"
@@ -289,7 +299,7 @@
           </div>
           {% endif %}
         </div>
-        <div class="col m8">
+        <div class="col l8 s12">
           <div class="glide article_glide">
             <div class="glide__track" data-glide-el="track">
               <ul class="glide__slides">
@@ -345,7 +355,7 @@
             </div>
           </div>
         </div>
-        <div class="col m2" style="height: 400px">
+        <div class="col l2 s12" style="height: 400px">
           {% if image and image.tall_image_id|length > 0 %}
           <img
             src="{{image.tall_image_secure_url}}"
