@@ -73,10 +73,6 @@ class Login(View):
             "message": message,
             "data": data
         }
-        print("data")
-        print(data)
-        print("-------")
-        print(resp)
         response = JsonResponse(resp, status=code)
         if token is not None:
             response['Authorization'] = "Bearer " + token

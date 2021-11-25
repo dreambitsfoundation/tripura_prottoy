@@ -9,6 +9,7 @@ from django.contrib.auth import logout
 # Create your views here.
 from authentication.Decorators.AuthorizationValidator import login_required, admin_only, admin_only_route, \
     parse_user_profile
+from administrator.models import AdVideoModel
 from customer.Models import PostModel, CommentModel
 from administrator.Models import ArticlesModel, ArticleCategoryModel, StaticCategoryModel, StaticArticleModel, AdImageModel
 from authentication.models import User
@@ -44,6 +45,7 @@ def index(request):
         "article_menu": parent_articles,
         "latest_articles": latest_articles,
         "image": ad_image,
+        "ad_videos": AdVideoModel.objects.all()[:4],
         "mostly_viewed": mostly_viewed,
         }
     )
@@ -244,6 +246,12 @@ def manage_ad_image(request):
     else:
         ad_image = None
     return render(request, 'admin/add_ad_image.html', {"title": "Manage Ads", "image":ad_image})
+
+@login_required
+@admin_only
+def manage_ad_video(request):
+    ad_videos = AdVideoModel.objects.all()
+    return render(request, 'admin/add_ad_video.html', {"title": "Manage Ad Videos", "videos":ad_videos})
 
 """ Common Views """
 

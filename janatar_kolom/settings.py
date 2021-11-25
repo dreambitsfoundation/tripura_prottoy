@@ -28,7 +28,7 @@ SECRET_KEY = '8lc+^vcchig*vmc*3x+g(v8cha7$ofwli(jo%urhw(kj+d9w=j'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 if platform == "Production":
-    DEBUG = False
+    DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', '192.168.1.5', '192.168.43.43', '192.168.43.100', 'localhost', 'janatarkalam.herokuapp.com', 'janatarkalam.com', 'www.janatarkalam.com']
 
@@ -125,13 +125,23 @@ if platform == "Production":
         }
     }
 else:
+    # DATABASES = {
+    #     'default': {
+    #         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #         'NAME': "janatar_kolom",
+    #         'USER': "postgres",
+    #         'PASSWORD': "pass1234",
+    #         'HOST': "localhost",
+    #         'PORT': "5432"
+    #     }
+    # }
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': "janatar_kolom",
-            'USER': "postgres",
-            'PASSWORD': "pass1234",
-            'HOST': "localhost",
+            'NAME': "dfb3s2o2dp9dit",
+            'USER': "malzuojheeqbyk",
+            'PASSWORD': "f2dd5ea52ca33088ac42d72f93b7df7aebea061ab370f0165128c642d9bc0e91",
+            'HOST': "ec2-174-129-32-215.compute-1.amazonaws.com",
             'PORT': "5432"
         }
     }
