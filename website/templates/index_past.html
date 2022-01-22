@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Janatar Kalam</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Titillium+Web"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Satisfy"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Comfortaa"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Atma|Galada&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link 
+      rel="stylesheet" 
+      href="https://unpkg.com/swiper@7/swiper-bundle.min.css" 
+    />
+    {% load static %}
+    <link
+      rel="shortcut icon"
+      href="{% static 'images/favicon.ico' %}"
+      type="image/x-icon"
+    />
+    <link
+      rel="icon"
+      href="{% static 'images/favicon.ico' %}"
+      type="image/x-icon"
+    />
+    <!-- Required Core Stylesheet -->
+    <link rel="stylesheet" href="{% static 'css/glide.core.min.css' %}" />
+
+    <!-- Optional Theme Stylesheet -->
+    <link rel="stylesheet" href="{% static 'css/glide.theme.min.css' %}" />
+    <style>
+      body {
+        font-family: "Montserrat", sans-serif;
+        /* background: #ff512f; 
+        background: -webkit-linear-gradient(
+          to right,
+          #ff512f,
+          #f09819
+        ); 
+        background: linear-gradient(to right, #ff512f, #f09819); */
+      }
+
+      body.pushable > .pusher {
+        background: #ff512f; /* fallback for old browsers */
+        background: -webkit-linear-gradient(
+          to right,
+          #ff512f,
+          #f09819
+        ); /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to right, #ff512f, #f09819);
+      }
+
+      .bangla_heading {
+        font-family: "Galada", cursive;
+      }
+
+      .bangla_body {
+        font-family: "Atma", cursive;
+      }
+
+      .chevichef-logo-font {
+        font-family: "Satisfy", cursive;
+        color: red;
+      }
+
+      .comfortaa {
+        font-family: "Comfortaa", cursive;
+      }
+
+      .montserrat {
+        font-family: "Montserrat", sans-serif;
+      }
+
+      .white-text {
+        color: white;
+      }
+
+      .thumbnail {
+        width: 300px;
+        height: 100px;
+        border-radius: 8px;
+      }
+
+      .thumbnail2 {
+        height: 200px;
+        background-repeat: no-repeat;
+      }
+
+      .thumbnail2 img {
+        display: block;
+        max-width: 300px;
+        max-height: 300px;
+        width: auto;
+        height: auto;
+      }
+
+      .vertical-center {
+        margin: 0;
+        position: absolute;
+        top: 50%;
+        -ms-transform: translateY(-50%);
+        transform: translateY(-50%);
+      }
+
+      marquee:hover {
+        -moz-animation-play-state: paused;
+        -webkit-animation-play-state: paused;
+        animation-play-state: paused;
+      }
+
+      .sticky_menu {
+        width: 100%;
+      }
+
+      .underline {
+        border: 2px solid indigo;
+        background-color: indigo;
+        width: 40px;
+        margin-bottom: 20px;
+      }
+
+      .input-field label {
+        color: #d50000;
+      }
+      /* label focus color */
+      .input-field input:focus + label,
+      .materialize-textarea:focus:not([readonly]) + label {
+        color: #d50000 !important;
+      }
+
+      .input-field input:focus,
+      .materialize-textarea:focus:not([readonly]) {
+        border-bottom: 1px solid #d50000 !important;
+        box-shadow: 0 1px 0 0 #d50000 !important;
+      }
+
+      /* valid color */
+      .input-field input[type="text"].valid {
+        border-bottom: 1px solid #d50000;
+        box-shadow: 0 1px 0 0 #d50000;
+      }
+      /* invalid color */
+      .input-field input[type="text"].invalid {
+        border-bottom: 1px solid #d50000;
+        box-shadow: 0 1px 0 0 #d50000;
+      }
+      /* icon prefix focus color */
+      .input-field .prefix.active {
+        color: #d50000;
+      }
+    </style>
+  </head>
+  <body onload="startTime()">
+    <br />
+    <!-- <div class="container"> -->
+    <div class="row">
+      <div class="col s1 valign-wrapper">
+        <span class="new badge red" style="padding-right: 20px"
+          >Latest &gt;</span
+        >
+      </div>
+      <div class="col s11">
+        <marquee
+          onmouseover="this.stop();"
+          onmouseout="this.start();"
+          style="margin-top: 4px"
+        >
+          {% for article in latest_articles %}
+          <a
+            href="articleView?id={{article.id}}"
+            target="_blank"
+            style="text-decoration: none; color: black"
+            >{{article.title}}</a
+          ><small class="grey-text" style="margin-right: 70px"
+            >&nbsp;&nbsp;{{article.published_on}}</small
+          ><i class="ui circle icon mini"></i>&nbsp;&nbsp;&nbsp; {% endfor %}
+        </marquee>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col s12 l4">
+          <img
+            src="{% static 'images/janatar_kolom.png' %}"
+            height="80"
+            width="140"
+            style="margin-top: 20px"
+            class="center-align"
+          />
+          <br />
+          <b class="comfortaa">জনতার ভাষায়, জনতার সাথে |</b>
+        </div>
+        <div class="col s12 l8 right-align">
+          <small id="current_time"></small>
+          <br /><br />
+          {% if user.is_authenticated %}
+          <small style="color: grey"
+            ><i class="ui user icon"></i> {{user.get_full_name}}</small
+          >
+          <br />
+          <a href="/accountInfo" style="color: red"><b>My Account</b></a>
+          {% else %}
+          <a href="/joinus" style="color: red"><b>Join Us / Sign in</b></a>
+          {% endif %}
+          <br />
+          <form
+            class="input-field"
+            method="GET"
+            action="/search"
+            style="width: 30%; float:right; margin-top: 5px; margin-bottom: 0px"
+          >
+            <i class="material-icons prefix">search</i>
+            <input type="text" name="q" placeholder="Search" />
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col s12 right-align">
+          <div style="font-size: small; float: right">
+            <b>বিজ্ঞপ্তি : </b>কোনো ধরনের বিজ্ঞাপনের সঠিকতা যাচাই করার জন্য
+            জনতার কলম কতৃপক্ষ দায়ী নয় |
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- </div> -->
+    <nav class="nav-extended red darken-4">
+      <div class="container">
+        <div class="nav-content">
+          <ul class="tabs tabs-transparent">
+            {% for category in articles %}
+            <li class="tab">
+              <a href="search?q={{category.name}}" style="color: white"
+                >{{category.name}}</a
+              >
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col s12 center-align">
+          {% if image and image.wide_image_id|length > 0 %}
+            <img src="{{image.wide_image_secure_url}}" class="img-fluid" alt="wide_ad_image" style="max-width: 100%; height: auto;">
+          {% endif %}
+        </div>
+        <div class="col l2 s12" style="height: 400px">
+          {% if image and image.tall_image_id|length > 0 %}
+          <img
+            src="{{image.tall_image_secure_url}}"
+            height="400"
+            width="200"
+            style="margin-top: 20px"
+          />
+          {% else %}
+          <div
+            style="height: 400px; width: 200px; margin-top: 20px; background-color: lightgrey; text-align: center;"
+          >
+            <div>
+              <br /><br /><br /><br />
+              <span class="montserrat" style="font-size: large">Ad Here</span>
+              <br />
+              <p class="montserrat" style="font-size: x-large">200 x 400</p>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+        <div class="col l8 s12">
+          <div class="glide article_glide">
+            <div class="glide__track" data-glide-el="track">
+              <ul class="glide__slides">
+                {% for article in latest_articles %}
+                <li>
+                  <div class="card z-depth-2" style="border-radius: 10px">
+                    {% if article.images|length %}
+                    <div
+                      class="card-image"
+                      style="overflow-wrap: break-word; border-radius: 10px;"
+                    >
+                      <img
+                        src="{{article.images.0}}"
+                        height="400px"
+                        width="auto"
+                      />
+                      <a
+                        href="articleView?id={{article.id}}"
+                        class="card-title black text"
+                        style="text-decoration-color: white;"
+                        >{{article.title}}</a
+                      >
+                    </div>
+                    {% endif %}
+                  </div>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+            <div class="glide__arrows" data-glide-el="controls">
+              <button
+                class="glide__arrow glide__arrow--left"
+                data-glide-dir="<"
+                style="height: 15%"
+              >
+                <i
+                  class="material-icons"
+                  style="background-color: red; color: white"
+                  >chevron_left</i
+                >
+              </button>
+              <button
+                class="glide__arrow glide__arrow--right"
+                data-glide-dir=">"
+                style="height: 15%; background: black 0.8"
+              >
+                <i
+                  class="material-icons"
+                  style="background-color: red; color: white"
+                  >chevron_right</i
+                >
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="col l2 s12" style="height: 400px">
+          {% if image and image.tall_image_id|length > 0 %}
+          <img
+            src="{{image.tall_image_secure_url}}"
+            height="400"
+            width="200"
+            style="margin-top: 20px"
+          />
+          {% else %}
+          <div
+            style="height: 400px; width: 200px; margin-top: 20px; background-color: lightgrey; text-align: center;"
+          >
+            <div>
+              <br /><br /><br /><br />
+              <span class="montserrat" style="font-size: large">Ad Here</span>
+              <br />
+              <p class="montserrat" style="font-size: x-large">200 x 400</p>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <!-- End of hero segment -->
+
+    <!-- Beginning 1st Ad continer -->
+    <!-- <div class="container">
+      <div class="row">
+        <div class="col s12 l3" style="height: 100px; background-color: grey">
+          Your Ad here.
+        </div>
+        <div
+          class="col s12 l3 offset-l1"
+          style="height: 100px; background-color: grey;"
+        >
+          Your Ad here.
+        </div>
+        <div
+          class="col s12 l3 offset-l1"
+          style="height: 100px; background-color: grey;"
+        >
+          Your Ad here.
+        </div>
+      </div>
+    </div> -->
+    <!-- End of 1st ad container -->
+
+    <!-- Latest new container -->
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col s12 l3">
+          Ad videos. 
+          <br/>
+          {% for video in ad_videos %}
+           <iframe style="margin-top: 10px;" width="250" height="150" src="https://www.youtube.com/embed/{{video.link}}"></iframe>
+          {% endfor %}
+        </div>
+        {% for article in latest_articles %} {% if forloop.counter == 1 %}
+        <div class="col s12 l6">
+          <h3>
+            সর্বশেষ
+          </h3>
+          <p>খবর যে আপনাকে ভাবতে বাদ্ধ করে |</p>
+          <img
+            src="{{ article.photos.0.secure_urls }}"
+            height="auto"
+            width="100%"
+            style="border-radius: 10px"
+          />
+          <br />
+          <a href="articleView?id={{article.id}}" style="color: black"
+            ><b>{{ article.title }}</b></a
+          >
+          <br />
+          <small>{{ article.published_on }}</small>
+          <br /><br />
+          {{ article.body|slice:"100" }}
+        </div>
+        {% else %} {% if forloop.counter < 9 %}
+        <div class="col s12 l3">
+          <div class="valign-wrapper">
+            <img
+              src="{{ article.photos.0.secure_urls }}"
+              width="80px"
+              height="auto"
+            />
+            <small style="margin-left: 10px">
+              <a href="articleView?id={{article.id}}" style="color: black"
+            >{{ article.title }}</a
+          >
+            </small>
+          </div>
+          <br />
+        </div>
+        {% endif %} {% endif %}{% endfor %}
+      </div>
+      <hr />
+    </div>
+    <!-- End of latest news container -->
+
+    <!-- Beginning of Middle ads-->
+    <!-- <div class="container" style="">
+      <div class="row">
+        <div
+          class="col s12 l3"
+          style="height: 100px; background-color: yellow;"
+        >
+          Your Ad here.
+        </div>
+        <div class="col s12 l6 valign-wrapper" style="text-align: center">
+          <div style="width: 100%">
+            <h4><b>বিজ্ঞাপন</b></h4>
+            <p>
+              আমাদের প্রচেষ্টায় আপনাদের উন্নতি |
+            </p>
+          </div>
+        </div>
+        <div class="col s12 l3" style="height: 100px; background-color: grey;">
+          Your Ad here.
+        </div>
+      </div>
+    </div> -->
+    <!-- End of midle ads -->
+
+    <!-- Beginning of section -->
+    <div class="container">
+      <br /><br />
+      <h4 style="width: 100%; text-align: center"><b>বিভাগীয়</b></h4>
+      <div class="row">
+        {% for a in articles %}
+        <h4 class="heading orange-text">{{ a.name }}</h4>
+        <div class="swiper">
+          <div class="swiper-wrapper">
+            {% for c in a.articles %}
+            <div class="swiper-slide">
+              <img
+                src="{{ c.photos.0.secure_urls }}"
+                width="auto"
+                height="120px"
+                style="border-radius: 10px; text-align: center"
+              />
+              <br /><br />
+              <a href="articleView?id={{c.id}}" style="color: black"
+                ><b>{{ c.title }}</b></a
+              >
+              <br />
+              <small>{{ c.published_on }}</small>
+            </div>
+            {% endfor %}
+          </div>
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
+        </div>
+        {% endfor %}
+      </div>
+      <hr/>
+    </div>
+    <!-- End of section -->
+
+    <!-- Beginning Mostly viewed -->
+    <div class="container">
+      <br /><br />
+      <h4>সর্বোচ্চ নজরে জনতার</h4>
+      <p>
+        সবচাইতে বেশি জনপ্রিয় খবর সমূহ |
+      </p>
+      <div class="row">
+        <div class="swiper">
+          <div class="swiper-wrapper">
+            {% for content in mostly_viewed %}
+            <div class="swiper-slide">
+              <img
+                src="{{ content.photos.0.secure_urls }}"
+                width="auto"
+                height="120px"
+                style="border-radius: 10px; text-align: center"
+              />
+              <br /><br />
+              <a href="articleView?id={{content.id}}" style="color: black"
+                ><b>{{ content.title }}</b></a
+              >
+              <br />
+              <small
+                >মোট দৃষ্টিপাত: {{ content.views }} : {{ content.published_on }}
+              </small>
+            </div>
+            {% endfor %}
+          </div>
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
+        </div>
+      </div>
+    </div>
+    <!-- End of mostly viewed -->
+
+    <!-- Beginning of farewell message -->
+    <div class="container" style="color: grey">
+      <h4>
+        আমাদের আপনার বহুমূল্য সময় দেবার জন্য অসংখ্য ধন্যবাদ
+      </h4>
+      <p>
+        সম্পাদক,
+        <br />
+        জনতার কলম |
+      </p>
+    </div>
+    <!-- End of farewell message -->
+
+    <!-- Beginning of footer section -->
+    <footer class="page-footer" style="background-color: rgb(138, 0, 0);">
+      <div class="container">
+        <div class="row">
+          <div class="col l6 s12">
+            <img
+              src="{% static 'images/janatar_kolom.png' %}"
+              height="80"
+              width="140"
+            />
+            <p class="grey-text text-lighten-4">
+              জনতার ভাষায়, জনতার সাথে |
+            </p>
+            <p>
+              <small class="grey-text text-lighten-4">
+                Vector images used in this application that are not part of the
+                dyanamic news material are either propriatory or licensed
+                exclusively to Chevichef Private Limited.
+              </small>
+            </p>
+          </div>
+          <div class="col l4 offset-l2 s12">
+            <h5 class="white-text">Important Links</h5>
+            <ul>
+              <li>
+                <a
+                  class="grey-text text-lighten-3"
+                  href="/showStaticArticle?id=1"
+                  >Privacy Policy</a
+                >
+              </li>
+              <li>
+                <a
+                  class="grey-text text-lighten-3"
+                  href="/showStaticArticle?id=2"
+                  >Legal Disclaimer</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-copyright">
+        <div class="container">
+          © 2020 Janatar Kalam. All Rights Reserved
+          <a class="grey-text text-lighten-4 right" href="http://devsiti.com"
+            >A &lt;devsiti /&gt; production.</a
+          >
+        </div>
+      </div>
+    </footer>
+    <script data-ad-client="ca-pub-4854596723121864" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.1.1.min.js"
+      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide"></script>
+    <script>
+      var slides = $("#post_glide");
+      for (var i = 0; i < slides.length; i++) {
+        var glide = new Glide(slides[i], {
+          type: "slider",
+          perView: 1,
+          gap: 3,
+          rewind: true,
+          breakpoints: {
+            800: {
+              perView: 1
+            },
+            480: {
+              perView: 1
+            }
+          }
+        });
+        glide.mount();
+        if (i == 0) {
+          glide.update({
+            autoplay: 4000,
+            hoverpause: true
+          });
+        }
+      }
+
+      var slides = $(".article_glide");
+      for (var i = 0; i < slides.length; i++) {
+        var glide = new Glide(slides[i], {
+          type: "slider",
+          perView: 1,
+          gap: 3,
+          rewind: true,
+          breakpoints: {
+            800: {
+              perView: 1
+            },
+            480: {
+              perView: 1
+            }
+          }
+        });
+        glide.mount();
+        if (i == 0) {
+          glide.update({
+            autoplay: 4000,
+            hoverpause: true
+          });
+        }
+      }
+    </script>
+    {% load static %}
+    <script src="{% static 'location.js' %}"></script>
+    <script src="{% static 'index_page_functions.js' %}"></script>
+    <script>
+      window.getCookie = function(name) {
+        var match = document.cookie.match(
+          new RegExp("(^| )" + name + "=([^;]+)")
+        );
+        if (match) return match[2];
+      };
+      $(function() {
+        $("marquee")
+          .mouseover(function() {
+            $(this).attr("scrollamount", 0);
+          })
+          .mouseout(function() {
+            $(this).attr("scrollamount", 5);
+          });
+      });
+      function startTime() {
+        var today = new Date();
+        var d = today.getDay();
+        var h = today.getHours();
+        var m = today.getMinutes();
+        var s = today.getSeconds();
+        var meridian = "am";
+        m = checkTime(m);
+        s = checkTime(s);
+        if (h >= 12) {
+          meridian = "pm";
+        }
+        document.getElementById("current_time").innerHTML =
+          today.toDateString() + ", " + h + ":" + m + ":" + s + " " + meridian;
+        var t = setTimeout(startTime, 500);
+      }
+      function checkTime(i) {
+        if (i < 10) {
+          i = "0" + i;
+        } // add zero in front of numbers < 10
+        return i;
+      }
+      function getDayText(i) {
+        var weekday = new Array(7);
+        weekday[0] = "Sunday";
+        weekday[1] = "Monday";
+        weekday[2] = "Tuesday";
+        weekday[3] = "Wednesday";
+        weekday[4] = "Thursday";
+        weekday[5] = "Friday";
+        weekday[6] = "Saturday";
+
+        return weekday[i];
+      }
+    </script>
+    <script>
+      var swiper = new Swiper(".swiper", {
+        slidesPerView: 3,
+        spaceBetween: 30,
+        // pagination: {
+        //   el: ".swiper-pagination",
+        //   clickable: true
+        // },
+
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev"
+        }
+      });
+    </script>
+  </body>
+</html>

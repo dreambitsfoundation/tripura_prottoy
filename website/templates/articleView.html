@@ -214,33 +214,7 @@
           </div>
         </div>
         {% endif %}
-        <div class="col s12 l6 hide-on-large-only">
-          {% if article == None %}
-          <div class="ui center aligned segment" id="noPotView">
-            <br /><br />
-            <img src="https://img.icons8.com/cotton/64/000000/laptop-alert.png" />
-            <br /><br />
-            <h2 class="comfortaa">Article Not Found!</h2>
-            <br />
-          </div>
-          {% else %}
-          <div class="card-panel" id="postView">
-            <b id="title" class="bangla_heading" style="font-size: xx-large" onmousedown="return false;" onselectstart="return false;">
-              {{ article.title }}
-            </b>
-            <br />
-            <small>{{ article.published_on }}</small>
-            <br />
-            <div class="valign-wrapper">
-              {% if user.is_administrator %}<i class="grey-text tiny material-icons">visibility</i><span class="grey-text" style="font-size: small">{{article.get_fake_views}}</span>{% endif %}
-              &nbsp;&nbsp; <div class="fb-share-button" data-href="http://janatarkalam.com/articleView?id={{article.id}}" data-layout="button_count" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
-            </div>
-            <br />
-            <p id="postContent" class="comfortaa" style="font-size: large" onmousedown="return false;" onselectstart="return false;">{{ article.body }}</p>
-            <div class="fb-share-button" data-href="http://janatarkalam.com/articleView?id={{article.id}}" data-layout="button_count" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
-          </div>
-          {% endif %}
-        </div>
+        <!-- Mobile Content was here -->
         <div class="col s12 l6">
           {% if article %}
           <div class="glide article_glide">
@@ -283,6 +257,38 @@
             </div>
           </div>
           <br />
+        </div>
+
+        <div class="col s12 l6 hide-on-large-only">
+          {% if article == None %}
+          <div class="ui center aligned segment" id="noPotView">
+            <br /><br />
+            <img src="https://img.icons8.com/cotton/64/000000/laptop-alert.png" />
+            <br /><br />
+            <h2 class="comfortaa">Article Not Found!</h2>
+            <br />
+          </div>
+          {% else %}
+          <div class="card-panel" id="postView">
+            <b id="title" class="bangla_heading" style="font-size: xx-large" onmousedown="return false;" onselectstart="return false;">
+              {{ article.title }}
+            </b>
+            <br />
+            <small>{{ article.published_on }}</small>
+            <br />
+            <div class="valign-wrapper">
+              {% if user.is_administrator %}<i class="grey-text tiny material-icons">visibility</i><span class="grey-text" style="font-size: small">{{article.get_fake_views}}</span>{% endif %}
+              &nbsp;&nbsp; <div class="fb-share-button" data-href="http://janatarkalam.com/articleView?id={{article.id}}" data-layout="button_count" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
+            </div>
+            <br />
+            <p id="postContent" class="comfortaa" style="font-size: large" onmousedown="return false;" onselectstart="return false;">{{ article.body }}</p>
+            <div class="fb-share-button" data-href="http://janatarkalam.com/articleView?id={{article.id}}" data-layout="button_count" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
+          </div>
+          {% endif %}
+        </div>
+
+
+        <div class="col s12 l6">
           <span style="font-size: large" class="bangla_heading"><b>সংযুক্ত ছবি </b> ({{ images | length }} ছবি)</span>
           <!---->
           {% if images %}
@@ -461,7 +467,7 @@
           {% endif %} -->
     <!-- </div> -->
     <br/><br/>
-    <footer class="page-footer grey darken-4">
+    <footer class="page-footer" style="background-color: rgb(138, 0, 0);">
       <div class="container">
         <div class="row">
           <div class="col l6 s12">
@@ -496,9 +502,9 @@
       </div>
       <div class="footer-copyright">
         <div class="container">
-          © 2020 Janatar Kalam. All Rights Reserved
-          <a class="grey-text text-lighten-4 right" href="http://devsiti.com"
-            >A &lt;devsiti /&gt; production.</a
+          © 2021-22 Janatar Kalam. All Rights Reserved
+          <a class="grey-text text-lighten-4 right" href="http://chevichef.com"
+            >A Chevichef production.</a
           >
         </div>
       </div>

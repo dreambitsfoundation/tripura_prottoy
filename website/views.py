@@ -38,7 +38,7 @@ def index(request):
     for r in latest_articles:
             r.images = r.generate_all_image_urls()
     ad_image = AdImageModel.objects.all().first()
-    return render(request, "index_new.html", context={
+    return render(request, "index_past.html", context={
         "posts": all_posts,
         "articles": article,
         "menu": static_cat,
