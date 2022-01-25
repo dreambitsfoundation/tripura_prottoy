@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.postgres.fields import ArrayField, JSONField
+from django.contrib.postgres.fields import ArrayField
 
 from administrator.Models import ArticleCategoryModel
 from customer.Models.Post import PostModel
@@ -14,7 +14,7 @@ class ArticlesModel(models.Model):
     title = models.TextField(default="")
     body = models.TextField(default = "")
     posts = models.ManyToManyField(PostModel)
-    photos = ArrayField(JSONField(default=""), null=True)
+    photos = ArrayField(models.JSONField(default=dict), null=True)
     videos = ArrayField(models.TextField(default=""), null=True)
     published = models.BooleanField(default= False)
     draft = models.BooleanField(default=True)

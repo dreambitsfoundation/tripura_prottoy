@@ -38,14 +38,14 @@ def index(request):
     for r in latest_articles:
             r.images = r.generate_all_image_urls()
     ad_image = AdImageModel.objects.all().first()
-    return render(request, "index_past.html", context={
+    return render(request, "index_new.html", context={
         "posts": all_posts,
         "articles": article,
         "menu": static_cat,
         "article_menu": parent_articles,
         "latest_articles": latest_articles,
         "image": ad_image,
-        "ad_videos": AdVideoModel.objects.all()[:4],
+        "ad_videos": AdVideoModel.objects.all()[:5],
         "mostly_viewed": mostly_viewed,
         }
     )

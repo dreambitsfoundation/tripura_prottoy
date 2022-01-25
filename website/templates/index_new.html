@@ -95,6 +95,109 @@
     </div>
     <!-- End of Navigation Menu -->
 
+    <!-- Hero Section -->
+    <div class="container" style="margin-top: 50px;">
+        <div class="row">
+            <div class="col-sm-12 col-md-4">
+                <div class="card" style="">
+                    <img src="{{ latest_articles.0.images.0 }}" class="card-img-top" alt="{{ latest_articles.0.title }}">
+                    <div class="card-body">
+                        <h5 class="card-title"><a href="/articleView?id={{ lastest_articles.0.id }}" style="text-decoration: none; color: black">{{ latest_articles.0.title }}</a></h5>
+                        <p class="card-text">
+                            <small>{{ latest_articles.0.body|slice:":300" }}</small>
+                        </p>
+                        <p class="card-text"><small class="text-muted">Published on: {{ latest_articles.0.published_on }}</small></p>
+                        <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6">
+                <b style="color: red;">NEWS IN FOCUS</b>
+                <br/><br/>
+                {% for article in latest_articles %}
+                    {% if forloop.counter > 1 and forloop.counter < 6 %}
+                    <div class="card mb-3" style="max-width: 540px;">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                            <img src="{{ article.images.0 }}" style="height: 120px; width: 150px;" class="img-fluid rounded-start" alt="{{article.title}}">
+                            </div>
+                            <div class="col-md-8">
+                            <div class="card-body">
+                                <small class="card-title">
+                                    <a href="/articleView?id={{ article.id }}" style="text-decoration: none; color: black">
+                                        {{ article.title|slice:":150" }}
+                                    </a>
+                                </small>
+                                <br/>
+                                <small>{{ article.published_on }}</small>
+                                <!-- <p class="card-text"><small class="text-muted">Published on: {{ article.published_on }}</small></p> -->
+                            </div>
+                            </div>
+                        </div>
+                    </div>    
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div class="col-sm-12 col-md-2">
+                {% for video in ad_videos %}
+                    <iframe style="margin-top: 10px;" width="200" height="100" src="https://www.youtube.com/embed/{{video.link}}"></iframe>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <!-- End of the Hero Section -->
+
+    <!-- Wide Ad Image Section -->
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                {% if image and image.wide_image_id|length > 0 %}
+                    <img src="{{image.wide_image_secure_url}}" class="img-fluid" alt="wide_ad_image" style="max-width: 100%; height: auto;">
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <!-- End of wide image section -->
+
+    <!-- Editorial Section  -->
+    <!-- Under development -->
+    <!-- End of Editorial Section -->
+
+    <!-- News By Category section -->
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-2">
+                {% if image and image.tall_image_id|length > 0 %}
+                <a href="{{image.tall_image_secure_url}}" target="_blank">
+                    <img
+                        src="{{image.tall_image_secure_url}}"
+                        height="400"
+                        width="100%"
+                        style="margin-top: 20px"
+                        />
+                </a>
+                {% else %}
+                <div
+                  style="height: 400px; width: 200px; margin-top: 20px; background-color: lightgrey; text-align: center;"
+                >
+                  <div>
+                    <br /><br /><br /><br />
+                    <span class="montserrat" style="font-size: large">Ad Here</span>
+                    <br />
+                    <p class="montserrat" style="font-size: x-large">200 x 400</p>
+                  </div>
+                </div>
+                {% endif %}
+            </div>
+            <div class="col-sm-12 col-md-10">
+                <b style="color: red">NEWS BY CATEGORY</b>
+                <br/>
+                
+            </div>
+        </div>
+    </div>
+    <!-- End of News by Category section -->
+
 
     <!-- JS, Popper.js, and jQuery -->
     <script
