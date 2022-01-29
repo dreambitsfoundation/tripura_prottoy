@@ -190,9 +190,33 @@
                 {% endif %}
             </div>
             <div class="col-sm-12 col-md-10">
-                <b style="color: red">NEWS BY CATEGORY</b>
                 <br/>
-                
+                <b style="margin-top: 30px; color: red">NEWS BY CATEGORY</b>
+                <br/>
+                <div class="row">
+                    {% for a in articles %}
+                    <h4 style="margin-top: 20px">{{ a.name }}</h4>
+                    <div class="swiper">
+                        <div class="swiper-wrapper">
+                            {% for c in a.articles %}
+                            <div class="swiper-slide">
+                                <div class="card" style="height: 350px">
+                                    <img src="{{ c.photos.0.secure_urls }}" style="height: 200px" class="card-img-top" alt="{{ c.title|slice:':100' }}">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><a href="/articleView?id={{ c.id }}" style="text-decoration: none; color: black">{{ c.title|slice:":75" }}</a></h5>
+<!--                                        <p class="card-text">-->
+<!--                                            <small>{{ c.body|slice:":300" }}</small>-->
+<!--                                        </p>-->
+                                        <p class="card-text"><small class="text-muted">Published on: {{ latest_articles.0.published_on }}</small></p>
+                                        <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
             </div>
         </div>
     </div>
@@ -251,6 +275,21 @@
 
             return weekday[i];
         }
+    </script>
+    <script>
+      var swiper = new Swiper(".swiper", {
+        slidesPerView: 3,
+        spaceBetween: 30,
+        // pagination: {
+        //   el: ".swiper-pagination",
+        //   clickable: true
+        // },
+
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev"
+        }
+      });
     </script>
 </body>
 </html>
