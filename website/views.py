@@ -45,7 +45,7 @@ def index(request):
         "article_menu": parent_articles,
         "latest_articles": latest_articles,
         "ad_image": {
-            "tall_ad_image": AdImageModel.objects.filter(wide_image_public_id__isNull=False),
+            "tall_ad_image": AdImageModel.objects.filter(wide_image_id__isNull=False),
 
         },
         "ad_videos": AdVideoModel.objects.all()[:5],
