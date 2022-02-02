@@ -79,7 +79,7 @@
         <div class="row">
             <nav class="navbar navbar-expand-lg navbar-light" style="border-radius: 10px; background-color: #D1B148; width: 100%;">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                    <img src="{% static 'images/plain_hamburger.png' %}" height="30" width="30"/> Menu
+                    <img src="{% static 'images/menu_icon_black.png' %}" height="30" width="30"/> Menu
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul class="navbar-nav">
@@ -102,7 +102,7 @@
                 <div class="card" style="">
                     <img src="{{ latest_articles.0.images.0 }}" class="card-img-top" alt="{{ latest_articles.0.title }}">
                     <div class="card-body">
-                        <h5 class="card-title"><a href="/articleView?id={{ lastest_articles.0.id }}" style="text-decoration: none; color: black">{{ latest_articles.0.title }}</a></h5>
+                        <h5 class="card-title"><a href="/articleView?id={{ latest_articles.0.id }}" style="text-decoration: none; color: black">{{ latest_articles.0.title }}</a></h5>
                         <p class="card-text">
                             <small>{{ latest_articles.0.body|slice:":300" }}</small>
                         </p>
@@ -164,24 +164,24 @@
     <!-- End of Editorial Section -->
 
     <!-- Tender -->
-    <div class="container">
+    <!-- <div class="container">
         <div class="row">
             <div class="col-sm-12">
                 <b style="color: red">TENDER</b>
             </div>
             <div class="swiper">
                 <div class="swiper-wrapper">
-                    <!-- TODO: Continue here -->
+                    
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- End of Tender -->
 
     <!-- News By Category section -->
     <div class="container">
         <div class="row">
-            <div class="col-sm-12 col-md-2">
+            <!-- <div class="col-sm-12 col-md-2">
                 {% if image and image.tall_image_id|length > 0 %}
                 <a href="{{image.tall_image_secure_url}}" target="_blank">
                     <img
@@ -203,8 +203,8 @@
                   </div>
                 </div>
                 {% endif %}
-            </div>
-            <div class="col-sm-12 col-md-10">
+            </div> -->
+            <div class="col-sm-12">
                 <br/>
                 <b style="margin-top: 30px; color: red; padding-left: 0px">NEWS BY CATEGORY</b>
                 <br/>
@@ -303,6 +303,23 @@
         navigation: {
           nextEl: ".swiper-button-next",
           prevEl: ".swiper-button-prev"
+        },
+        breakpoints: {
+            // when window width is >= 320px
+            320: {
+            slidesPerView: 1,
+            spaceBetween: 20
+            },
+            // when window width is >= 480px
+            480: {
+            slidesPerView: 3,
+            spaceBetween: 10
+            },
+            // when window width is >= 640px
+            640: {
+            slidesPerView: 3,
+            spaceBetween: 10
+            }
         }
       });
     </script>
