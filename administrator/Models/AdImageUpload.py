@@ -8,10 +8,12 @@ import cloudinary
 
 class AdImageModel(models.Model):
     """ This model is used to stores the links to ad image links """
-    tall_image_id = models.TextField(default="")
+    tall_image_id = models.TextField(null=True)
     tall_image_secure_url = models.TextField(default="")
-    wide_image_id = models.TextField(default="")
+    wide_image_id = models.TextField(null=True)
     wide_image_secure_url = models.TextField(default="")
+    tender_image_id = models.TextField(null=True)
+    tender_image_secure_url = models.TextField(default="")
     last_updated = models.DateTimeField(default=timezone.now)
 
     def update_record(self, tall_image_id, tall_image_secure_url, wide_image_id, wide_image_secure_url):
@@ -90,6 +92,33 @@ class AdImageModel(models.Model):
             raise
         print(self.wide_image_secure_url)
 
+    def update_tender_image(self, image_file):
+        #result = upload(image_file, height=400, width=200)
+        try:
+            cloudinary.config(
+                cloud_name="janatarkalambackup",
+                api_key="337747625353345",
+                api_secret="XsW3rNnGzG7slxyKz2KS3MLNsSo"
+            )
+            result = upload(image_file)
+            self.tender_image_id = result['public_id']
+            self.tender_image_secure_url = result['secure_url']
+        except cloudinary.api.Error:
+            print("-----------------------------------------------")
+            print("Got error in first config trying second")
+            print("-----------------------------------------------")
+            cloudinary.config(
+                cloud_name="janatarkalam",
+                api_key="158518893827718",
+                api_secret="TPhvUo9kxFVeETYmSKvMCYlXMLc"
+            )
+            result = upload(image_file)
+            self.tender_image_id = result['public_id']
+            self.tender_image_secure_url = result['secure_url']
+        except:
+            raise
+        print(self.tender_image_secure_url)
+
     def serialize(self):
         return {
             "id": self.id,
@@ -97,5 +126,7 @@ class AdImageModel(models.Model):
             "tall_image_secure_url": self.tall_image_secure_url,
             "wide_image_id": self.wide_image_id,
             "wide_image_secure_url": self.wide_image_secure_url,
+            "tender_image_id": self.tender_image_id,
+            "tender_images_secure_url": self.tender_image_secure_url,
             "last_updated": generate_readable_date_time(self.last_updated)
         }

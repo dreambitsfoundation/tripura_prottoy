@@ -4,9 +4,6 @@
   <div class="ui container">
     <div class="ui two column grid">
       <div class="ui four wide column">
-        {% if image and image.tall_image_id|length > 0 %}
-        <img src="{{image.tall_image_secure_url}}" height="400" width="200" />
-        {% else %}
         <div
           style="height: 400px; width: 200px; background-color: lightgrey; text-align: center;"
         >
@@ -17,7 +14,6 @@
             <p class="montserrat" style="font-size: x-large">200 x 400</p>
           </div>
         </div>
-        {% endif %}
       </div>
       <div class="ui twelve wide column">
         <h2 class="comfortaa">Tall Ad Banner.</h2>
@@ -35,6 +31,22 @@
         </form>
       </div>
     </div>
+    <br/><br/>
+    <b style="margin-top: 50px">Existing Images</b>
+    <br/>
+    <div class="ui four column grid">
+      {% for tall_image in tall_ad_images %}
+      <div class="ui column">
+        <div class="ui raised segment">
+          <img src="{{ tall_image.tall_image_secure_url }}" height="200" width="100" />
+          <form class="ad_delete">
+            <input name="ad_image_id" value="{{ tall_image.tall_image_id }}" type="hidden"/>
+            <button class="ui red button" type="submit"> Delete </button>
+          </form>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
   </div>
 </div>
 <br /><br />
@@ -42,9 +54,6 @@
   <div class="ui container">
     <div class="ui two column grid">
       <div class="ui six wide column">
-        {% if image and image.wide_image_id|length > 0 %}
-        <img src="{{image.wide_image_secure_url}}" height="50" width="300" />
-        {% else %}
         <div
           style="height: 50px; width: 300px; background-color: lightgrey; text-align: center;"
         >
@@ -54,7 +63,6 @@
             <p class="montserrat">300 x 50</p>
           </div>
         </div>
-        {% endif %}
       </div>
       <div class="ui ten wide column">
         <h2 class="comfortaa">
@@ -75,6 +83,76 @@
         </form>
       </div>
     </div>
+    <br/><br/>
+    <b style="margin-top: 50px">Existing Images</b>
+    <br/>
+    <div class="ui three column grid">
+      {% for wide_image in wide_ad_images %}
+      <div class="ui column">
+        <div class="ui raised segment">
+          <img src="{{ wide_image.wide_image_secure_url }}" height="100" width="100%" />
+          <br/>
+          <form class="ad_delete">
+            <input name="ad_image_id" value="{{ wide_image.wide_image_id }}" type="hidden"/>
+            <button class="ui red button" type="submit"> Delete </button>
+          </form>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+<br/><br/>
+<div class="ui raised segment">
+  <div class="ui container">
+    <div class="ui two column grid">
+      <div class="ui six wide column">
+        <div
+          style="height: 400px; width: 200px; background-color: lightgrey; text-align: center;"
+        >
+          <div>
+            <br /><br /><br /><br />
+            <span class="montserrat" style="font-size: large">Ad Here</span>
+            <br />
+            <p class="montserrat" style="font-size: x-large">200 x 400</p>
+          </div>
+        </div>
+      </div>
+      <div class="ui ten wide column">
+        <h2 class="comfortaa">
+          Tender Image.
+        </h2>
+        <div class="ui divider"></div>
+        <p>
+          <b>Please Note:</b> the submitted image will be automatically cropped
+          to 300 x 50 while uploading.
+        </p>
+        <form class="ui form" method="PUT" id="tender_image_form">
+          <input type="file" name="image" class="ui input" />
+          <input type="hidden" name="purpose" value="tender" />
+          <br /><br />
+          <button class="ui small button green" type="submit">
+            Submit Image
+          </button>
+        </form>
+      </div>
+    </div>
+    <br/><br/>
+    <b style="margin-top: 50px">Existing Images</b>
+    <br/>
+    <div class="ui four column grid">
+      {% for tender_image in tender_images %}
+      <div class="ui column">
+        <div class="ui raised segment">
+          <img src="{{ tender_image.tender_image_secure_url }}" height="200" width="100" />
+          <form class="ad_delete">
+            <input name="ad_image_id" value="{{ tender_image.tender_image_id }}" type="hidden"/>
+            <button class="ui red button" type="submit"> Delete </button>
+          </form>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
   </div>
 </div>
 {% endblock %} {% block scripts %}
@@ -87,6 +165,48 @@
     var img = $(form).find("input")[0].files[0];
     fd.append("image", img);
     fd.append("purpose", "tall");
+    $(form)
+      .find("button")
+      .addClass("loading");
+    $.ajax({
+      url: "admin/ad_image",
+      data: fd,
+      type: "post",
+      contentType: false,
+      processData: false,
+      success: function(data) {
+        $(form)
+          .find("button")
+          .attr("disabled", false);
+        if (data.status) {
+          alert("Image Updated Successfully.");
+          window.location.reload();
+        } else {
+          alert("Error: " + data.message);
+        }
+      },
+      error: function() {
+        alert("Error: Something went wrong.");
+      },
+      always: function() {
+        $(form)
+          .find(".button")
+          .attr("disabled", false);
+        $(form)
+          .find(".upload_btn")
+          .removeClass("loading");
+      }
+    });
+  });
+
+  $("#tender_image_form").on("submit", function(event) {
+    event.preventDefault();
+    var form = $(this);
+    var fd = new FormData();
+    console.log($(form).find("input"));
+    var img = $(form).find("input")[0].files[0];
+    fd.append("image", img);
+    fd.append("purpose", "tender");
     $(form)
       .find("button")
       .addClass("loading");
@@ -168,5 +288,51 @@
       }
     });
   });
+
+  $(".ad_delete").on("submit", function(event){
+    alert("Submit happened");
+    event.preventDefault();
+    var form = $(this);
+    var fd = new FormData();
+    console.log($(form).find("input"));
+    var imageId = $(form).find("input")[0].value;
+    console.log(imageId);
+    //fd.append("image_id", img_id);
+    $(form)
+      .find("button")
+      .addClass("loading");
+    $.ajax({
+      url: "admin/ad_image?id=" + imageId,
+      type: "delete",
+      success: function(data) {
+        $(form)
+          .find("button")
+          .attr("disabled", false);
+        if (data.status) {
+          alert("Image Deleted Successfully.");
+          window.location.reload();
+        } else {
+          $(form)
+            .find("button")
+            .removeClass("loading");
+          alert("Error: " + data.message);
+        }
+      },
+      error: function() {
+        $(form)
+          .find("button")
+          .removeClass("loading");
+        alert("Error: Something went wrong.");
+      },
+      always: function() {
+        $(form)
+          .find(".button")
+          .attr("disabled", false);
+        $(form)
+          .find(".upload_btn")
+          .removeClass("loading");
+      }
+    });
+  })
 </script>
 {% endblock %}

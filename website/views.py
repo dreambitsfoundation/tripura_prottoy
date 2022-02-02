@@ -44,7 +44,10 @@ def index(request):
         "menu": static_cat,
         "article_menu": parent_articles,
         "latest_articles": latest_articles,
-        "image": ad_image,
+        "ad_image": {
+            "tall_ad_image": AdImageModel.objects.filter(wide_image_public_id__isNull=False),
+
+        },
         "ad_videos": AdVideoModel.objects.all()[:5],
         "mostly_viewed": mostly_viewed,
         }
@@ -240,13 +243,20 @@ def edit_article(request):
 @login_required
 @admin_only
 def manage_ad_image(request):
-    ad_image = AdImageModel.objects.all().first()
+    tall_ad_images = AdImageModel.objects.filter(tall_image_id__isnull=False)
+    wide_ad_images = AdImageModel.objects.filter(wide_image_id__isnull=False)
+    tender_images = AdImageModel.objects.filter(tender_image_id__isnull=False)
     # if ad_image:
     #     ad_image = ad_image[0]
     # else:
     #     ad_image = None
-    print(ad_image)
-    return render(request, 'admin/add_ad_image.html', {"title": "Manage Ads", "image":ad_image})
+    return render(request, 'admin/add_ad_image.html', {
+        "title": "Manage Ads",
+        "tall_ad_images": tall_ad_images,
+        "wide_ad_images": wide_ad_images,
+        "tender_images": tender_images
+    })
+
 
 @login_required
 @admin_only
