@@ -163,7 +163,7 @@
 
     <div class="swiper">
         <div class="swiper-wrapper">
-            {% for wide_image in ad_images.wide_add_images %}
+            {% for wide_image in ad_image.wide_add_images %}
             <div class="swiper-slide">
                 <img src="{{ wide_image.wide_image_secure_url }}" style="height: 200px; width: 100%" alt="{{ c.title|slice:':100' }}">
             </div>
