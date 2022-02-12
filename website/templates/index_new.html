@@ -140,7 +140,7 @@
             </div>
             <div class="col-sm-12 col-md-2">
                 {% for video in ad_videos %}
-                    <iframe style="margin-top: 10px;" width="200" height="100" src="https://www.youtube.com/embed/{{video.link}}"></iframe>
+                    <iframe style="margin-top: 10px;" width="200" height="120" src="https://www.youtube.com/embed/{{video.link}}"></iframe>
                 {% endfor %}
             </div>
         </div>
@@ -160,17 +160,22 @@
     <!-- End of wide image section -->
 
     <!-- Wide Ad Section -->
-
-    <div class="swiper">
-        <div class="swiper-wrapper">
-            {% for wide_image in ad_image.wide_add_images %}
-            <div class="swiper-slide">
-                <img src="{{ wide_image.wide_image_secure_url }}" style="height: 200px; width: 100%" alt="{{ c.title|slice:':100' }}">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="swiper wide_ad_swiper">
+                    <div class="swiper-wrapper">
+                        {% for wide_image in ad_image.wide_ad_images %}
+                        <div class="swiper-slide">
+                            <img src="{{ wide_image.wide_image_secure_url }}" style="height: 200px; width: 100% !important" alt="{{ wide_image.wide_image_id }}">
+<!--                            <div style="height: 200px; width: 100%; background-image: url('{{ wide_image.wide_image_secure_url }}');  background-size: cover; background-repeat: no-repeat;"></div>-->
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
             </div>
-            {% endfor %}
         </div>
     </div>
-
     <!-- End of Wide Ad Section -->
 
     <!-- Editorial Section  -->
@@ -178,47 +183,39 @@
     <!-- End of Editorial Section -->
 
     <!-- Tender -->
-    <!-- <div class="container">
+    <div class="container" style="margin-top: 30px">
         <div class="row">
             <div class="col-sm-12">
                 <b style="color: red">TENDER</b>
             </div>
             <div class="swiper">
                 <div class="swiper-wrapper">
-                    
+                    {% for tender in ad_image.tender_ad_images %}
+                    <div class="swiper-slide">
+                        <a href="{{ tender.tender_image_secure_url }}" target="_blank" class="card" style="height: 300px">
+                            <img src="{{ tender.tender_image_secure_url }}" style="height: 200px" class="card-img-top" alt="{{ tender.tender_image_id }}">
+                            <div class="card-body">
+                                <p class="card-text"><small class="text-muted">Published on: {{ tender.last_updated }}</small></p>
+                            </div>
+                        </a>
+                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
-    </div> -->
+    </div>
     <!-- End of Tender -->
 
     <!-- News By Category section -->
     <div class="container">
         <div class="row">
-            <!-- <div class="col-sm-12 col-md-2">
-                {% if image and image.tall_image_id|length > 0 %}
-                <a href="{{image.tall_image_secure_url}}" target="_blank">
-                    <img
-                        src="{{image.tall_image_secure_url}}"
-                        height="400"
-                        width="100%"
-                        style="margin-top: 20px"
-                        />
-                </a>
-                {% else %}
-                <div
-                  style="height: 400px; width: 200px; margin-top: 20px; background-color: lightgrey; text-align: center;"
-                >
-                  <div>
-                    <br /><br /><br /><br />
-                    <span class="montserrat" style="font-size: large">Ad Here</span>
-                    <br />
-                    <p class="montserrat" style="font-size: x-large">200 x 400</p>
-                  </div>
-                </div>
-                {% endif %}
-            </div> -->
-            <div class="col-sm-12">
+            <div class="col-md-3 col-sm-12">
+                {% for tall_image in ad_image.tall_ad_images %}
+                <br/><br/>
+                <div style="height: 300px; width: 200px; background-image: url('{{ tall_image.tall_image_secure_url }}');  background-size: cover; background-repeat: no-repeat;"></div>
+                {% endfor %}
+            </div>
+            <div class="col-md-9 col-sm-12">
                 <br/>
                 <b style="margin-top: 30px; color: red; padding-left: 0px">NEWS BY CATEGORY</b>
                 <br/>
@@ -335,6 +332,22 @@
             spaceBetween: 10
             }
         }
+      });
+    </script>
+
+    <script>
+      var swiper = new Swiper(".wide_ad_swiper", {
+        slidesPerView: 1,
+        spaceBetween: 0,
+        // pagination: {
+        //   el: ".swiper-pagination",
+        //   clickable: true
+        // },
+
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev"
+        },
       });
     </script>
 </body>
