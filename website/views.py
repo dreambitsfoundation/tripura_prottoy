@@ -350,6 +350,13 @@ def search(request):
             q = query
             raise Exception('Invalid Argument')
 
+        if category_id:
+            categories = ArticleCategoryModel.objects.filter(id=category_id)
+            if categories.count():
+                q = categories[0].name
+            else:
+                raise Exception("Category not found.")
+
         if query:
             articles = ArticlesModel.objects.filter(Q(title__icontains=query)|Q(body__icontains=query)|Q(category__name=query)).distinct().order_by('-published_on')
             posts = PostModel.objects.filter(Q(title__icontains=query)|Q(body__icontains=query)|Q(organisation__icontains=query), approved=True).distinct()
@@ -360,6 +367,9 @@ def search(request):
         if category_id:
             articles = ArticlesModel.objects.filter(category__id=category_id).distinct().order_by('-published_on')
             results = articles.count()
+            posts = None
+            static_articles = None
+            comments = None
     except:
         results = 0
         articles = None
