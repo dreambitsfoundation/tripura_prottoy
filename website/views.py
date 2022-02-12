@@ -37,7 +37,6 @@ def index(request):
     latest_articles = ArticlesModel.objects.all().order_by('-published_on')[:10]
     for r in latest_articles:
             r.images = r.generate_all_image_urls()
-    ad_image = AdImageModel.objects.all().first()
     return render(request, "index_new.html", context={
         "posts": all_posts,
         "articles": article,
@@ -45,8 +44,9 @@ def index(request):
         "article_menu": parent_articles,
         "latest_articles": latest_articles,
         "ad_image": {
-            "tall_ad_image": AdImageModel.objects.filter(wide_image_id__isnull=False),
-
+            "tall_ad_images": AdImageModel.objects.filter(tall_image_id__isnull=False).order_by('-id')[:8],
+            "wide_ad_images": AdImageModel.objects.filter(wide_image_id__isnull=False).order_by('-id')[:8],
+            "tender_ad_images": AdImageModel.objects.filter(tender_image_id__isnull=False).order_by('-id')[:8],
         },
         "ad_videos": AdVideoModel.objects.all()[:5],
         "mostly_viewed": mostly_viewed,
@@ -344,15 +344,22 @@ def view_article(request):
 def search(request):
     q = None
     try:
-        query = request.GET['q']
-        if len(query) < 4:
+        query = request.GET.get('q', None)
+        category_id = request.GET.get('cat', None)
+        if query and len(query) < 4:
             q = query
             raise Exception('Invalid Argument')
-        articles = ArticlesModel.objects.filter(Q(title__icontains=query)|Q(body__icontains=query)|Q(category__name=query)).distinct().order_by('-published_on')
-        posts = PostModel.objects.filter(Q(title__icontains=query)|Q(body__icontains=query)|Q(organisation__icontains=query), approved=True).distinct()
-        static_articles = StaticArticleModel.objects.filter(Q(title__icontains=query)|Q(content__icontains=query)).distinct()
-        comments = CommentModel.objects.filter(text__icontains=query).order_by("-last_updated")
-        results = articles.count() + posts.count() + static_articles.count() + comments.count()
+
+        if query:
+            articles = ArticlesModel.objects.filter(Q(title__icontains=query)|Q(body__icontains=query)|Q(category__name=query)).distinct().order_by('-published_on')
+            posts = PostModel.objects.filter(Q(title__icontains=query)|Q(body__icontains=query)|Q(organisation__icontains=query), approved=True).distinct()
+            static_articles = StaticArticleModel.objects.filter(Q(title__icontains=query)|Q(content__icontains=query)).distinct()
+            comments = CommentModel.objects.filter(text__icontains=query).order_by("-last_updated")
+            results = articles.count() + posts.count() + static_articles.count() + comments.count()
+
+        if category_id:
+            articles = ArticlesModel.objects.filter(category__id=category_id).distinct().order_by('-published_on')
+            results = articles.count()
     except:
         results = 0
         articles = None

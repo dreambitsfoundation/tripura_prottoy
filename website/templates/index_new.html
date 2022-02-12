@@ -85,7 +85,7 @@
                     <ul class="navbar-nav">
                         {% for cat in article_menu %}
                             <li class="nav-item">
-                                <a class="nav-link" href="/search?q={{ cat.name }}">{{ cat.name }}</a>
+                                <a class="nav-link" href="/search?cat={{ cat.id }}">{{ cat.name }}</a>
                             </li>
                         {% endfor %}
                     </ul>
