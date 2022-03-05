@@ -138,6 +138,7 @@
             <div class="col-md-10 col-sm-12">
                 <div class="container-fluid" style="margin-top: 20px">
                     <div class="row">
+                        {% if article %}
                         <div class="col-sm-12 col-md-6">
                             <div class="swiper swiper-container-image">
                                 <div class="swiper-wrapper">
@@ -178,6 +179,17 @@
                                 <img src="/static/images/whatsapp_icon.svg" height="30" />
                             </a>
                         </div>
+                        {% else %}
+                        <div class="col-sm-12">
+                            <h3 style="color: red; padding-top: 80px; text-align: center">
+                                দুঃখিত !
+                            </h3>
+                            <br/>
+                            <p style="padding-top: 20px; text-align: center">
+                                আমরা আপনার চাহিদা পুরন করতে অক্ষম |
+                            </p>
+                        </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
