@@ -328,7 +328,7 @@ def view_article(request):
         ad_image = None
     return render(
         request,
-        "articleView.html",
+        "articleViewNew.html",
         context={
             "latest_articles": latest_articles,
             "article": article,
