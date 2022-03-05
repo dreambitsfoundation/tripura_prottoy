@@ -110,9 +110,16 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
-                {% if image and image.wide_image_id|length > 0 %}
-                    <img src="{{image.wide_image_secure_url}}" class="img-fluid" alt="wide_ad_image" style="max-width: 100%; height: auto;">
-                {% endif %}
+                <div class="swiper wide_ad_swiper">
+                    <div class="swiper-wrapper">
+                        {% for wide_image in ad_image.wide_ad_images %}
+                        <div class="swiper-slide">
+                            <img src="{{ wide_image.wide_image_secure_url }}" style="height: 200px; width: 100% !important" alt="{{ wide_image.wide_image_id }}">
+<!--                            <div style="height: 200px; width: 100%; background-image: url('{{ wide_image.wide_image_secure_url }}');  background-size: cover; background-repeat: no-repeat;"></div>-->
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -121,17 +128,18 @@
     <!-- Hero Section -->
     <div class="container">
         <div class="row">
-            <div class="col-md-3 col-sm-12">
+            <div class="col-md-2 col-sm-12">
                 {% for tall_image in ad_image.tall_ad_images %}
                 <br/><br/>
-                <div style="height: 300px; width: 200px; background-image: url('{{ tall_image.tall_image_secure_url }}');  background-size: cover; background-repeat: no-repeat;"></div>
+<!--                <div style="height: 300px; width: 150px; background-image: url('{{ tall_image.tall_image_secure_url }}');  background-size: cover; background-repeat: no-repeat;"></div>-->
+                <img src="{{ tall_image.tall_image_secure_url }}" height="300" width="150"/>
                 {% endfor %}
             </div>
-            <div class="col-md-9 col-sm-12">
-                <div class="container-fluid">
+            <div class="col-md-10 col-sm-12">
+                <div class="container-fluid" style="margin-top: 20px">
                     <div class="row">
                         <div class="col-sm-12 col-md-6">
-                            <div class="swiper swiper-container-headline">
+                            <div class="swiper swiper-container-image">
                                 <div class="swiper-wrapper">
                                     {% for image in article.generate_card_image_urls %}
                                     <div class="swiper-slide">
@@ -145,20 +153,30 @@
                             {% if article.generate_youtube_iframes|length > 0 %}
                             {{article.generate_youtube_iframes.0|safe}}
                             {% else %}
-                            <h3 style="color: lightgrey">This News has no attached video clip.</h3>
+                            <h4 style="color: lightgrey"><br/><br/>This news has no attached video clip.</h4>
                             {% endif %}
                         </div>
                         <div class="col-sm-12">
+                            <h3 style="text-align: center; padding-top: 20px">{{ article.title }}</h3>
+                            <small style="text-align: center">{{ article.published_on }}</small>
+                            <br/>
+                            <small style="text-align: center">Total Views: {{article.get_fake_views}}</small>
+
+                            <br/>
                             <div class="fb-share-button" data-href="https://janatarkalam.com/articleView?id={{article.id}}" data-layout="button_count" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
                             <a href="whatsapp://send?text=https://janatarkalam.com/articleView?id={{article.id}}" data-action="share/whatsapp/share" target="_blank">
-                            <img src="/static/images/whatsapp_icon.svg" height="30" />
+                                <img src="/static/images/whatsapp_icon.svg" height="30" />
                             </a>
-                            <h4 style="text-align: center">{{ article.title }}</h4>
-                            <small style="text-align: center">{{ article.published_on }}</small>
-                            <b>Total Views: {{article.get_fake_views}}</b>
-                            <p>
+
+                            <p style="padding-top: 20px; padding-bottom: 20px; text-align: justify">
                                 {{ article.body }}
                             </p>
+
+                            <br/>
+                            <div class="fb-share-button" data-href="https://janatarkalam.com/articleView?id={{article.id}}" data-layout="button_count" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
+                            <a href="whatsapp://send?text=https://janatarkalam.com/articleView?id={{article.id}}" data-action="share/whatsapp/share" target="_blank">
+                                <img src="/static/images/whatsapp_icon.svg" height="30" />
+                            </a>
                         </div>
                     </div>
                 </div>

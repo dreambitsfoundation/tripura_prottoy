@@ -337,7 +337,11 @@ def view_article(request):
             "user": request.user,
             "page_title": "Article View",
             "images": article.generate_all_image_urls() if article else None,
-            "image": ad_image,
+            "ad_image": {
+                "tall_ad_images": AdImageModel.objects.filter(tall_image_id__isnull=False).order_by('-id')[:8],
+                "wide_ad_images": AdImageModel.objects.filter(wide_image_id__isnull=False).order_by('-id')[:8],
+                "tender_ad_images": AdImageModel.objects.filter(tender_image_id__isnull=False).order_by('-id')[:8],
+            },
         }
     )
 
