@@ -30,7 +30,7 @@ DEBUG = True
 if platform == "Production":
     DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', '192.168.1.5', '192.168.43.43', '192.168.43.100', 'localhost', 'janatarkalam.herokuapp.com', 'janatarkalam.com', 'www.janatarkalam.com']
+ALLOWED_HOSTS = ['127.0.0.1', '192.168.1.5', '192.168.43.43', '192.168.43.100', 'localhost', 'janatarkalam.herokuapp.com', 'janatarkalam.com', 'www.janatarkalam.com', '139.59.25.167']
 
 
 # Application definition
