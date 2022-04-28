@@ -127,11 +127,11 @@ if platform == "Production":
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': "janatarkalam",
-            'USER': "gourab",
-            'PASSWORD': "pass1234",
-            'HOST': "postgresql-75775-0.cloudclusters.net",
-            'PORT': "18225"
+            'NAME': "janatarkalam-website",
+            'USER': "doadmin",
+            'PASSWORD': "AVNS_k1AbkM-a773xGRh",
+            'HOST': "news-provider-cluster-do-user-4837440-0.b.db.ondigitalocean.com",
+            'PORT': "25060"
         }
     }
 else:
@@ -145,14 +145,34 @@ else:
     #         'PORT': "5432"
     #     }
     # }
+    # DATABASES = {
+    #     'default': {
+    #         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #         'NAME': "dfb3s2o2dp9dit",
+    #         'USER': "malzuojheeqbyk",
+    #         'PASSWORD': "f2dd5ea52ca33088ac42d72f93b7df7aebea061ab370f0165128c642d9bc0e91",
+    #         'HOST': "ec2-174-129-32-215.compute-1.amazonaws.com",
+    #         'PORT': "5432"
+    #     }
+    # }DATABASES = {
+    #     'default': {
+    #         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #         'NAME': "dfb3s2o2dp9dit",
+    #         'USER': "malzuojheeqbyk",
+    #         'PASSWORD': "f2dd5ea52ca33088ac42d72f93b7df7aebea061ab370f0165128c642d9bc0e91",
+    #         'HOST': "ec2-174-129-32-215.compute-1.amazonaws.com",
+    #         'PORT': "5432"
+    #     }
+    # }
+
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': "dfb3s2o2dp9dit",
-            'USER': "malzuojheeqbyk",
-            'PASSWORD': "f2dd5ea52ca33088ac42d72f93b7df7aebea061ab370f0165128c642d9bc0e91",
-            'HOST': "ec2-174-129-32-215.compute-1.amazonaws.com",
-            'PORT': "5432"
+            'NAME': "janatarkalam",
+            'USER': "gourab",
+            'PASSWORD': "pass1234",
+            'HOST': "postgresql-75775-0.cloudclusters.net",
+            'PORT': "18225"
         }
     }
 
