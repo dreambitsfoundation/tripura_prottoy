@@ -1,3 +1,4 @@
+from datetime import datetime, timedelta
 from django.http import HttpResponseRedirect
 from django.middleware import csrf
 from django.shortcuts import render
@@ -18,15 +19,15 @@ from authentication.models import User
 def index(request):
     # print(csrf.get_token(request))
     # print(csrf.CsrfViewMiddleware().process_request(request))
-    static_cat = StaticCategoryModel.objects.filter(head_category = True)
-    all_posts = PostModel.objects.filter(approved=True).order_by('-id')[:10]
+    #static_cat = StaticCategoryModel.objects.filter(head_category = True)
+    #all_posts = PostModel.objects.filter(approved=True).order_by('-id')[:10]
     article_categories = ArticleCategoryModel.objects.all()
     parent_articles = ArticleCategoryModel.objects.filter(parent_category = True)
-    mostly_viewed = ArticlesModel.objects.all().order_by('-views')[:10]
-    ax = ArticlesModel.objects.all()
+    all_articles = ArticlesModel.objects.filter(published_on__gte=datetime.now() - timedelta(days=180))
+    mostly_viewed = all_articles.order_by('-views')[:10]
     article = []
     for a in article_categories:
-        recent_articles = ArticlesModel.objects.filter(category = a).order_by('-id')[:10]
+        recent_articles = all_articles.filter(category = a).order_by('-id')[:10]
         #background = colors[random.randrange(0, len(colors))]
         for r in recent_articles:
             r.images = r.generate_all_image_urls()
@@ -34,13 +35,13 @@ def index(request):
             "name": a.name,
             "articles": recent_articles
         })
-    latest_articles = ArticlesModel.objects.all().order_by('-published_on')[:10]
+    latest_articles = all_articles.order_by('-published_on')[:10]
     for r in latest_articles:
             r.images = r.generate_all_image_urls()
     return render(request, "index_new.html", context={
-        "posts": all_posts,
+        #"posts": all_posts,
         "articles": article,
-        "menu": static_cat,
+        #"menu": static_cat,
         "article_menu": parent_articles,
         "latest_articles": latest_articles,
         "ad_image": {
