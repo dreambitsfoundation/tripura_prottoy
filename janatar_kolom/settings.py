@@ -168,11 +168,11 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': "janatarkalam",
-            'USER': "gourab",
-            'PASSWORD': "pass1234",
-            'HOST': "postgresql-75775-0.cloudclusters.net",
-            'PORT': "18225"
+            'NAME': "janatarkalam-website",
+            'USER': "doadmin",
+            'PASSWORD': "AVNS_k1AbkM-a773xGRh",
+            'HOST': "news-provider-cluster-do-user-4837440-0.b.db.ondigitalocean.com",
+            'PORT': "25060"
         }
     }
 
