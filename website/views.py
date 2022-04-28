@@ -14,6 +14,22 @@ from administrator.models import AdVideoModel
 from customer.Models import PostModel, CommentModel
 from administrator.Models import ArticlesModel, ArticleCategoryModel, StaticCategoryModel, StaticArticleModel, AdImageModel
 from authentication.models import User
+from django.views.decorators.cache import cache_page
+from django.core.cache import cache
+
+
+
+def get_or_cache(key: str, query):
+    q = cache.get(key)
+    print(q)
+    if not q:
+        q = query
+        print("Reading from DB")
+        cache.set(key, q, 60 * 15)
+    else:
+        print("Reading from cache")
+    return q
+
 
 @parse_user_profile
 def index(request):
@@ -21,13 +37,14 @@ def index(request):
     # print(csrf.CsrfViewMiddleware().process_request(request))
     #static_cat = StaticCategoryModel.objects.filter(head_category = True)
     #all_posts = PostModel.objects.filter(approved=True).order_by('-id')[:10]
-    article_categories = ArticleCategoryModel.objects.all()
-    parent_articles = ArticleCategoryModel.objects.filter(parent_category = True)
-    all_articles = ArticlesModel.objects.filter(published_on__gte=datetime.now() - timedelta(days=180))
-    mostly_viewed = all_articles.order_by('-views')[:10]
+    article_categories = get_or_cache("article_category", ArticleCategoryModel.objects.all())
+    parent_articles = get_or_cache("parent_articles", ArticleCategoryModel.objects.filter(parent_category = True))
+    all_articles = get_or_cache("all_articles", ArticlesModel.objects.filter(published_on__gte=datetime.now() - timedelta(days=90)))
+    mostly_viewed = get_or_cache("mostly_viewed", all_articles.order_by('-views')[:10])
     article = []
+    print(article_categories.count())
     for a in article_categories:
-        recent_articles = all_articles.filter(category = a).order_by('-id')[:10]
+        recent_articles = get_or_cache(f"recent_articles_{a.name}", all_articles.filter(category = a).order_by('-id')[:10])
         #background = colors[random.randrange(0, len(colors))]
         for r in recent_articles:
             r.images = r.generate_all_image_urls()
@@ -35,7 +52,7 @@ def index(request):
             "name": a.name,
             "articles": recent_articles
         })
-    latest_articles = all_articles.order_by('-published_on')[:10]
+    latest_articles = get_or_cache("latest_articles", all_articles.order_by('-published_on')[:10])
     for r in latest_articles:
             r.images = r.generate_all_image_urls()
     return render(request, "index_new.html", context={
@@ -45,9 +62,9 @@ def index(request):
         "article_menu": parent_articles,
         "latest_articles": latest_articles,
         "ad_image": {
-            "tall_ad_images": AdImageModel.objects.filter(tall_image_id__isnull=False).order_by('-id')[:8],
-            "wide_ad_images": AdImageModel.objects.filter(wide_image_id__isnull=False).order_by('-id')[:8],
-            "tender_ad_images": AdImageModel.objects.filter(tender_image_id__isnull=False).order_by('-id')[:8],
+            "tall_ad_images": get_or_cache("tall_ad_images", AdImageModel.objects.filter(tall_image_id__isnull=False).order_by('-id')[:8]),
+            "wide_ad_images": get_or_cache("wide_ad_image", AdImageModel.objects.filter(wide_image_id__isnull=False).order_by('-id')[:8]),
+            "tender_ad_images": get_or_cache("tender_ad_image", AdImageModel.objects.filter(tender_image_id__isnull=False).order_by('-id')[:8]),
         },
         "ad_videos": AdVideoModel.objects.all()[:5],
         "mostly_viewed": mostly_viewed,

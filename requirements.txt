@@ -10,3 +10,4 @@ pycryptodome
 num2words
 pyjwt
 cloudinary
+django-redis
