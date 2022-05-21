@@ -136,13 +136,21 @@ if platform == "Production":
     #     }
     # }
     DATABASES = {
+        # 'default': {
+        #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        #     'NAME': "janatarkalam",
+        #     'USER': "gourab",
+        #     'PASSWORD': "pass1234",
+        #     'HOST': "postgresql-75775-0.cloudclusters.net",
+        #     'PORT': "18225"
+        # }
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': "janatarkalam",
-            'USER': "gourab",
-            'PASSWORD': "pass1234",
-            'HOST': "postgresql-75775-0.cloudclusters.net",
-            'PORT': "18225"
+            'NAME': "dfb3s2o2dp9dit",
+            'USER': "malzuojheeqbyk",
+            'PASSWORD': "f2dd5ea52ca33088ac42d72f93b7df7aebea061ab370f0165128c642d9bc0e91",
+            'HOST': "ec2-174-129-32-215.compute-1.amazonaws.com",
+            'PORT': "5432"
         }
     }
 else:
@@ -177,13 +185,21 @@ else:
     # }
 
     DATABASES = {
+        # 'default': {
+        #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        #     'NAME': "janatarkalam",
+        #     'USER': "gourab",
+        #     'PASSWORD': "pass1234",
+        #     'HOST': "postgresql-75775-0.cloudclusters.net",
+        #     'PORT': "18225"
+        # }
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': "janatarkalam",
-            'USER': "gourab",
-            'PASSWORD': "pass1234",
-            'HOST': "postgresql-75775-0.cloudclusters.net",
-            'PORT': "18225"
+            'NAME': "dfb3s2o2dp9dit",
+            'USER': "malzuojheeqbyk",
+            'PASSWORD': "f2dd5ea52ca33088ac42d72f93b7df7aebea061ab370f0165128c642d9bc0e91",
+            'HOST': "ec2-174-129-32-215.compute-1.amazonaws.com",
+            'PORT': "5432"
         }
     }
 
