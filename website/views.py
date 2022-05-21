@@ -20,14 +20,17 @@ from django.core.cache import cache
 
 
 def get_or_cache(key: str, query):
-    q = cache.get(key)
-    print(q)
-    if not q:
+    try:
+        q = cache.get(key)
+        print(q)
+        if not q:
+            q = query
+            print("Reading from DB")
+            cache.set(key, q, 60 * 15)
+        else:
+            print("Reading from cache")
+    except:
         q = query
-        print("Reading from DB")
-        cache.set(key, q, 60 * 15)
-    else:
-        print("Reading from cache")
     return q
 
 
