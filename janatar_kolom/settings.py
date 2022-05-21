@@ -30,7 +30,18 @@ DEBUG = True
 if platform == "Production":
     DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', '192.168.1.5', '192.168.43.43', '192.168.43.100', 'localhost', 'janatarkalam.herokuapp.com', 'janatarkalam.com', 'www.janatarkalam.com', '139.59.25.167']
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    '192.168.1.5',
+    '192.168.43.43',
+    '192.168.43.100',
+    'localhost',
+    'janatarkalam.herokuapp.com',
+    'janatarkalam.com',
+    'www.janatarkalam.com',
+    '139.59.25.167',
+    'janatarkalam-website.onrender.com',
+]
 
 
 # Application definition
@@ -175,6 +186,19 @@ else:
             'PORT': "18225"
         }
     }
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://163.123.183.93:12488/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "user": "gourab",
+            "password": "pass1234"
+        },
+        "KEY_PREFIX": "example"
+    }
+}
 
 
 # Password validation
