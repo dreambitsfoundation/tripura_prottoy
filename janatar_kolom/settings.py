@@ -146,10 +146,10 @@ if platform == "Production":
         # }
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': "dfb3s2o2dp9dit",
-            'USER': "malzuojheeqbyk",
-            'PASSWORD': "f2dd5ea52ca33088ac42d72f93b7df7aebea061ab370f0165128c642d9bc0e91",
-            'HOST': "ec2-174-129-32-215.compute-1.amazonaws.com",
+            'NAME': "scarecrowdb",
+            'USER': "admin_user",
+            'PASSWORD': "NlwnO09hLPpcGQIEAnZ0WFZMN4tReiS1",
+            'HOST': "dpg-ca4j8vgnlkiahgrv7oh0-a.singapore-postgres.render.com",
             'PORT': "5432"
         }
     }
@@ -195,10 +195,10 @@ else:
         # }
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': "dfb3s2o2dp9dit",
-            'USER': "malzuojheeqbyk",
-            'PASSWORD': "f2dd5ea52ca33088ac42d72f93b7df7aebea061ab370f0165128c642d9bc0e91",
-            'HOST': "ec2-174-129-32-215.compute-1.amazonaws.com",
+            'NAME': "scarecrowdb",
+            'USER': "admin_user",
+            'PASSWORD': "NlwnO09hLPpcGQIEAnZ0WFZMN4tReiS1",
+            'HOST': "dpg-ca4j8vgnlkiahgrv7oh0-a.singapore-postgres.render.com",
             'PORT': "5432"
         }
     }
