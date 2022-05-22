@@ -128,13 +128,6 @@
     <!-- Hero Section -->
     <div class="container">
         <div class="row">
-            <div class="col-md-2 col-sm-12">
-                {% for tall_image in ad_image.tall_ad_images %}
-                <br/><br/>
-<!--                <div style="height: 300px; width: 150px; background-image: url('{{ tall_image.tall_image_secure_url }}');  background-size: cover; background-repeat: no-repeat;"></div>-->
-                <img src="{{ tall_image.tall_image_secure_url }}" height="300" width="150"/>
-                {% endfor %}
-            </div>
             <div class="col-md-10 col-sm-12">
                 <div class="container-fluid" style="margin-top: 20px">
                     <div class="row">
@@ -192,6 +185,13 @@
                         {% endif %}
                     </div>
                 </div>
+            </div>
+            <div class="col-md-2 col-sm-12">
+                {% for tall_image in ad_image.tall_ad_images %}
+                <br/><br/>
+<!--                <div style="height: 300px; width: 150px; background-image: url('{{ tall_image.tall_image_secure_url }}');  background-size: cover; background-repeat: no-repeat;"></div>-->
+                <img src="{{ tall_image.tall_image_secure_url }}" height="300" width="150"/>
+                {% endfor %}
             </div>
         </div>
     </div>

@@ -371,6 +371,8 @@ def search(request):
     q = None
     search_type = "QUERY"
     results = 0
+    articles = list()
+    static_articles = list()
     try:
         query = request.GET.get('q', None)
         category_id = request.GET.get('cat', None)
@@ -413,9 +415,9 @@ def search(request):
         context={
             "results": results,
             "articles": articles,
-            "posts": posts,
+            "posts": list(),
             "static_articles": static_articles,
-            "comments": comments,
+            "comments": list(),
             "user": request.user,
             "page_title": "Search",
             "query": query,
