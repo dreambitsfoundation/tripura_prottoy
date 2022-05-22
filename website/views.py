@@ -370,6 +370,7 @@ def view_article(request):
 def search(request):
     q = None
     search_type = "QUERY"
+    results = 0
     try:
         query = request.GET.get('q', None)
         category_id = request.GET.get('cat', None)
@@ -401,7 +402,6 @@ def search(request):
             query = q
             search_type = "CATEGORY"
     except:
-        results = 0
         articles = None
         posts = None
         static_articles = None
