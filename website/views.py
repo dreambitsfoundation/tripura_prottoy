@@ -369,6 +369,7 @@ def view_article(request):
 
 def search(request):
     q = None
+    search_type = "QUERY"
     try:
         query = request.GET.get('q', None)
         category_id = request.GET.get('cat', None)
@@ -397,6 +398,8 @@ def search(request):
             posts = None
             static_articles = None
             comments = None
+            query = q
+            search_type = "CATEGORY"
     except:
         results = 0
         articles = None
@@ -415,6 +418,7 @@ def search(request):
             "comments": comments,
             "user": request.user,
             "page_title": "Search",
-            "query": query
+            "query": query,
+            "search_type": search_type
         }
     )
