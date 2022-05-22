@@ -403,7 +403,8 @@ def search(request):
             comments = None
             query = q
             search_type = "CATEGORY"
-    except:
+    except Exception as e:
+        raise e
         articles = None
         posts = None
         static_articles = None
