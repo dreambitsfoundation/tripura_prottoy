@@ -367,18 +367,24 @@ def view_article(request):
         }
     )
 
+
 def search(request):
     q = None
-    search_type = "QUERY"
+    search_type = "QUERY"  # Possible Values QUERY, ARCHIVE, CATEGORY
     results = 0
     articles = list()
     static_articles = list()
+    archive_search_date = None
     try:
+        search_type = request.GET.get('type', "QUERY")
         query = request.GET.get('q', None)
         category_id = request.GET.get('cat', None)
         if query and len(query) < 4:
             q = query
             raise Exception('Invalid Argument')
+        archive_search_date = request.GET.get("search-date", None)
+        if archive_search_date:
+            archive_search_date = datetime.fromisoformat(archive_search_date)
 
         if category_id:
             categories = ArticleCategoryModel.objects.filter(id=category_id)
@@ -403,6 +409,17 @@ def search(request):
             comments = None
             query = q
             search_type = "CATEGORY"
+
+        if archive_search_date:
+            articles = ArticlesModel.objects.filter(published_on__date=archive_search_date.date()) \
+                .distinct().order_by('-published_on')
+            results = articles.count()
+            posts = None
+            static_articles = None
+            comments = None
+            query = q
+            search_type = "ARCHIVE"
+
     except Exception as e:
         raise e
         articles = None
@@ -422,6 +439,7 @@ def search(request):
             "user": request.user,
             "page_title": "Search",
             "query": query,
-            "search_type": search_type
+            "search_type": search_type,
+            "archive_search_date": archive_search_date,
         }
     )

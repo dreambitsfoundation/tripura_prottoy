@@ -82,11 +82,13 @@
       <br /><br />
       <div class="row">
         <div class="col s12 l6">
-          <img
-            src="{% static 'images/janatar_kolom.png' %}"
-            height="130"
-            width="250"
-          />
+          <a href="/">
+            <img
+              src="{% static 'images/janatar_kolom.png' %}"
+              height="130"
+              width="250"
+            />
+          </a>
         </div>
         <div class="col s12 l6 right-align">
           <br /><br />
@@ -102,11 +104,33 @@
         </div>
       </div>
       <br /><br />
+      {% if search_type == "ARCHIVE" %}
       <div class="ui one column stackable grid">
         <div class="ui column">
-          <span class="" style="font-size: large"
-            >আপনার খোঁজের ফলাফল <b>"{{query}}"</b></span
-          >
+          <div class="card" style="padding: 20px">
+            <h5>দৈনিক খবর খোঁজার জন্য তারিখ নথিভুক্ত করুন</h5>
+            <br/>
+            <form method="get" target="">
+              <input type="hidden" name="type" value="ARCHIVE"/>
+              <input type="date" name="search-date"/>
+              <button class="btn" type="submit">Search</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <br/>
+      {% endif %}
+      <div class="ui one column stackable grid">
+        <div class="ui column">
+          {% if search_type != "ARCHIVE" %}
+            <span class="" style="font-size: large"
+              >আপনার খোঁজের ফলাফল <b>"{{query}}"</b></span
+            >
+          {% else %}
+            <span class="" style="font-size: large"
+              >{{ archive_search_date.date }} তারিখে, আমাদের সর্বমোট খবর ছিল {{ results }}</span
+            >
+          {% endif %}
           {% if results == 0 %}
           <br /><br /><br />
           <div style="text-align: center">
