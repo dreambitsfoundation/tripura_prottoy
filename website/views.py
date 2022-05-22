@@ -16,6 +16,7 @@ from administrator.Models import ArticlesModel, ArticleCategoryModel, StaticCate
 from authentication.models import User
 from django.views.decorators.cache import cache_page
 from django.core.cache import cache
+from django.utils import timezone
 
 
 
@@ -383,14 +384,15 @@ def search(request):
                 raise Exception("Category not found.")
 
         if query:
-            articles = ArticlesModel.objects.filter(Q(title__icontains=query)|Q(body__icontains=query)|Q(category__name=query)).distinct().order_by('-published_on')
+            articles = ArticlesModel.objects.filter(Q(title__icontains=query)|Q(body__icontains=query)|Q(category__name=query)).distinct().order_by('-published_on')[:10]
             posts = PostModel.objects.filter(Q(title__icontains=query)|Q(body__icontains=query)|Q(organisation__icontains=query), approved=True).distinct()
             static_articles = StaticArticleModel.objects.filter(Q(title__icontains=query)|Q(content__icontains=query)).distinct()
             comments = CommentModel.objects.filter(text__icontains=query).order_by("-last_updated")
             results = articles.count() + posts.count() + static_articles.count() + comments.count()
 
         if category_id:
-            articles = ArticlesModel.objects.filter(category__id=category_id).distinct().order_by('-published_on')
+            articles = ArticlesModel.objects.filter(category__id=category_id, published_on__date=timezone.now().date())\
+                .distinct().order_by('-published_on')
             results = articles.count()
             posts = None
             static_articles = None
