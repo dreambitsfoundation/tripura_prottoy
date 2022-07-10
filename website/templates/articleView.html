@@ -3,21 +3,33 @@
   <head>
     <meta charset="UTF-8" />
     {% load static %}
-    <title>{% if article %}{{article.title}}{% else %}Article Not Found{% endif %}</title>
+    <title>
+      {% if article %}{{article.title}}{% else %}Article Not Found{% endif %}
+    </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
-    <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+    <link
+      rel="shortcut icon"
+      href="{% static 'images/favicon.ico' %}"
+      type="image/x-icon"
+    />
+    <link
+      rel="icon"
+      href="{% static 'images/favicon.ico' %}"
+      type="image/x-icon"
+    />
     {% if article %}
-    <meta property="org:app_id"       content="600959250691153" />
-    <meta property="og:url"           content="http://janatarkalam.com/articleView?id={{article.id}}" />
-    <meta property="og:type"          content="website" />
-    <meta property="og:title"         content="{{article.title}}" />
-    <meta property="og:description"   content="" />
+    <meta property="org:app_id" content="600959250691153" />
+    <meta
+      property="og:url"
+      content="http://tripuraprottoy.com/articleView?id={{article.id}}"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="{{article.title}}" />
+    <meta property="og:description" content="" />
     {% if images|length > 0 %}
-    <meta property="og:image"         content="{{images.0}}" />
-    {% endif %}
-    {% endif %}
+    <meta property="og:image" content="{{images.0}}" />
+    {% endif %} {% endif %}
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
@@ -38,7 +50,10 @@
       href="https://fonts.googleapis.com/css?family=Atma|Galada&display=swap"
       rel="stylesheet"
     />
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
     <!-- Required Core Stylesheet -->
     <link rel="stylesheet" href="{% static 'css/glide.core.min.css' %}" />
 
@@ -75,22 +90,24 @@
         color: #d50000;
       }
       /* label focus color */
-      .input-field textarea:focus + label, .materialize-textarea:focus:not([readonly]) + label {
+      .input-field textarea:focus + label,
+      .materialize-textarea:focus:not([readonly]) + label {
         color: #d50000 !important;
       }
 
-      .input-field textarea:focus, .materialize-textarea:focus:not([readonly]) {
+      .input-field textarea:focus,
+      .materialize-textarea:focus:not([readonly]) {
         border-bottom: 1px solid #d50000 !important;
         box-shadow: 0 1px 0 0 #d50000 !important;
       }
 
       /* valid color */
-      .input-field input[type=text].valid {
+      .input-field input[type="text"].valid {
         border-bottom: 1px solid #d50000;
         box-shadow: 0 1px 0 0 #d50000;
       }
       /* invalid color */
-      .input-field input[type=text].invalid {
+      .input-field input[type="text"].invalid {
         border-bottom: 1px solid #d50000;
         box-shadow: 0 1px 0 0 #d50000;
       }
@@ -104,31 +121,31 @@
     {% load static %}
     <br />
     <!-- <div class="container"> -->
-      <div class="row">
-        <div class="col s1 valign-wrapper">
-          <span class="new badge red" style="padding-right: 20px"
-            >Latest &gt;</span
-          >
-        </div>
-        <div class="col s11">
-          <marquee
-            onmouseover="this.stop();"
-            onmouseout="this.start();"
-            style="margin-top: 4px"
-          >
-            {% for article in latest_articles %}
-            <a
-              href="articleView?id={{article.id}}"
-              target="_blank"
-              style="text-decoration: none; color: black"
-              >{{article.title}}</a
-            ><small class="grey-text" style="margin-right: 70px"
-              >&nbsp;&nbsp;{{article.published_on}}</small
-            ><i class="ui circle icon mini"></i>&nbsp;&nbsp;&nbsp; {% endfor %}
-          </marquee>
-        </div>
+    <div class="row">
+      <div class="col s1 valign-wrapper">
+        <span class="new badge red" style="padding-right: 20px"
+          >Latest &gt;</span
+        >
       </div>
-      <div class="container">
+      <div class="col s11">
+        <marquee
+          onmouseover="this.stop();"
+          onmouseout="this.start();"
+          style="margin-top: 4px"
+        >
+          {% for article in latest_articles %}
+          <a
+            href="articleView?id={{article.id}}"
+            target="_blank"
+            style="text-decoration: none; color: black"
+            >{{article.title}}</a
+          ><small class="grey-text" style="margin-right: 70px"
+            >&nbsp;&nbsp;{{article.published_on}}</small
+          ><i class="ui circle icon mini"></i>&nbsp;&nbsp;&nbsp; {% endfor %}
+        </marquee>
+      </div>
+    </div>
+    <div class="container">
       <div class="row">
         <div class="col s12 l4">
           <img
@@ -158,7 +175,12 @@
             class="input-field"
             method="GET"
             action="/search"
-            style="width: 30%; float:right; margin-top: 5px; margin-bottom: 0px"
+            style="
+              width: 30%;
+              float: right;
+              margin-top: 5px;
+              margin-bottom: 0px;
+            "
           >
             <i class="material-icons prefix">search</i>
             <input type="text" name="q" placeholder="Search" />
@@ -187,7 +209,9 @@
             </li>
             {% for category in categories %}
             <li class="tab">
-              <a href="search?cat={{category.id}}" style="color: white">{{category.name}}</a>
+              <a href="search?cat={{category.id}}" style="color: white"
+                >{{category.name}}</a
+              >
             </li>
             {% endfor %}
           </ul>
@@ -195,256 +219,367 @@
       </div>
     </nav>
     <!-- <div class="container"> -->
-      <div class="row">
-        <div class="col s12">
-          {% if image.wide_image_secure_url %}
-            Ad.<br/>
-            <img src="{{image.wide_image_secure_url}}" alt="ad_image" width="100%" height="100px"/>
-          {% else %}
-          <div style="text-align: center; background-color: grey; font-size: 30px; padding: 30px">
-              Ad Image Here
-          </div>
-          {% endif %}
-        </div>
-        {% if article.generate_youtube_iframes|length > 0 %}
-        <br/>
-        <div class="col s12">
-          <div class="video-container">
-            {{article.generate_youtube_iframes.0|safe}}
-          </div>
+    <div class="row">
+      <div class="col s12">
+        {% if image.wide_image_secure_url %} Ad.<br />
+        <img
+          src="{{image.wide_image_secure_url}}"
+          alt="ad_image"
+          width="100%"
+          height="100px"
+        />
+        {% else %}
+        <div
+          style="
+            text-align: center;
+            background-color: grey;
+            font-size: 30px;
+            padding: 30px;
+          "
+        >
+          Ad Image Here
         </div>
         {% endif %}
-        <!-- Mobile Content was here -->
-        <div class="col s12 l6">
-          {% if article %}
-          <div class="glide article_glide">
-            <div class="glide__track" data-glide-el="track">
-              <ul class="glide__slides">
-                {% for image in article.generate_card_image_urls %}
-                <li>
-                  <div class="card">
-                    <div class="card-image">
-                      <img src="{{image}}" />
-                    </div>
+      </div>
+      {% if article.generate_youtube_iframes|length > 0 %}
+      <br />
+      <div class="col s12">
+        <div class="video-container">
+          {{article.generate_youtube_iframes.0|safe}}
+        </div>
+      </div>
+      {% endif %}
+      <!-- Mobile Content was here -->
+      <div class="col s12 l6">
+        {% if article %}
+        <div class="glide article_glide">
+          <div class="glide__track" data-glide-el="track">
+            <ul class="glide__slides">
+              {% for image in article.generate_card_image_urls %}
+              <li>
+                <div class="card">
+                  <div class="card-image">
+                    <img src="{{image}}" />
                   </div>
-                </li>
-                {% endfor %}
-              </ul>
-            </div>
-            <div class="glide__arrows" data-glide-el="controls">
-              <button
-                class="glide__arrow glide__arrow--left"
-                data-glide-dir="<"
-                style="height: 15%"
+                </div>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+          <div class="glide__arrows" data-glide-el="controls">
+            <button
+              class="glide__arrow glide__arrow--left"
+              data-glide-dir="<"
+              style="height: 15%"
+            >
+              <i
+                class="material-icons"
+                style="background-color: red; color: white"
+                >chevron_left</i
               >
-                <i
-                  class="material-icons"
-                  style="background-color: red; color: white"
-                  >chevron_left</i
-                >
-              </button>
-              <button
-                class="glide__arrow glide__arrow--right"
-                data-glide-dir=">"
-                style="height: 15%; background: black 0.8"
+            </button>
+            <button
+              class="glide__arrow glide__arrow--right"
+              data-glide-dir=">"
+              style="height: 15%; background: black 0.8"
+            >
+              <i
+                class="material-icons"
+                style="background-color: red; color: white"
+                >chevron_right</i
               >
-                <i
-                  class="material-icons"
-                  style="background-color: red; color: white"
-                  >chevron_right</i
-                >
-              </button>
+            </button>
+          </div>
+        </div>
+        <br />
+      </div>
+
+      <div class="col s12 l6 hide-on-large-only">
+        {% if article == None %}
+        <div class="ui center aligned segment" id="noPotView">
+          <br /><br />
+          <img src="https://img.icons8.com/cotton/64/000000/laptop-alert.png" />
+          <br /><br />
+          <h2 class="comfortaa">Article Not Found!</h2>
+          <br />
+        </div>
+        {% else %}
+        <div class="card-panel" id="postView">
+          <b
+            id="title"
+            class="bangla_heading"
+            style="font-size: xx-large"
+            onmousedown="return false;"
+            onselectstart="return false;"
+          >
+            {{ article.title }}
+          </b>
+          <br />
+          <small>{{ article.published_on }}</small>
+          <br />
+          <div class="valign-wrapper">
+            {% if user.is_administrator %}<i
+              class="grey-text tiny material-icons"
+              >visibility</i
+            ><span class="grey-text" style="font-size: small"
+              >{{article.get_fake_views}}</span
+            >{% endif %} &nbsp;&nbsp;
+            <div
+              class="fb-share-button"
+              data-href="http://tripuraprottoy.com/articleView?id={{article.id}}"
+              data-layout="button_count"
+              data-size="small"
+            >
+              <a
+                target="_blank"
+                href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse"
+                class="fb-xfbml-parse-ignore"
+                >Share</a
+              >
             </div>
           </div>
           <br />
-        </div>
-
-        <div class="col s12 l6 hide-on-large-only">
-          {% if article == None %}
-          <div class="ui center aligned segment" id="noPotView">
-            <br /><br />
-            <img src="https://img.icons8.com/cotton/64/000000/laptop-alert.png" />
-            <br /><br />
-            <h2 class="comfortaa">Article Not Found!</h2>
-            <br />
-          </div>
-          {% else %}
-          <div class="card-panel" id="postView">
-            <b id="title" class="bangla_heading" style="font-size: xx-large" onmousedown="return false;" onselectstart="return false;">
-              {{ article.title }}
-            </b>
-            <br />
-            <small>{{ article.published_on }}</small>
-            <br />
-            <div class="valign-wrapper">
-              {% if user.is_administrator %}<i class="grey-text tiny material-icons">visibility</i><span class="grey-text" style="font-size: small">{{article.get_fake_views}}</span>{% endif %}
-              &nbsp;&nbsp; <div class="fb-share-button" data-href="http://janatarkalam.com/articleView?id={{article.id}}" data-layout="button_count" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
-            </div>
-            <br />
-            <p id="postContent" class="comfortaa" style="font-size: large" onmousedown="return false;" onselectstart="return false;">{{ article.body }}</p>
-            <div class="fb-share-button" data-href="http://janatarkalam.com/articleView?id={{article.id}}" data-layout="button_count" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
-          </div>
-          {% endif %}
-        </div>
-
-
-        <div class="col s12 l6">
-          <span style="font-size: large" class="bangla_heading"><b>সংযুক্ত ছবি </b> ({{ images | length }} ছবি)</span>
-          <!---->
-          {% if images %}
-          <br /><br />
-          {%for image in images %}
-          <a href="{{ image }}" target="_blank">
-            <img src="{{ image }}" width="80" height="80" />
-          </a>
-          {% endfor %} {% endif %}
-
-
-          <br /><br />
-          <b>{{ comments | length }} Comment(s)</b>
-          <br /><br />
-          {% if user.is_authenticated %}
-          <div class="card-panel">
-            <b>New Comment</b>
-            <form class="ui form comment_form" method="post">
-              <input type="hidden" name="head_comment" value="True" />
-              <input type="hidden" name="article_id" value="{{ article.id }}" />
-              <input type="hidden" name="root_comment_id" value="0" />
-              <div class="input-field">
-                <textarea
-                  rows="3"
-                  name="text"
-                  class="materialize-textarea"
-                  placeholder="Write your comment"
-                ></textarea>
-              </div>
-              <button class="btn waves-effect waves-light red darken-4">Submit</button>
-            </form>
-          </div>
-          {% else %}
-          <small
-            ><i class="ui icon lock"></i> <a href="/joinus">Sign In</a> to
-            comment.</small
+          <p
+            id="postContent"
+            class="comfortaa"
+            style="font-size: large"
+            onmousedown="return false;"
+            onselectstart="return false;"
           >
-          {% endif %} {% for comment in comments %}
-          <div class="ui message">
+            {{ article.body }}
+          </p>
+          <div
+            class="fb-share-button"
+            data-href="http://tripuraprottoy.com/articleView?id={{article.id}}"
+            data-layout="button_count"
+            data-size="small"
+          >
+            <a
+              target="_blank"
+              href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse"
+              class="fb-xfbml-parse-ignore"
+              >Share</a
+            >
+          </div>
+        </div>
+        {% endif %}
+      </div>
+
+      <div class="col s12 l6">
+        <span style="font-size: large" class="bangla_heading"
+          ><b>সংযুক্ত ছবি </b> ({{ images | length }} ছবি)</span
+        >
+        <!---->
+        {% if images %}
+        <br /><br />
+        {%for image in images %}
+        <a href="{{ image }}" target="_blank">
+          <img src="{{ image }}" width="80" height="80" />
+        </a>
+        {% endfor %} {% endif %}
+
+        <br /><br />
+        <b>{{ comments | length }} Comment(s)</b>
+        <br /><br />
+        {% if user.is_authenticated %}
+        <div class="card-panel">
+          <b>New Comment</b>
+          <form class="ui form comment_form" method="post">
+            <input type="hidden" name="head_comment" value="True" />
+            <input type="hidden" name="article_id" value="{{ article.id }}" />
+            <input type="hidden" name="root_comment_id" value="0" />
+            <div class="input-field">
+              <textarea
+                rows="3"
+                name="text"
+                class="materialize-textarea"
+                placeholder="Write your comment"
+              ></textarea>
+            </div>
+            <button class="btn waves-effect waves-light red darken-4">
+              Submit
+            </button>
+          </form>
+        </div>
+        {% else %}
+        <small
+          ><i class="ui icon lock"></i> <a href="/joinus">Sign In</a> to
+          comment.</small
+        >
+        {% endif %} {% for comment in comments %}
+        <div class="ui message">
+          <div class="valign-wrapper">
+            <img
+              class="ui avatar image"
+              src="https://img.icons8.com/ios/50/000000/user.png"
+            />
+            <p>
+              <b style="font-size: large" id="postcomment{{ comment.id }}">
+                {{ comment.user.get_full_name }}
+              </b>
+              {% if article.user.id == comment.user.id %}
+              <span class="new badge red" data-badge-caption="Author"></span>
+              {% endif %}
+              <br />
+              <small> {{ comment.last_updated }} </small>
+            </p>
+          </div>
+          <p onmousedown="return false;" onselectstart="return false;">
+            {{ comment.text }}
+          </p>
+          <div style="margin-left: 20px">
+            <b>{{ comment.sub_comment.all | length }} Response(s)</b>
+            <br /><br />
+            {% for c in comment.sub_comment.all %}
             <div class="valign-wrapper">
               <img
                 class="ui avatar image"
                 src="https://img.icons8.com/ios/50/000000/user.png"
               />
               <p>
-                <b style="font-size: large" id="postcomment{{ comment.id }}">
-                  {{ comment.user.get_full_name }}
-                </b>
-                {% if article.user.id == comment.user.id %}
+                <b id="postcomment{{ c.id }}">{{ c.user.get_full_name }}</b>
+                {% if article.user.id == c.user.id %}
                 <span class="new badge red" data-badge-caption="Author"></span>
                 {% endif %}
-                <br/>
-                <small>
-                  {{ comment.last_updated }}
-                </small>
+                <br />
+                <small>{{ c.last_updated }}</small>
               </p>
             </div>
-            <p onmousedown="return false;" onselectstart="return false;">{{ comment.text }}</p>
-            <div style="margin-left: 20px">
-              <b>{{ comment.sub_comment.all | length }} Response(s)</b>
-              <br /><br />
-              {% for c in comment.sub_comment.all %}
-              <div class="valign-wrapper">
-                <img
-                  class="ui avatar image"
-                  src="https://img.icons8.com/ios/50/000000/user.png"
+            <p onmousedown="return false;" onselectstart="return false;">
+              {{ c.text }}
+            </p>
+            <div class="ui divider"></div>
+            {% endfor %} {% if user.is_authenticated %}
+            <div class="card-panel">
+              <b>Response Comment</b>
+              <form class="comment_form" method="post">
+                <input type="hidden" name="head_comment" value="False" />
+                <input
+                  type="hidden"
+                  name="article_id"
+                  value="{{ article.id }}"
                 />
-                <p>
-                  <b id="postcomment{{ c.id }}">{{ c.user.get_full_name }}</b>
-                  {% if article.user.id == c.user.id %}
-                  <span class="new badge red" data-badge-caption="Author"></span>
-                  {% endif %}
-                  <br />
-                  <small>{{ c.last_updated }}</small>
-                </p>
-              </div>
-              <p onmousedown="return false;" onselectstart="return false;">{{ c.text }}</p>
-              <div class="ui divider"></div>
-              {% endfor %} {% if user.is_authenticated %}
-              <div class="card-panel">
-                <b>Response Comment</b>
-                <form class="comment_form" method="post">
-                  <input type="hidden" name="head_comment" value="False" />
-                  <input
-                    type="hidden"
-                    name="article_id"
-                    value="{{ article.id }}"
-                  />
-                  <input
-                    type="hidden"
-                    name="root_comment_id"
-                    value="{{ comment.id }}"
-                  />
-                  <div class="input-field">
-                    <textarea
-                      rows="1"
-                      name="text"
-                      class="materialize-textarea"
-                      placeholder="Type in your comment"
-                    ></textarea>
-                  </div>
-                  <button class="btn red">Submit</button>
-                </form>
-              </div>
-              {% else %}
-              <small
-                ><b
-                  ><i class="ui icon lock"></i> <a href="/joinus">Sign In</a> to
-                  Comment</b
-                ></small
-              >
-              {% endif %}
+                <input
+                  type="hidden"
+                  name="root_comment_id"
+                  value="{{ comment.id }}"
+                />
+                <div class="input-field">
+                  <textarea
+                    rows="1"
+                    name="text"
+                    class="materialize-textarea"
+                    placeholder="Type in your comment"
+                  ></textarea>
+                </div>
+                <button class="btn red">Submit</button>
+              </form>
             </div>
+            {% else %}
+            <small
+              ><b
+                ><i class="ui icon lock"></i> <a href="/joinus">Sign In</a> to
+                Comment</b
+              ></small
+            >
+            {% endif %}
           </div>
-          {% endfor %}
-          {% endif %}
         </div>
-        <div class="col s12 l6 hide-on-med-and-down">
-          {% if article == None %}
-          <div class="ui center aligned segment" id="noPotView">
-            <br /><br />
-            <img src="https://img.icons8.com/cotton/64/000000/laptop-alert.png" />
-            <br /><br />
-            <h2 class="comfortaa">Article Not Found!</h2>
-            <br />
-          </div>
-          {% else %}
-          <div class="card-panel" id="postView">
-            <b id="title" class="bangla_heading" style="font-size: xx-large" onmousedown="return false;" onselectstart="return false;">
-              {{ article.title }}
-            </b>
-            <br />
-            <small>{{ article.published_on }}</small>
-            <br />
-            <div class="valign-wrapper">
-              {% if user.is_administrator %}<i class="grey-text tiny material-icons">visibility</i><span class="grey-text" style="font-size: small">{{article.get_fake_views}}</span>{% endif %}
-              &nbsp;&nbsp; <div class="fb-share-button" data-href="http://janatarkalam.com/articleView?id={{article.id}}" data-layout="button_count" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
-            </div>
-            <br />
-            <p id="postContent" class="comfortaa" style="font-size: large" onmousedown="return false;" onselectstart="return false;">{{ article.body }}</p>
-            <div class="fb-share-button" data-href="http://janatarkalam.com/articleView?id={{article.id}}" data-layout="button_count" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
-          </div>
-          {% endif %}
-        </div>
-        <div class="col s12">
-          {% if image.wide_image_secure_url %}
-            Ad.<br/>
-            <img src="{{image.wide_image_secure_url}}" alt="ad_image" width="100%" height="100px"/>
-          {% else %}
-          <div style="text-align: center; background-color: grey; font-size: 30px; padding: 30px">
-              Ad Image Here
-          </div>
-          {% endif %}
-        </div>
+        {% endfor %} {% endif %}
       </div>
-          <!-- <h5 class="">Reference Posts ({{ article.posts.all | length }} posts)</h5>
+      <div class="col s12 l6 hide-on-med-and-down">
+        {% if article == None %}
+        <div class="ui center aligned segment" id="noPotView">
+          <br /><br />
+          <img src="https://img.icons8.com/cotton/64/000000/laptop-alert.png" />
+          <br /><br />
+          <h2 class="comfortaa">Article Not Found!</h2>
+          <br />
+        </div>
+        {% else %}
+        <div class="card-panel" id="postView">
+          <b
+            id="title"
+            class="bangla_heading"
+            style="font-size: xx-large"
+            onmousedown="return false;"
+            onselectstart="return false;"
+          >
+            {{ article.title }}
+          </b>
+          <br />
+          <small>{{ article.published_on }}</small>
+          <br />
+          <div class="valign-wrapper">
+            {% if user.is_administrator %}<i
+              class="grey-text tiny material-icons"
+              >visibility</i
+            ><span class="grey-text" style="font-size: small"
+              >{{article.get_fake_views}}</span
+            >{% endif %} &nbsp;&nbsp;
+            <div
+              class="fb-share-button"
+              data-href="http://tripuraprottoy.com/articleView?id={{article.id}}"
+              data-layout="button_count"
+              data-size="small"
+            >
+              <a
+                target="_blank"
+                href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse"
+                class="fb-xfbml-parse-ignore"
+                >Share</a
+              >
+            </div>
+          </div>
+          <br />
+          <p
+            id="postContent"
+            class="comfortaa"
+            style="font-size: large"
+            onmousedown="return false;"
+            onselectstart="return false;"
+          >
+            {{ article.body }}
+          </p>
+          <div
+            class="fb-share-button"
+            data-href="http://tripuraprottoy.com/articleView?id={{article.id}}"
+            data-layout="button_count"
+            data-size="small"
+          >
+            <a
+              target="_blank"
+              href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse"
+              class="fb-xfbml-parse-ignore"
+              >Share</a
+            >
+          </div>
+        </div>
+        {% endif %}
+      </div>
+      <div class="col s12">
+        {% if image.wide_image_secure_url %} Ad.<br />
+        <img
+          src="{{image.wide_image_secure_url}}"
+          alt="ad_image"
+          width="100%"
+          height="100px"
+        />
+        {% else %}
+        <div
+          style="
+            text-align: center;
+            background-color: grey;
+            font-size: 30px;
+            padding: 30px;
+          "
+        >
+          Ad Image Here
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    <!-- <h5 class="">Reference Posts ({{ article.posts.all | length }} posts)</h5>
           
           {% if article.posts.all %}
           <div class="card-panel">
@@ -466,8 +601,8 @@
           </div>
           {% endif %} -->
     <!-- </div> -->
-    <br/><br/>
-    <footer class="page-footer" style="background-color: rgb(138, 0, 0);">
+    <br /><br />
+    <footer class="page-footer" style="background-color: rgb(138, 0, 0)">
       <div class="container">
         <div class="row">
           <div class="col l6 s12">
@@ -476,9 +611,7 @@
               height="80"
               width="140"
             />
-            <p class="grey-text text-lighten-4">
-              জনতার ভাষায়, জনতার সাথে |
-            </p>
+            <p class="grey-text text-lighten-4">জনতার ভাষায়, জনতার সাথে |</p>
             <p>
               <small class="grey-text text-lighten-4">
                 Vector images used in this application that are not part of the
@@ -491,10 +624,18 @@
             <h5 class="white-text">Important Links</h5>
             <ul>
               <li>
-                <a class="grey-text text-lighten-3" href="/showStaticArticle?id=1">Privacy Policy</a>
+                <a
+                  class="grey-text text-lighten-3"
+                  href="/showStaticArticle?id=1"
+                  >Privacy Policy</a
+                >
               </li>
               <li>
-                <a class="grey-text text-lighten-3" href="/showStaticArticle?id=2">Legal Disclaimer</a>
+                <a
+                  class="grey-text text-lighten-3"
+                  href="/showStaticArticle?id=2"
+                  >Legal Disclaimer</a
+                >
               </li>
             </ul>
           </div>
@@ -502,7 +643,7 @@
       </div>
       <div class="footer-copyright">
         <div class="container">
-          © 2021-22 Janatar Kalam. All Rights Reserved
+          © 2021-22 Tripura Prottoy. All Rights Reserved
           <a class="grey-text text-lighten-4 right" href="http://chevichef.com"
             >A Chevichef production.</a
           >
@@ -510,8 +651,13 @@
       </div>
     </footer>
     <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v5.0&appId=600959250691153&autoLogAppEvents=1"></script>
-    
+    <script
+      async
+      defer
+      crossorigin="anonymous"
+      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v5.0&appId=600959250691153&autoLogAppEvents=1"
+    ></script>
+
     <!-- <script>
       (function(d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
@@ -528,7 +674,7 @@
     ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     {% load static %}
-    <script src="{% static 'comment.js' %}"></script>    
+    <script src="{% static 'comment.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide"></script>
     <script>
       function startTime() {
@@ -567,27 +713,27 @@
       }
     </script>
     <script>
-    var slides = $(".glide");
-    console.log(slides);
-    for (var i = 0; i < slides.length; i++) {
-      var glide = new Glide(slides[i], {
-        type: "slider",
-        perView: 1,
-        gap: 3,
-        rewind: true,
-        breakpoints: {
-          800: {
-            perView: 2
+      var slides = $(".glide");
+      console.log(slides);
+      for (var i = 0; i < slides.length; i++) {
+        var glide = new Glide(slides[i], {
+          type: "slider",
+          perView: 1,
+          gap: 3,
+          rewind: true,
+          breakpoints: {
+            800: {
+              perView: 2,
+            },
+            480: {
+              perView: 1,
+            },
           },
-          480: {
-            perView: 1
-          }
-        },
-        autoplay: 4000,
-        hoverpause: true
-      });
-      glide.mount();
-    }
+          autoplay: 4000,
+          hoverpause: true,
+        });
+        glide.mount();
+      }
     </script>
   </body>
 </html>

@@ -3,7 +3,7 @@
   <head>
     {% load static %}
     <meta charset="UTF-8" />
-    <title>Janatar Kalam</title>
+    <title>Tripura Prottoy</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link
@@ -109,29 +109,29 @@
         <div class="ui column">
           <div class="card" style="padding: 20px">
             <h5>দৈনিক খবর খোঁজার জন্য তারিখ নথিভুক্ত করুন</h5>
-            <br/>
+            <br />
             <form method="get" target="">
-              <input type="hidden" name="type" value="ARCHIVE"/>
-              <input type="date" name="search-date"/>
+              <input type="hidden" name="type" value="ARCHIVE" />
+              <input type="date" name="search-date" />
               <button class="btn" type="submit">Search</button>
             </form>
           </div>
         </div>
       </div>
-      <br/>
+      <br />
       {% endif %}
       <div class="ui one column stackable grid">
         <div class="ui column">
           {% if search_type != "ARCHIVE" %}
-            <span class="" style="font-size: large"
-              >আপনার খোঁজের ফলাফল <b>"{{query}}"</b></span
-            >
+          <span class="" style="font-size: large"
+            >আপনার খোঁজের ফলাফল <b>"{{query}}"</b></span
+          >
           {% else %}
-            <span class="" style="font-size: large"
-              >{{ archive_search_date.date }} তারিখে, আমাদের সর্বমোট খবর ছিল {{ results }}</span
-            >
-          {% endif %}
-          {% if results == 0 %}
+          <span class="" style="font-size: large"
+            >{{ archive_search_date.date }} তারিখে, আমাদের সর্বমোট খবর ছিল {{
+            results }}</span
+          >
+          {% endif %} {% if results == 0 %}
           <br /><br /><br />
           <div style="text-align: center">
             <img
@@ -172,9 +172,7 @@
           <span id="title" class="montserrat">
             খবর
             <br />
-            <small style="color: grey"
-              >{{query}} বিভাগের আজকের খবর |</small
-            >
+            <small style="color: grey">{{query}} বিভাগের আজকের খবর |</small>
           </span>
           {% for a in articles %}
           <div class="card horizontal">
@@ -232,18 +230,15 @@
       </div>
     </div>
     <br /><br />
-    <footer class="page-footer" style="background-color: rgb(138, 0, 0);">
+    <footer class="page-footer" style="background-color: rgb(138, 0, 0)">
       <div class="container">
         <div class="row">
           <div class="col l6 s12">
             <img
               src="{% static 'images/janatar_kolom.png' %}"
-              height="80"
+              height="100"
               width="140"
             />
-            <p class="grey-text text-lighten-4">
-              জনতার ভাষায়, জনতার সাথে |
-            </p>
             <p>
               <small class="grey-text text-lighten-4">
                 Vector images used in this application that are not part of the
@@ -275,7 +270,7 @@
       </div>
       <div class="footer-copyright">
         <div class="container">
-          © 2021-22 Janatar Kalam. All Rights Reserved
+          © 2021-22 Tripura Prottoy. All Rights Reserved
           <a class="grey-text text-lighten-4 right" href="http://devsiti.com"
             >A &lt;devsiti /&gt; production.</a
           >

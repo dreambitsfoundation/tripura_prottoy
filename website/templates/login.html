@@ -57,17 +57,17 @@
           height="200"
           width="300"
         />
+        {% comment %}
         <h3 class="montserrat">জনতার ভাষায়, জনতার সাথে |</h3>
+        {% endcomment %}
         <br />
       </div>
-      <div class="ui two column stackable grid">
+      <div class="ui one column stackable grid">
         <div class="column">
           <div class="ui raised segment" m-view="destination_view">
             <a class="ui green ribbon label">SIGN IN</a>
             <br /><br />
-            <p style="color: grey">
-              আপনার যোগদান আমাদের অনুপ্রাণিত করে |
-            </p>
+            <p style="color: grey">আপনার যোগদান আমাদের অনুপ্রাণিত করে |</p>
             <form class="ui form" method="post" id="signin">
               <div
                 class="ui red message"
@@ -97,13 +97,11 @@
             </form>
           </div>
         </div>
-        <div class="column">
+        <div class="column" style="visibility: hidden">
           <div class="ui raised segment" m-view="destination_view">
             <a class="ui orange ribbon label">SIGN UP</a>
             <br /><br />
-            <p style="color: grey">
-              চলুন এক অবগত সমাজ গড়ে তুলি |
-            </p>
+            <p style="color: grey">চলুন এক অবগত সমাজ গড়ে তুলি |</p>
             <form class="ui form" method="post" id="signup">
               <div
                 class="ui red message"

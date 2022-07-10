@@ -40,7 +40,7 @@ ALLOWED_HOSTS = [
     'janatarkalam.com',
     'www.janatarkalam.com',
     '139.59.25.167',
-    'janatarkalam-website.onrender.com',
+    'tripura-prottoy.onrender.com',
 ]
 
 
@@ -88,7 +88,7 @@ LOGGING = {
             'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler'
         },
-     'console':{
+        'console': {
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
         },
