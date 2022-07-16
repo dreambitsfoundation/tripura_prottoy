@@ -38,6 +38,7 @@ ALLOWED_HOSTS = [
     'localhost',
     'tripura-prottoy.onrender.com',
     'tripuraprottoy.com',
+    'www.tripuraprottoy.com',
 ]
 
 
