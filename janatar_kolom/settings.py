@@ -144,10 +144,10 @@ if platform == "Production":
         # }
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': "janatarkalam",
-            'USER': "gourab",
-            'PASSWORD': "KCA5siqdWqWxarqsm5vnV1foHV2zTYXi",
-            'HOST': "dpg-ca563hkobjda0kcg1qeg-a.singapore-postgres.render.com",
+            'NAME': "tripuraprottoy_db",
+            'USER': "tripuraprottoy_db_user",
+            'PASSWORD': "pAumTtiQVXJ57Omvu2m6qznOQiIu7fu3",
+            'HOST': "dpg-cb9vjpf6d9km98gk9fmg-a.singapore-postgres.render.com",
             'PORT': "5432"
         }
     }
@@ -193,10 +193,10 @@ else:
         # }
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': "janatarkalam",
-            'USER': "gourab",
-            'PASSWORD': "KCA5siqdWqWxarqsm5vnV1foHV2zTYXi",
-            'HOST': "dpg-ca563hkobjda0kcg1qeg-a.singapore-postgres.render.com",
+            'NAME': "tripuraprottoy_db",
+            'USER': "tripuraprottoy_db_user",
+            'PASSWORD': "pAumTtiQVXJ57Omvu2m6qznOQiIu7fu3",
+            'HOST': "dpg-cb9vjpf6d9km98gk9fmg-a.singapore-postgres.render.com",
             'PORT': "5432"
         }
     }
